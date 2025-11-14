@@ -2,22 +2,26 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth; // <-- Diperlukan
 use App\Services\BadgeService;      // <-- Diperlukan
+use App\Services\FastApiService;
 use App\Models\Score;               // <-- Diperlukan
 
 class HoaxController extends Controller
 {
-    protected $apiBaseUrl = 'http://127.0.0.1:8001';
+    protected $apiBaseUrl = 'https://python-ai-service-syahrrulll-syahrrullls-projects.vercel.app';
     protected $badgeService;
 
     // Inject BadgeService
     public function __construct(BadgeService $badgeService)
     {
         $this->badgeService = $badgeService;
+        $this->apiBaseUrl = env('FASTAPI_BASE_URL', 'https://python-ai-service-syahrrulll-syahrrullls-projects.vercel.app');
+
     }
 
     /**
@@ -70,26 +74,30 @@ class HoaxController extends Controller
             }
 
             $data = $response->json();
+            // Ambil pilihan user untuk dikirim ke view
+            $user_choice = $request->input('user_choice');
+
+            // Hitung skor berdasarkan respons AI
             $user = Auth::user();
             $gameType = 'Hoax or Not?';
-            $score = $data['is_correct'] ? 100 : 0; // Skor 100 jika benar, 0 jika salah
+            $score = data_get($data, 'is_correct', false) ? 100 : 0;
 
-            // --- LOGIKA SKOR & BADGE BARU ---
+            // Simpan skor dan periksa badge
             Score::create([
                 'user_id' => $user->id,
                 'game_type' => $gameType,
                 'score' => $score
             ]);
             $this->badgeService->checkAndAwardBadges($user, $gameType, $score);
-            // --- AKHIR LOGIKA BARU ---
 
-            // Tambahkan skor ke data yang dikirim ke view
-            $data['score'] = $score;
+            // Siapkan result untuk view (fallback aman)
+            $result = $data ?? [];
+            if (!is_array($result)) {
+                $result = json_decode(json_encode($result), true) ?: [];
+            }
+            $result['score'] = $score;
 
-            return view('hoax.result', [
-                'result' => $data,
-                'user_choice' => $request->input('user_choice')
-            ]);
+            return view('hoax.result', compact('result', 'user_choice'));
 
         } catch (\Exception $e) {
             Log::error('Error checkAnswer Hoax', ['error' => $e->getMessage()]);

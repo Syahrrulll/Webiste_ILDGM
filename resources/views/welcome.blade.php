@@ -28,15 +28,6 @@
             font-family: 'Poppins', sans-serif;
             background: #5c1d8f;
             overflow-x: hidden;
-            width: 100%;
-            position: relative;
-        }
-
-        /* PERBAIKAN: Container utama untuk mencegah overflow */
-        .main-container {
-            width: 100%;
-            overflow-x: hidden;
-            position: relative;
         }
 
         .literise-title {
@@ -358,12 +349,6 @@
             display: flex;
         }
 
-        /* PERBAIKAN: Hero section untuk mobile */
-        .hero-section {
-            overflow: hidden;
-            position: relative;
-        }
-
         /* Responsive adjustments */
         @media (max-width: 1024px) {
             .literise-title {
@@ -398,63 +383,29 @@
             }
             .decorative-left { display: none; }
             .decorative-right { display: none; }
-
-            /* PERBAIKAN: Pastikan tidak ada overflow di mobile */
-            .container {
-                max-width: 100%;
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
         }
 
         @media (max-width: 640px) {
-            .literise-title {
-                font-size: 3rem;
-                text-align: center;
-            }
-            .hero-section {
-                padding-top: 100px;
-                padding-bottom: 160px;
-            }
-            .illustration-journal {
-                width: 90% !important;
-                max-width: 350px !important;
-            }
-            .feature-card {
-                padding: 1.5rem 1rem;
-                margin: 0 0.5rem;
-            }
-
-            /* PERBAIKAN: Padding untuk konten di mobile */
-            .px-6 {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
+            .literise-title { font-size: 3rem; }
+            .hero-section { padding-top: 100px; padding-bottom: 160px; }
+            .illustration-journal { width: 90% !important; max-width: 350px !important; }
+            .feature-card { padding: 1.5rem 1rem; }
         }
 
         @media (max-width: 480px) {
-            .literise-title {
-                font-size: 2.5rem;
-            }
+            .literise-title { font-size: 2.5rem; }
             .illustration-journal {
-                width: 120% !important;
-                max-width: 300px !important;
+                width: 200% !important;
+                max-width: 500px !important;
                 top: 275px !important;
                 opacity: 35% !important;
-            }
-
-            /* PERBAIKAN: Pastikan elemen dekoratif tidak menyebabkan overflow */
-            .decorative-left,
-            .decorative-right,
-            .illustration-kepala {
-                display: none !important;
             }
         }
     </style>
 </head>
-<body class="min-h-screen">
-    <!-- PERBAIKAN: Container utama dengan overflow control -->
-    <div class="main-container">
+<body class="min-h-screen overflow-x-hidden">
+
+    <div class="relative min-h-screen w-full">
 
         <!-- ===== HEADER / NAVIGASI ===== -->
         <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#906AF1] to-[#5438DB] text-white shadow-lg">
@@ -551,7 +502,6 @@
 
                 @auth
                     <a href="{{ route('profile.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Profil Saya</a>
-                    <a href="{{ route('leaderboard.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Leaderboard</a>
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
                         <button type="submit" class="w-full text-left py-3 px-4 hover:text-pink-300 transition-colors">
@@ -963,7 +913,7 @@
                 </div>
             </div>
         </footer>
-    </div> <!-- End main-container -->
+    </div>
 
     <!-- Script untuk AOS (Animate On Scroll) -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -982,13 +932,6 @@
 
             mobileMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
-
-            // PERBAIKAN: Prevent body scroll ketika menu mobile terbuka
-            if (mobileMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
         });
 
         // Tutup mobile menu ketika mengklik link di dalamnya
@@ -999,7 +942,6 @@
 
                 mobileMenu.classList.remove('active');
                 hamburger.classList.remove('active');
-                document.body.style.overflow = ''; // PERBAIKAN: Enable scroll kembali
             });
         });
 
@@ -1023,7 +965,6 @@
                     const hamburger = document.getElementById('mobile-menu-button');
                     mobileMenu.classList.remove('active');
                     hamburger.classList.remove('active');
-                    document.body.style.overflow = ''; // PERBAIKAN: Enable scroll kembali
                 }
             });
         });
@@ -1043,17 +984,6 @@
                 }, 2000);
             });
         });
-
-        // PERBAIKAN: Pastikan tidak ada horizontal scroll
-        function checkOverflow() {
-            if (document.documentElement.scrollWidth > window.innerWidth) {
-                document.body.style.overflowX = 'hidden';
-            }
-        }
-
-        // Check on load and resize
-        window.addEventListener('load', checkOverflow);
-        window.addEventListener('resize', checkOverflow);
     </script>
 </body>
 </html>

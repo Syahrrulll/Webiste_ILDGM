@@ -1,0 +1,12 @@
+
+APP_ENV=production
+APP_DEBUG=false (Sangat Penting untuk Keamanan)
+APP_URL="https://literise.vercel.app (Ini memperbaiki error ""Not Secure"")"
+APP_KEY=base64:2oMxk6O3VEim+MhozssXDzhbuYRFVEVOGpaHGQjF2Bo=
+LOG_CHANNEL=stderr
+CACHE_STORE="array (Memperbaiki error ""Read-only"" #1)"
+SESSION_DRIVER="cookie (Memperbaiki error ""Read-only"" #2)"
+DB_CONNECTION=mongodb
+MONGODB_URI=mongodb+srv://Vercel-Admin-LiteRise:ALi4iYoITzfQZuOX@literise.vdibdyi.mongodb.net/?retryWrites=true&w=majority
+DB_DATABASE=literise
+FASTAPI_BASE_URL=https://python-ai-service-syahrrulll-syahrrullls-projects.vercel.app

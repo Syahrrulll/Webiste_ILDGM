@@ -585,7 +585,7 @@
 
                             <!-- Cuplikan Berita -->
                             <div class="news-snippet mb-8" data-aos="fade-up" data-aos-delay="300">
-                                <p>"{{ $mission['news_snippet'] }}"</p>
+                                <p>"{{ data_get($mission, 'news_snippet', data_get($mission, 'snippet', 'Cuplikan berita tidak tersedia.')) }}"</p>
                             </div>
 
                             <!-- Tombol Pilihan -->
