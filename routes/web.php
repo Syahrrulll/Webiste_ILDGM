@@ -7,7 +7,7 @@ use App\Http\Controllers\HoaxController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\GrammarZoneController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\LeaderboardController; // <-- TAMBAHKAN INI
+use App\Http\Controllers\LeaderboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,23 +34,26 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
 });
 
-Route::get('/permainan', function () {
-    return view('permainan');
-})->name('permainan.index');
+// Halaman tentang bisa diakses publik
 Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang.index');
+
+    // Halaman permainan - DIPINDAHKAN KE DALAM AUTH
+    Route::get('/permainan', function () {
+        return view('permainan');
+    })->name('permainan.index');
+
 // === GRUP PERMAINAN (HARUS LOGIN) ===
 // Hanya bisa diakses jika SUDAH login
 Route::middleware('auth')->group(function () {
 
-
     // Logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // --- HALAMAN PROFIL & LEADERBOARD (BARU) ---
+    // --- HALAMAN PROFIL & LEADERBOARD ---
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard.index'); // <-- RUTE BARU
+    Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard.index');
 
     // --- FITUR 1: READING MISSION (AI SEARCH + 3 KUIS) ---
     Route::get('/play', [LiteracyGameController::class, 'index'])->name('game.play');
@@ -72,3 +75,80 @@ Route::middleware('auth')->group(function () {
     Route::post('/grammar-zone/generate-game', [GrammarZoneController::class, 'generateGame'])->name('grammar.generate_game');
     Route::post('/grammar-zone/submit-game/{game_id}', [GrammarZoneController::class, 'submitGame'])->name('grammar.submit_game');
 });
+
+
+// use Illuminate\Support\Facades\Artisan;
+
+// Route::get('migrate-fresh-seed', function () {
+//     try {
+//         $exitCode = Artisan::call('migrate:fresh', [
+//             '--seed' => true,
+//              '--force' => true, // ⬅️ Tambahkan ini
+//         ]);
+
+//         $output = Artisan::output();
+
+//         if ($exitCode === 0) {
+//             return "✅ Success:\n\n" . nl2br($output);
+//         } else {
+//             return "❌ Failed:\n\n" . nl2br($output);
+//         }
+//     } catch (Exception $e) {
+//         return "⚠️ Exception Caught:\n\n" . $e->getMessage();
+//     }
+// });
+
+// Route::get('migrate-fresh', function () {
+//     try {
+//         $exitCode = Artisan::call('migrate:fresh', [
+//              '--force' => true, // ⬅️ Tambahkan ini
+//         ]);
+
+//         $output = Artisan::output();
+
+//         if ($exitCode === 0) {
+//             return "✅ Success:\n\n" . nl2br($output);
+//         } else {
+//             return "❌ Failed:\n\n" . nl2br($output);
+//         }
+//     } catch (Exception $e) {
+//         return "⚠️ Exception Caught:\n\n" . $e->getMessage();
+//     }
+// });
+
+// Route::get('migrate', function () {
+//     try {
+//         $exitCode = Artisan::call('migrate', [
+//              '--force' => true, // ⬅️ Tambahkan ini
+//         ]);
+
+//         $output = Artisan::output();
+
+//         if ($exitCode === 0) {
+//             return "✅ Success:\n\n" . nl2br($output);
+//         } else {
+//             return "❌ Failed:\n\n" . nl2br($output);
+//         }
+//     } catch (Exception $e) {
+//         return "⚠️ Exception Caught:\n\n" . $e->getMessage();
+//     }
+// });
+
+// Route::get('rollback', function () {
+//     try {
+//         $exitCode = Artisan::call('migrate:rollback', [
+//              '--force' => true, // ⬅️ Tambahkan ini
+//         ]);
+
+//         $output = Artisan::output();
+
+//         if ($exitCode === 0) {
+//             return "✅ Success:\n\n" . nl2br($output);
+//         } else {
+//             return "❌ Failed:\n\n" . nl2br($output);
+//         }
+//     } catch (Exception $e) {
+//         return "⚠️ Exception Caught:\n\n" . $e->getMessage();
+//     }
+// });
+

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Score;
-use Illuminate\Support\Facades\DB; // <-- Diperlukan untuk MAX(score)
+// use Illuminate\Support\Facades\DB; // <-- HAPUS INI, kita tidak lagi pakai DB::raw
 
 class ProfileController extends Controller
 {
@@ -28,14 +28,27 @@ class ProfileController extends Controller
         // 3. Ambil Badge yang dimiliki
         $badges = $user->badges;
 
-        // 4. Hitung SKOR TERTINGGI PRIBADI (Sesuai permintaan Anda)
+        // --- 4. Hitung SKOR TERTINGGI (Cara Collection, BUKAN SQL) ---
+        // Ini adalah perbaikan untuk MongoDB. Kita tidak bisa pakai DB::raw.
+        // Kita ambil semua skor, urutkan, lalu kelompokkan di PHP.
         $personalHighScores = Score::where('user_id', $user->id)
-            ->select('game_type', DB::raw('MAX(score) as high_score'))
-            ->groupBy('game_type')
-            ->orderByDesc('high_score')
-            ->get();
+            ->select('game_type', 'score')
+            ->orderBy('score', 'desc') // Urutkan dari skor tertinggi
+            ->get() // Ambil semua skor user
+            ->groupBy('game_type') // Kelompokkan di PHP (menggunakan Collection)
+            ->map(function ($group) {
+                // 'first()' akan menjadi skor tertinggi karena kita sudah urutkan
+                $best_score = $group->first();
+                return (object)[
+                    'game_type' => $best_score->game_type,
+                    'high_score' => $best_score->score
+                ];
+            })
+            ->sortByDesc('high_score') // Urutkan hasil akhirnya
+            ->values(); // Reset keys agar menjadi array (bukan map)
 
         // 5. Tambahkan game yang belum pernah dimainkan ke daftar high score (skor 0)
+        // Kode ini sudah benar dan bisa bekerja dengan hasil di atas
         $playedGames = $personalHighScores->pluck('game_type')->all();
         $allGames = ['Reading Mission', 'Hoax or Not?', 'Library Hub', 'Zona Tata Bahasa'];
 

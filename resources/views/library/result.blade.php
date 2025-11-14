@@ -92,10 +92,16 @@
                        class="w-full sm:w-auto text-center py-3 px-6 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white bg-blue-600 hover:bg-blue-700">
                         Coba Game Lain
                     </a>
-                    <a href="{{ route('home') }}"
+
+                    <!-- ====================== -->
+                    <!--     PERUBAHAN DI SINI    -->
+                    <!-- ====================== -->
+                    <a href="{{ route('permainan.index') }}"
                        class="w-full sm:w-auto text-center py-3 px-6 border border-blue-600 rounded-lg shadow-sm text-lg font-medium text-blue-700 bg-white hover:bg-blue-50">
-                        Kembali ke Beranda
+                        Kembali ke Halaman Permainan
                     </a>
+                    <!-- ====================== -->
+
                 </div>
             </div>
 

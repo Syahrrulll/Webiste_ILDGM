@@ -75,18 +75,17 @@
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(124, 58, 234, 0.1);
-            display: flex; /* Tambahan untuk layout */
-            flex-direction: column; /* Tambahan untuk layout */
+            display: flex;
+            flex-direction: column;
         }
 
         .feature-card-content {
             position: relative;
             z-index: 2;
-            flex-grow: 1; /* Tambahan untuk layout */
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
-
 
         .feature-card::before {
             content: '';
@@ -104,7 +103,7 @@
             position: absolute;
             inset: 2px;
             border-radius: 22px;
-            background: #d9bbff; /* Warna dasar kartu */
+            background: #d9bbff;
             z-index: 1;
         }
 
@@ -123,12 +122,12 @@
         }
 
         .feature-card p {
-            flex-grow: 1; /* Membuat <p> mengisi ruang */
-            margin-bottom: 1.5rem; /* Jarak sebelum tombol */
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
         }
 
         .feature-card-button {
-            margin-top: auto; /* Mendorong tombol ke bawah */
+            margin-top: auto;
             display: inline-block;
             text-align: center;
             padding: 0.75rem 1.5rem;
@@ -211,18 +210,36 @@
             left: 100%;
         }
 
-        /* Animasi untuk badge */
-        @keyframes badge-rotate {
-            0% {
-                transform: rotate(0deg);
+        /* Animasi untuk badge - DIUBAH */
+        @keyframes badge-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(116, 67, 255, 0.7);
             }
-            100% {
-                transform: rotate(360deg);
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(116, 67, 255, 0);
             }
         }
 
-        .badge-rotate {
-            animation: badge-rotate 10s linear infinite;
+        .badge-pulse {
+            animation: badge-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes badge-float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-5px) rotate(3deg);
+            }
+            66% {
+                transform: translateY(3px) rotate(-2deg);
+            }
+        }
+
+        .badge-float {
+            animation: badge-float 6s ease-in-out infinite;
         }
 
         /* Animasi untuk progress bar */
@@ -238,6 +255,98 @@
             background: linear-gradient(90deg, #7443ff, #d3a2ff);
             border-radius: 4px;
             transition: width 1s ease-in-out;
+        }
+
+        /* Animasi Loading - DITAMBAHKAN */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        /* Dropdown yang diperbaiki - DITAMBAHKAN */
+        .dropdown-menu {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            min-width: 200px;
+            overflow: hidden;
+        }
+
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            text-align: left;
+            border: none;
+            background: none;
+            color: #4a5568;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f7fafc;
+            color: #7443ff;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background-color: #e2e8f0;
+            margin: 4px 0;
+        }
+
+        /* Animasi Hamburger - DITAMBAHKAN */
+        .hamburger-line {
+            display: block;
+            height: 2px;
+            width: 24px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-line:nth-child(2) {
+            margin: 6px 0;
+        }
+
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile Menu yang diperbaiki - DIPERBAIKI */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #4a2e7c;
+            padding: 1rem;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .mobile-menu.active {
+            display: flex;
         }
 
         /* Responsive adjustments */
@@ -258,20 +367,6 @@
             .hero-section {
                 padding-top: 120px;
                 padding-bottom: 180px;
-            }
-            .mobile-menu {
-                display: none;
-            }
-            .mobile-menu.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: #4a2e7c;
-                padding: 1rem;
-                z-index: 100;
             }
 
             .illustration-kepala { display: none; }
@@ -327,91 +422,96 @@
                     <a href="{{ route('permainan.index') }}" class="hover:text-pink-300 transition-colors">Permainan</a>
                     <a href="{{ route('tentang.index') }}" class="hover:text-pink-300 transition-colors">Tentang</a>
 
-                    <!-- LOGIKA AUTH BARU DENGAN DROPDOWN PROFIL -->
+                    <!-- LOGIKA AUTH BARU DENGAN DROPDOWN PROFIL YANG DIPERBAIKI -->
                     @auth
-                        <!-- Jika sudah login, tampilkan dropdown -->
                         <div x-data="{ open: false }" class="relative">
-                            <!-- Tombol Dropdown -->
-                            <button @click="open = !open" class="flex items-center space-x-2 header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg btn-glow">
-                                <span>{{ Str::limit(Auth::user()->name, 10) }}</span> <!-- Batasi nama 10 char -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <!-- Tombol Dropdown yang diperbaiki -->
+                            <button @click="open = !open" class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:bg-white/20 border border-white/20 btn-glow">
+                                <span>{{ Str::limit(Auth::user()->name, 10) }}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300" :class="{'rotate-180': open}" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
                             </button>
 
-                            <!-- Menu Dropdown -->
+                            <!-- Menu Dropdown yang diperbaiki -->
                             <div x-show="open"
-                                 @click.away="open = false"
-                                 x-transition:enter="transition ease-out duration-200"
-                                 x-transition:enter-start="opacity-0 transform scale-95"
-                                 x-transition:enter-end="opacity-100 transform scale-100"
-                                 x-transition:leave="transition ease-in duration-75"
-                                 x-transition:leave-start="opacity-100 transform scale-100"
-                                 x-transition:leave-end="opacity-0 transform scale-95"
-                                 class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl z-50 overflow-hidden"
-                                 style="display: none;">
+                                @click.away="open = false"
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 transform -translate-y-2"
+                                x-transition:enter-end="opacity-100 transform translate-y-0"
+                                x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100 transform translate-y-0"
+                                x-transition:leave-end="opacity-0 transform -translate-y-2"
+                                class="absolute right-0 mt-2 w-56 dropdown-menu z-50"
+                                style="display: none;">
 
-                                <div class="px-4 py-3 border-b border-gray-200">
-                                    <p class="text-sm font-medium text-gray-900 truncate">{{ Auth::user()->name }}</p>
+                                <div class="px-4 py-3 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-pink-50">
+                                    <p class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->name }}</p>
                                     <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email }}</p>
                                 </div>
 
-                                <a href="{{ route('profile.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{{ route('profile.index') }}" class="dropdown-item flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
                                     Profil & Badge Saya
                                 </a>
-                                <a href="{{ route('leaderboard.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{{ route('leaderboard.index') }}" class="dropdown-item flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                    </svg>
                                     Leaderboard
                                 </a>
 
-                                <form method="POST" action="{{ route('logout') }}" class="inline">
+                                <div class="dropdown-divider"></div>
+
+                                <form method="POST" action="{{ route('logout') }}" class="w-full">
                                     @csrf
-                                    <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); this.closest('form').submit();"
-                                       class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 border-t border-gray-200">
+                                    <button type="submit" class="dropdown-item flex items-center text-red-600 w-full text-left">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                        </svg>
                                         Logout
-                                    </a>
+                                    </button>
                                 </form>
                             </div>
                         </div>
                     @else
-                        <!-- Jika belum login, tampilkan Login dan Register -->
                         <a href="{{ route('login') }}" class="hover:text-pink-300 transition-colors">Masuk</a>
                         <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg btn-glow">
                             Daftar
                         </a>
                     @endauth
-                    <!-- AKHIR LOGIKA AUTH -->
                 </div>
 
                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
+                    <!-- Hamburger Button dengan animasi - DIPERBAIKI -->
+                    <button id="mobile-menu-button" class="hamburger text-white focus:outline-none">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
                     </button>
                 </div>
             </div>
 
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="mobile-menu md:hidden">
-                <a href="{{ route('home') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Beranda</a>
-                <a href="{{ route('permainan.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Permainan</a>
-                <a href="{{ route('tentang.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Tentang</a>
+            <!-- Mobile Menu - DIPERBAIKI -->
+            <div id="mobile-menu" class="mobile-menu">
+                <a href="{{ route('home') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Beranda</a>
+                <a href="{{ route('permainan.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Permainan</a>
+                <a href="{{ route('tentang.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Tentang</a>
 
                 @auth
-                    <a href="{{ route('profile.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Profil Saya</a>
-                    <a href="{{ route('leaderboard.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Leaderboard</a>
-                    <form method="POST" action="{{ route('logout') }}" class="inline w-full">
+                    <a href="{{ route('profile.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Profil Saya</a>
+                    <a href="{{ route('leaderboard.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Leaderboard</a>
+                    <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
-                        <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); this.closest('form').submit();"
-                           class="header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow w-full block">
+                        <button type="submit" class="w-full text-left py-3 px-4 hover:text-pink-300 transition-colors">
                             Logout
-                        </a>
+                        </button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Masuk</a>
-                    <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow">
+                    <a href="{{ route('login') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Masuk</a>
+                    <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-5 py-3 rounded-full transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow block mx-4">
                         Daftar
                     </a>
                 @endauth
@@ -426,8 +526,8 @@
                         w-[580px] h-[580px] md:w-[680px] md:h-[680px]
                         z-[-2] floating-slow">
                 <img src="{{ asset('images/Elemen_Kiri_Pojok_Kanan_ATas.png') }}"
-                     alt="Elemen Dekorasi Atas Kepala"
-                     class="relative w-full h-full object-contain opacity-95 drop-shadow-[0_15px_40px_rgba(116,67,255,0.5)]">
+                    alt="Elemen Dekorasi Atas Kepala"
+                    class="relative w-full h-full object-contain opacity-95 drop-shadow-[0_15px_40px_rgba(116,67,255,0.5)]">
             </div>
 
             <!-- Elemen Kanan Atas -->
@@ -435,8 +535,8 @@
                         w-[400px] h-[400px] md:w-[500px] md:h-[500px]
                         z-0 floating">
                 <img src="{{ asset('images/Elemen_Kanan_Atas.png') }}"
-                     alt="Elemen Dekorasi Kanan Atas"
-                     class="relative w-full h-full object-contain opacity-95 drop-shadow-[0_15px_40px_rgba(116,67,255,0.4)] z-[-2]">
+                    alt="Elemen Dekorasi Kanan Atas"
+                    class="relative w-full h-full object-contain opacity-95 drop-shadow-[0_15px_40px_rgba(116,67,255,0.4)] z-[-2]">
             </div>
 
             <!-- Ilustrasi Kiri (Kepala) -->
@@ -444,8 +544,8 @@
                         w-[800px] h-[800px] sm:w-[600px] sm:h-[600px] lg:w-[900px] lg:h-[900px]
                         z-[-1] floating-slow">
                 <img src="{{ asset('images/Kepala.png') }}"
-                     alt="Kepala"
-                     class="w-full h-full object-contain opacity-95 drop-shadow-[0_25px_60px_rgba(116,67,255,0.4)]">
+                    alt="Kepala"
+                    class="w-full h-full object-contain opacity-95 drop-shadow-[0_25px_60px_rgba(116,67,255,0.4)]">
             </div>
 
             <!-- Ilustrasi Kanan (Jurnal) -->
@@ -453,8 +553,8 @@
                         w-[600px] h-[600px] sm:w-[500px] sm:h-[500px] lg:w-[750px] lg:h-[750px]
                         z-[-1] floating-fast">
                 <img src="{{ asset('images/Journal.png') }}"
-                     alt="Jurnal"
-                     class="w-full h-full object-contain rotate-[-10deg] opacity-95 drop-shadow-[0_25px_60px_rgba(116,67,255,0.5)]">
+                    alt="Jurnal"
+                    class="w-full h-full object-contain rotate-[-10deg] opacity-95 drop-shadow-[0_25px_60px_rgba(116,67,255,0.5)]">
             </div>
 
             <!-- TEKS UTAMA -->
@@ -467,26 +567,17 @@
                 <!-- Tombol yang sebelumnya di footer -->
                 <div class="flex flex-col sm:flex-row justify-center mt-10 space-y-4 sm:space-y-0 sm:space-x-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
 
-                    <a href="{{ route('permainan.index') }}" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block">
+                    <a href="{{ route('permainan.index') }}" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block loading-button">
                         <span class="absolute inset-0 bg-gradient-to-b from-[#7443ff] to-[#d3a2ff] rounded-lg"></span>
                         <span class="relative bg-gradient-to-b from-[#fff7aD] to-[#ffa9f9] bg-clip-text text-transparent">Ayo Main!</span>
                     </a>
 
-                    <a href="{{ route('tentang.index') }}" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block">
+                    <a href="#fitur" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block loading-button">
                         <span class="absolute inset-0 bg-gradient-to-b from-[#F261A8] to-[#FD85C0] rounded-lg"></span>
                         <span class="relative bg-gradient-to-b from-[#fff7ad] to-[#ffa9f9] bg-clip-text text-transparent">Lihat selengkapnya</span>
                     </a>
+
                 </div>
-            </div>
-
-            <!-- MORE INFO -->
-            <div class="absolute bottom-[50px] transform -translate-x-1/2 z-10 flex flex-col items-center space-y-2" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-
-                <a href="{{ route('permainan.index') }}" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block">
-                    <span class="absolute inset-0 bg-gradient-to-b from-[#F261A8] to-[#FD85C0] rounded-lg shadow-[0_6px_20px_rgba(116,67,255,0.5)]"></span>
-                    <span class="relative bg-gradient-to-b from-[#fff7aD] to-[#ffa9f9] bg-clip-text text-transparent">More Info</span>
-                </a>
-                <span class="text-white text-sm mb-6 text-size blink" style="font-size: 20px;">LiteRise: Mainkan Misimu, Raih Literasimu!</span>
             </div>
 
             <!-- Gambar latar bawah -->
@@ -528,7 +619,7 @@
                             <p class="text-gray-600 text-center">
                                 Cari topik, baca artikel AI, dan jawab 3 kuis pemahaman untuk mendapat poin.
                             </p>
-                            <a href="{{ route('game.play') }}" class="feature-card-button">Mulai Misi</a>
+                            <a href="{{ route('game.play') }}" class="feature-card-button loading-button">Mulai Misi</a>
                         </div>
                     </div>
 
@@ -544,7 +635,7 @@
                             <p class="text-gray-600 text-center">
                                 Tebak berita viral ini fakta atau hoaks, lalu lihat penjelasan AI dan sumber aslinya.
                             </p>
-                            <a href="{{ route('hoax.index') }}" class="feature-card-button">Cek Fakta</a>
+                            <a href="{{ route('hoax.index') }}" class="feature-card-button loading-button">Cek Fakta</a>
                         </div>
                     </div>
 
@@ -560,7 +651,7 @@
                             <p class="text-gray-600 text-center">
                                 Baca cerpen atau artikel AI berdasarkan genre, lalu uji ingatan dengan game "Melengkapi Kata".
                             </p>
-                            <a href="{{ route('library.index') }}" class="feature-card-button">Mulai Membaca</a>
+                            <a href="{{ route('library.index') }}" class="feature-card-button loading-button">Mulai Membaca</a>
                         </div>
                     </div>
 
@@ -576,10 +667,139 @@
                             <p class="text-gray-600 text-center">
                                 AI akan memberikan 5 kalimat (benar atau salah) berdasarkan genre. Tugas Anda adalah memperbaikinya!
                             </p>
-                            <a href="{{ route('grammar.index') }}" class="feature-card-button">Asah Ejaan</a>
+                            <a href="{{ route('grammar.index') }}" class="feature-card-button loading-button">Asah Ejaan</a>
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </section>
+
+                    <!-- SECTION TENTANG (Dipindahkan dari Welcome) -->
+            <section id="tentang" class="relative py-20 bg-gradient-to-b from-[#5c1d8f] to-[#4a2e7c]">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16" data-aos="fade-up">
+                        <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#f563fd] to-[#8f9bff] bg-clip-text text-transparent mb-4">
+                            Tentang Literise
+                        </h2>
+                        <p class="text-lg text-white subtitle-shadow mx-auto max-w-3xl">
+                            Literise adalah platform edukasi interaktif yang dirancang untuk meningkatkan literasi digital dan kemampuan berpikir kritis melalui permainan yang menyenangkan.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                        <div data-aos="fade-right">
+                            <div class="relative">
+                                <div class="absolute -top-4 -left-4 w-full h-full bg-gradient-to-r from-[#7443ff] to-[#d3a2ff] rounded-2xl opacity-30"></div>
+                                <div class="relative bg-white p-8 rounded-2xl shadow-xl">
+                                    <h3 class="text-2xl font-bold text-[#4a2e7c] mb-4">Misi Kami</h3>
+                                    <p class="text-gray-700 mb-6">
+                                        Meningkatkan literasi digital masyarakat Indonesia melalui pendekatan yang menyenangkan dan interaktif. Kami percaya bahwa kemampuan literasi yang baik adalah kunci untuk menghadapi tantangan di era digital.
+                                    </p>
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1">
+                                            <div class="flex justify-between mb-1">
+                                                <span class="text-sm font-medium text-[#4a2e7c]">Tingkat Literasi</span>
+                                                <span class="text-sm font-medium text-[#4a2e7c]">65%</span>
+                                            </div>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 65%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-aos="fade-left" data-aos-delay="200">
+                            <div class="relative">
+                                <div class="absolute -top-4 -left-4 w-full h-full bg-gradient-to-r from-[#7443ff] to-[#d3a2ff] rounded-2xl opacity-30"></div>
+                                <div class="relative bg-white p-8 rounded-2xl shadow-xl">
+                                    <h3 class="text-2xl font-bold text-[#4a2e7c] mb-4">Visi Kami</h3>
+                                    <p class="text-gray-700 mb-6">
+                                        Menjadi platform utama dalam meningkatkan literasi digital di Indonesia, dengan menyediakan konten berkualitas dan metode pembelajaran yang efektif serta menyenangkan bagi semua kalangan.
+                                    </p>
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1">
+                                            <div class="flex justify-between mb-1">
+                                                <span class="text-sm font-medium text-[#4a2e7c]">Target Pengguna</span>
+                                                <span class="text-sm font-medium text-[#4a2e7c]">1 Juta+</span>
+                                            </div>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 80%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        <section class="relative py-20 bg-gradient-to-b from-[#4a2e7c] to-[#5c1d8f]">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#f563fd] to-[#8f9bff] bg-clip-text text-transparent mb-4">
+                        Koleksi Badge & Prestasi
+                    </h2>
+                    <p class="text-lg text-white subtitle-shadow mx-auto">
+                        Kumpulkan badge menarik sebagai bukti pencapaian literasi digital Anda
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <!-- Badge 1 -->
+                    <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="relative inline-block mb-4">
+                            <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center badge-pulse">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Fact Checker</h3>
+                        <p class="text-gray-300 text-sm">Cek fakta 10 berita di Hoax or Not?</p>
+                    </div>
+
+                    <!-- Badge 2 -->
+                    <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="relative inline-block mb-4">
+                            <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center badge-float" style="animation-delay: 0.3s;">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Pemburu Fakta</h3>
+                        <p class="text-gray-300 text-sm">Tandai 15 berita sebagai fakta</p>
+                    </div>
+
+                    <!-- Badge 3 -->
+                    <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="relative inline-block mb-4">
+                            <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center badge-pulse">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h11M9 21V3m0 0L5 7m4-4l4 4m6 4h2a2 2 0 012 2v6a2 2 0 01-2 2h-2M9 17h6" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Library Lover</h3>
+                        <p class="text-gray-300 text-sm">Baca 20 artikel di Library Hub</p>
+                    </div>
+                    <!-- Badge 4 -->
+                    <div class="text-center" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="relative inline-block mb-4">
+                            <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center badge-float" style="animation-delay: 0.5s;">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 17a2 2 0 104 0v-5a2 2 0 10-4 0v5zm-7 4a9 9 0 1118 0H4z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Grammar Guru</h3>
+                        <p class="text-gray-300 text-sm">Perbaiki 100 kalimat</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -603,12 +823,12 @@
                     <!-- Hanya tampilkan tombol jika user BELUM login -->
                     @guest
                     <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                        <a href="{{ route('register') }}" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block">
+                        <a href="{{ route('register') }}" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block loading-button">
                             <span class="absolute inset-0 bg-gradient-to-b from-[#7443ff] to-[#d3a2ff] rounded-lg"></span>
                             <span class="relative bg-gradient-to-b from-[#fff7aD] to-[#ffa9f9] bg-clip-text text-transparent">Daftar</span>
                         </a>
 
-                        <a href="{{ route('login') }}" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block">
+                        <a href="{{ route('login') }}" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block loading-button">
                             <span class="absolute inset-0 bg-gradient-to-b from-[#F261A8] to-[#FD85C0] rounded-lg"></span>
                             <span class="relative bg-gradient-to-b from-[#fff7ad] to-[#ffa9f9] bg-clip-text text-transparent">Masuk</span>
                         </a>
@@ -706,13 +926,27 @@
             offset: 100
         });
 
-        // Mobile menu toggle
+        // Mobile menu toggle dengan animasi hamburger - DIPERBAIKI
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
+            const hamburger = this;
+
             mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
         });
 
-        // Smooth scroll untuk anchor links (hanya #fitur yang tersisa di halaman ini)
+        // Tutup mobile menu ketika mengklik link di dalamnya
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                const hamburger = document.getElementById('mobile-menu-button');
+
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll untuk anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -723,14 +957,32 @@
                 const targetElement = document.querySelector(targetId);
                 if(targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80, // Offset 80px untuk header
+                        top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
 
                     // Tutup mobile menu jika terbuka
                     const mobileMenu = document.getElementById('mobile-menu');
+                    const hamburger = document.getElementById('mobile-menu-button');
                     mobileMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
                 }
+            });
+        });
+
+        // Animasi Loading untuk tombol - DITAMBAHKAN
+        document.querySelectorAll('.loading-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Simulasi loading (bisa dihapus jika menggunakan form submit asli)
+                const originalText = this.innerHTML;
+                this.innerHTML = '<span class="loading-spinner"></span>Loading...';
+                this.style.pointerEvents = 'none';
+
+                // Reset setelah 2 detik (simulasi)
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.pointerEvents = 'auto';
+                }, 2000);
             });
         });
     </script>

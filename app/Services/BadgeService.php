@@ -18,8 +18,12 @@ class BadgeService
         try {
             $badge = Badge::where('criteria_code', 'NEW_USER')->first();
             if ($badge) {
-                // syncWithoutDetaching mencegah error jika badge sudah ada
-                $user->badges()->syncWithoutDetaching($badge->id);
+                // --- PERBAIKAN ---
+                // Metode 'syncWithoutDetaching' (dan 'attach') untuk MongoDB
+                // mengharapkan sebuah ARRAY, bahkan untuk satu ID.
+                //
+                // $user->badges()->syncWithoutDetaching($badge->id); // <-- INI PENYEBAB ERROR
+                $user->badges()->syncWithoutDetaching([$badge->id]); // <-- INI PERBAIKANNYA
             }
         } catch (\Exception $e) {
             Log::error('Gagal memberikan badge NEW_USER', ['user_id' => $user->id, 'error' => $e->getMessage()]);
@@ -100,6 +104,7 @@ class BadgeService
             }
 
             // 5. Simpan badge baru ke database
+            // Kode ini sudah benar karena $badgesToAward adalah sebuah array
             if (!empty($badgesToAward)) {
                 $user->badges()->attach($badgesToAward);
             }

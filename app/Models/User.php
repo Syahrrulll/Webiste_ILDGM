@@ -4,12 +4,20 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+// use Illuminate\Foundation\Auth\User as Authenticatable; // <-- UBAH INI (baris lama)
+use MongoDB\Laravel\Auth\User as Authenticatable; // <-- UBAH INI (baris baru)
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable // <-- Ini sekarang menunjuk ke kelas MongoDB
 {
-    use HasFactory, Notifiable; // HasApiTokens dihapus
+    use HasFactory, Notifiable;
+
+    /**
+     * TAMBAHKAN INI:
+     * Memberi tahu model ini untuk menggunakan koneksi 'mongodb'
+     * yang Anda definisikan di config/database.php.
+     */
+    protected $connection = 'mongodb';
 
     /**
      * The attributes that are mass assignable.
@@ -44,6 +52,7 @@ class User extends Authenticatable
 
     /**
      * Mendapatkan semua skor untuk user ini.
+     * Catatan: Relasi ini didukung oleh paket mongodb/laravel-mongodb
      */
     public function scores()
     {
@@ -51,7 +60,8 @@ class User extends Authenticatable
     }
 
     /**
-     * BARU: Mendapatkan semua badge yang dimiliki user ini.
+     * Mendapatkan semua badge yang dimiliki user ini.
+     * Catatan: Relasi ini juga didukung.
      */
     public function badges()
     {

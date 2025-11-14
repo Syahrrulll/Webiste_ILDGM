@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Score;
-use Illuminate\Support\Facades\DB; // Kita perlu DB Facade untuk query yang kompleks
+// Hapus 'use Illuminate\Support\Facades\DB;' (tidak diperlukan)
 
 class LeaderboardController extends Controller
 {
@@ -14,13 +14,25 @@ class LeaderboardController extends Controller
      */
     public function index()
     {
-        // Kita akan mengambil 20 user teratas berdasarkan total skor mereka
-        $topUsers = User::select('users.id', 'users.name', DB::raw('SUM(scores.score) as total_score'))
-            ->join('scores', 'users.id', '=', 'scores.user_id') // Gabungkan tabel user dan score
-            ->groupBy('users.id', 'users.name') // Kelompokkan berdasarkan user
-            ->orderByDesc('total_score') // Urutkan dari skor tertinggi
-            ->take(20) // Ambil 20 teratas
+        // --- LOGIKA BARU (KOMPATIBEL DENGAN MONGODB) ---
+
+        // 1. Ambil semua user yang memiliki skor (has)
+        // 2. Sertakan (eager load) semua data skor mereka (with)
+        $usersWithScores = User::has('scores')
+            ->with('scores')
             ->get();
+
+        // 3. Hitung total skor untuk setiap user di sisi PHP (collection)
+        //    dan urutkan hasilnya.
+        $topUsers = $usersWithScores->each(function ($user) {
+            // Buat properti baru 'total_score' di setiap objek user
+            $user->total_score = $user->scores->sum('score');
+        })
+        ->sortByDesc('total_score') // Urutkan berdasarkan properti baru
+        ->take(20) // Ambil 20 teratas
+        ->values(); // Reset keys (penting untuk array di view)
+
+        // --- AKHIR LOGIKA BARU ---
 
         return view('leaderboard.index', [
             'leaderboard' => $topUsers,

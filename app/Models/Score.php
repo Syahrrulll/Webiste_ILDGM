@@ -3,11 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Model; // <-- UBAH INI (baris lama)
+use MongoDB\Laravel\Eloquent\Model; // <-- UBAH INI (baris baru)
 
-class Score extends Model
+class Score extends Model // <-- Ini sekarang menunjuk ke kelas MongoDB
 {
     use HasFactory;
+
+    /**
+     * TAMBAHKAN INI:
+     * Memberi tahu model ini untuk menggunakan koneksi 'mongodb'
+     * yang Anda definisikan di config/database.php.
+     */
+    protected $connection = 'mongodb';
 
     /**
      * The attributes that are mass assignable.
