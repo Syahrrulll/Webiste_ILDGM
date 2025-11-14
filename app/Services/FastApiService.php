@@ -10,7 +10,7 @@ class FastApiService
 
     public function __construct()
     {
-        $this->base = rtrim(env('FASTAPI_BASE_URL', 'https://127.0.0.1:8001'), '/');
+        $this->base = rtrim(env('FASTAPI_BASE_URL', 'https://fast-api-literise.vercel.app'), '/');
     }
 
     public function generateHoax()

@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth; // <-- Diperlukan
-use App\Services\BadgeService;      // <-- Diperlukan
-use App\Models\Score;               // <-- Diperlukan
+use Illuminate\Support\Facades\Auth;
+use App\Services\BadgeService;
+use App\Models\Score;               
 
 class LibraryController extends Controller
 {
-    protected $apiBaseUrl = 'http://127.0.0.1:8001';
+    protected $apiBaseUrl = 'https://fast-api-literise.vercel.app';
     protected $badgeService;
 
     // Inject BadgeService

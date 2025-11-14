@@ -386,57 +386,44 @@
             .decorative-right { display: none; }
         }
 
+        /* Mobile (small) overrides to ensure proper centering */
         @media (max-width: 640px) {
             .literise-title { font-size: 3rem; }
-            .hero-section { /* Padding-top diatur oleh class pt-20, padding-bottom tetap */ padding-bottom: 160px; }
-            .illustration-journal { width: 90% !important; max-width: 350px !important; }
-            .feature-card { padding: 1.5rem 1rem; }
-
-            /* PERBAIKAN: Navbar mobile lebih compact */
-            nav .container {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-
-            /* PERBAIKAN: Logo lebih kecil di mobile */
-            nav .text-2xl {
-                font-size: 1.25rem;
-            }
-
-            /* PERBAIKAN: Hamburger button lebih ke kiri */
-            .md\\:hidden {
-                margin-left: auto;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .literise-title { font-size: 2.5rem; }
+            /* hide large decorative absolutes that may shift layout */
+            .decorative-left,
+            .decorative-right,
+            .illustration-kepala,
             .illustration-journal {
-                width: 200% !important;
-                max-width: 500px !important;
-                top: 275px !important;
-                opacity: 35% !important;
+                display: none !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
             }
 
-            /* PERBAIKAN EXTRA: Pastikan hamburger tidak keluar layar */
-            nav .container {
-                padding-left: 0.75rem;
-                padding-right: 0.75rem;
-            }
-        }
-
-        /* PERBAIKAN TAMBAHAN: Padding container yang lebih aman untuk mobile */
-        .container {
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-
-        @media (max-width: 360px) {
+            /* keep container padding safe but allow full-width feel */
             .container {
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
+                max-width: 100% !important;
+                width: 100% !important;
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
+            /* ensure hero content centers and doesn't get pushed left */
+            .hero-section {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            .hero-section .max-w-4xl,
+            .container > .max-w-4xl {
+                margin-left: auto !important;
+                margin-right: auto !important;
+                width: 100% !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
             }
         }
+
+        
     </style>
 </head>
 <body class="min-h-screen overflow-x-hidden">
@@ -547,6 +534,8 @@
             </div>
         </nav>
 
+        
+        
         <main class="relative z-20 hero-section pt-20 pb-64 md:pb-72 flex flex-col items-center justify-center text-center min-h-screen px-4">
 
             <div class="decorative-left absolute top-[-120px] left-[-180px] md:top-[-200px] md:left-[-300px]
@@ -581,24 +570,26 @@
                     class="w-full h-full object-contain rotate-[-10deg] opacity-95 drop-shadow-[0_25px_60px_rgba(116,67,255,0.5)]">
             </div>
 
-            <div class="relative z-10">
-                <h1 class="literise-title blink" style="font-family: poppins;" data-aos="fade-down" data-aos-duration="1000">LITERISE</h1>
-                <p class="bg-gradient-to-b from-[#7443ff] to-[#d3a2ff] bg-clip-text text-transparent text-lg md:text-xl max-w-lg mx-auto mt-4 subtitle-shadow 0 0 10px font-semibold" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    Tantang diri di Misi Baca Harian, Asah Kejelian lawan Hoax, dan Kumpulkan Badge keren!
-                </p>
+            <div class="container mx-auto px-6 relative z-10 text-center">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="literise-title blink" style="font-family: poppins;" data-aos="fade-down" data-aos-duration="1000">LITERISE</h1>
+                    <p class="bg-gradient-to-b from-[#7443ff] to-[#d3a2ff] bg-clip-text text-transparent text-lg md:text-xl max-w-lg mx-auto mt-4 subtitle-shadow 0 0 10px font-semibold" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                        Tantang diri di Misi Baca Harian, Asah Kejelian lawan Hoax, dan Kumpulkan Badge keren!
+                    </p>
 
-                <div class="flex flex-col sm:flex-row justify-center mt-10 space-y-4 sm:space-y-0 sm:space-x-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                    <div class="flex flex-col sm:flex-row justify-center mt-10 space-y-4 sm:space-y-0 sm:space-x-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
 
-                    <a href="{{ route('permainan.index') }}" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block loading-button">
-                        <span class="absolute inset-0 bg-gradient-to-b from-[#7443ff] to-[#d3a2ff] rounded-lg"></span>
-                        <span class="relative bg-gradient-to-b from-[#fff7aD] to-[#ffa9f9] bg-clip-text text-transparent">Ayo Main!</span>
-                    </a>
+                        <a href="{{ route('permainan.index') }}" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block loading-button">
+                            <span class="absolute inset-0 bg-gradient-to-b from-[#7443ff] to-[#d3a2ff] rounded-lg"></span>
+                            <span class="relative bg-gradient-to-b from-[#fff7aD] to-[#ffa9f9] bg-clip-text text-transparent">Ayo Main!</span>
+                        </a>
 
-                    <a href="#fitur" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block loading-button">
-                        <span class="absolute inset-0 bg-gradient-to-b from-[#F261A8] to-[#FD85C0] rounded-lg"></span>
-                        <span class="relative bg-gradient-to-b from-[#fff7ad] to-[#ffa9f9] bg-clip-text text-transparent">Lihat selengkapnya</span>
-                    </a>
+                        <a href="#fitur" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block loading-button">
+                            <span class="absolute inset-0 bg-gradient-to-b from-[#F261A8] to-[#FD85C0] rounded-lg"></span>
+                            <span class="relative bg-gradient-to-b from-[#fff7ad] to-[#ffa9f9] bg-clip-text text-transparent">Lihat selengkapnya</span>
+                        </a>
 
+                    </div>
                 </div>
             </div>
 

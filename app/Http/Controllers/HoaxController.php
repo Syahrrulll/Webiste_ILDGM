@@ -13,14 +13,14 @@ use App\Models\Score;               // <-- Diperlukan
 
 class HoaxController extends Controller
 {
-    protected $apiBaseUrl = 'https://python-ai-service-syahrrulll-syahrrullls-projects.vercel.app';
+    protected $apiBaseUrl = 'https://fast-api-literise.vercel.app';
     protected $badgeService;
 
     // Inject BadgeService
     public function __construct(BadgeService $badgeService)
     {
         $this->badgeService = $badgeService;
-        $this->apiBaseUrl = env('FASTAPI_BASE_URL', 'https://python-ai-service-syahrrulll-syahrrullls-projects.vercel.app');
+        $this->apiBaseUrl = env('FASTAPI_BASE_URL', 'https://fast-api-literise.vercel.app');
 
     }
 
@@ -86,7 +86,7 @@ class HoaxController extends Controller
             // Hitung skor berdasarkan respons AI
             $user = Auth::user();
             $gameType = 'Hoax or Not?';
-            $score = data_get($data, 'is_correct', false) ? 100 : 0;
+            $score = data_get($data, 'is_correct', false) ? 20 : 0;
 
             // Simpan skor dan periksa badge
             Score::create([

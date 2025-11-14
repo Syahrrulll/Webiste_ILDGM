@@ -469,13 +469,7 @@
                                     </p>
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1">
-                                            <div class="flex justify-between mb-1">
-                                                <span class="text-sm font-medium text-[#4a2e7c]">Tingkat Literasi</span>
-                                                <span class="text-sm font-medium text-[#4a2e7c]">65%</span>
-                                            </div>
-                                            <div class="progress-bar">
-                                                <div class="progress-fill" style="width: 65%"></div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -492,13 +486,7 @@
                                     </p>
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1">
-                                            <div class="flex justify-between mb-1">
-                                                <span class="text-sm font-medium text-[#4a2e7c]">Target Pengguna</span>
-                                                <span class="text-sm font-medium text-[#4a2e7c]">1 Juta+</span>
-                                            </div>
-                                            <div class="progress-bar">
-                                                <div class="progress-fill" style="width: 80%"></div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -569,22 +557,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <!-- Anggota Tim 1 -->
                         <div class="tim-card text-center" data-aos="fade-up" data-aos-delay="100">
-                            <img src="https://placehold.co/400x400/d3a2ff/4a2e7c?text=Foto+Tim+1" alt="Anggota Tim 1" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-[#d3a2ff] shadow-lg">
-                            <h3 class="text-2xl font-bold text-white">Nama Pembuat 1</h3>
-                            <p class="text-pink-300 mb-4">Project Manager & Lead Developer</p>
-                            <p class="text-gray-300 text-sm">Bertanggung jawab atas visi produk dan pengembangan inti aplikasi.</p>
+                            <img src="https://i.pinimg.com/736x/d2/c0/34/d2c034467cf7acfe97e5b5d31d701442.jpg" alt="Anggota Tim 1" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-[#d3a2ff] shadow-lg">
+                            <h3 class="text-2xl font-bold text-white">Muhammad Syahrul Mubarak</h3>
+                     
+                            <p class="text-gray-300 text-sm">Hidup seperti Jack Kahuna Laguna</p>
+                            <br>
                             <div class="flex justify-center mt-4 space-x-3">
-                                <a href="#" class="platform-btn text-white p-2 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
-                                    </svg>
-                                </a>
-                                <a href="#" class="platform-btn text-white p-2 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                        <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
-                                    </svg>
-                                </a>
-                                <a href="#" class="platform-btn text-white p-2 rounded-full">
+                                <a href="https://github.com/Syahrrulll" class="platform-btn text-white p-2 rounded-full">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
                                     </svg>
@@ -594,22 +573,12 @@
 
                         <!-- Anggota Tim 2 -->
                         <div class="tim-card text-center" data-aos="fade-up" data-aos-delay="200">
-                            <img src="https://placehold.co/400x400/d3a2ff/4a2e7c?text=Foto+Tim+2" alt="Anggota Tim 2" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-[#d3a2ff] shadow-lg">
-                            <h3 class="text-2xl font-bold text-white">Nama Pembuat 2</h3>
-                            <p class="text-pink-300 mb-4">UI/UX Designer</p>
-                            <p class="text-gray-300 text-sm">Mendesain antarmuka yang cantik dan pengalaman pengguna yang intuitif.</p>
+                            <img src="https://cdn3.emoji.gg/emojis/4829-lost-in-sauce-cat.png" alt="Anggota Tim 2" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-[#d3a2ff] shadow-lg">
+                            <h3 class="text-2xl font-bold text-white">Muhammad Ghazali Arkenzi</h3>
+                            <p class="text-gray-300 text-sm">Sharp as broken glass, walking just to pass.</p>
+                            <br>
                             <div class="flex justify-center mt-4 space-x-3">
-                                <a href="#" class="platform-btn text-white p-2 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
-                                    </svg>
-                                </a>
-                                <a href="#" class="platform-btn text-white p-2 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                        <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
-                                    </svg>
-                                </a>
-                                <a href="#" class="platform-btn text-white p-2 rounded-full">
+                                <a href="https://github.com/thiccguy21" class="platform-btn text-white p-2 rounded-full">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
                                     </svg>
@@ -619,21 +588,11 @@
 
                         <!-- Anggota Tim 3 -->
                         <div class="tim-card text-center" data-aos="fade-up" data-aos-delay="300">
-                            <img src="https://placehold.co/400x400/d3a2ff/4a2e7c?text=Foto+Tim+3" alt="Anggota Tim 3" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-[#d3a2ff] shadow-lg">
-                            <h3 class="text-2xl font-bold text-white">Nama Pembuat 3</h3>
-                            <p class="text-pink-300 mb-4">Content & AI Specialist</p>
-                            <p class="text-gray-300 text-sm">Membuat konten permainan yang edukatif dan mengintegrasikan AI.</p>
+                            <img src="https://i.pinimg.com/736x/86/7d/1a/867d1a8204b3835beb21dec78f57504b.jpg" alt="Anggota Tim 3" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-[#d3a2ff] shadow-lg">
+                            <h3 class="text-2xl font-bold text-white">Fadya Zahra Abdiansyah</h3>
+                            <p class="text-gray-300 text-sm">Apa ya, kalau dipikir, kasih begini saja</p>
+                            <br>
                             <div class="flex justify-center mt-4 space-x-3">
-                                <a href="#" class="platform-btn text-white p-2 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
-                                    </svg>
-                                </a>
-                                <a href="#" class="platform-btn text-white p-2 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                        <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
-                                    </svg>
-                                </a>
                                 <a href="#" class="platform-btn text-white p-2 rounded-full">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
@@ -645,7 +604,7 @@
                 </div>
             </section>
 
-            <!-- SECTION TESTIMONI (BARU) -->
+           
             <section class="relative py-20 bg-gradient-to-b from-[#5c1d8f] to-[#4a2e7c]">
                 
             </section>

@@ -297,6 +297,21 @@
             animation: icon-float 6s ease-in-out infinite;
         }
 
+        /* Mobile Menu Styling */
+        .mobile-menu {
+            display: none;
+            background: rgba(45, 27, 105, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 1024px) {
             .literise-title {
@@ -314,15 +329,49 @@
             .floating-element {
                 display: none;
             }
+            .result-button {
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 640px) {
-            .literise-title { font-size: 3rem; }
-            .result-card { padding: 1.5rem 1rem; }
+            .literise-title { 
+                font-size: 3rem; 
+            }
+            .result-card { 
+                padding: 1.5rem 1rem; 
+                border-radius: 20px;
+            }
+            .explanation-box {
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+            }
+            .correct-result, .incorrect-result {
+                padding: 1.5rem !important;
+            }
+            .result-button {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.95rem;
+                width: 100%;
+            }
         }
 
         @media (max-width: 480px) {
-            .literise-title { font-size: 2.5rem; }
+            .literise-title { 
+                font-size: 2.5rem; 
+                margin-bottom: 1rem !important;
+            }
+            .result-card { 
+                padding: 1.25rem 0.75rem; 
+            }
+            .explanation-box {
+                padding: 1.25rem;
+                margin: 1.25rem 0;
+            }
+            .correct-result, .incorrect-result {
+                padding: 1.25rem !important;
+            }
         }
     </style>
 </head>
@@ -339,26 +388,26 @@
 
     <!-- ===== HEADER / NAVIGASI ===== -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#2d1b69] to-[#1f1047] text-white shadow-lg border-b border-purple-500/20">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="{{ route('home') }}" class="flex items-center space-x-2 text-2xl font-bold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
+            <a href="{{ route('home') }}" class="flex items-center space-x-2 text-xl sm:text-2xl font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                 </svg>
                 <span>LITERISE</span>
             </a>
 
-            <div class="hidden md:flex items-center space-x-6">
-                <a href="{{ route('home') }}" class="hover:text-pink-300 transition-colors">Beranda</a>
-                <a href="{{ route('permainan.index') }}" class="hover:text-pink-300 transition-colors">Permainan</a>
-                <a href="{{ route('tentang.index') }}" class="hover:text-pink-300 transition-colors">Tentang</a>
+            <div class="hidden md:flex items-center space-x-4 lg:space-x-6">
+                <a href="{{ route('home') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Beranda</a>
+                <a href="{{ route('permainan.index') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Permainan</a>
+                <a href="{{ route('tentang.index') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Tentang</a>
 
                 <!-- LOGIKA AUTH DENGAN DROPDOWN PROFIL YANG DIPERBAIKI -->
                 @auth
                     <div x-data="{ open: false }" class="relative">
                         <!-- Tombol Dropdown yang diperbaiki -->
-                        <button @click="open = !open" class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:bg-white/20 border border-white/20 btn-glow">
-                            <span>{{ Str::limit(Auth::user()->name, 10) }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300" :class="{'rotate-180': open}" viewBox="0 0 20 20" fill="currentColor">
+                        <button @click="open = !open" class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm text-white font-semibold px-4 py-2 lg:px-5 lg:py-2 rounded-full transition-all duration-300 hover:bg-white/20 border border-white/20 btn-glow">
+                            <span class="text-sm lg:text-base">{{ Str::limit(Auth::user()->name, 10) }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 lg:h-5 lg:w-5 transition-transform duration-300" :class="{'rotate-180': open}" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </button>
@@ -372,7 +421,7 @@
                             x-transition:leave="transition ease-in duration-150"
                             x-transition:leave-start="opacity-100 transform translate-y-0"
                             x-transition:leave-end="opacity-0 transform -translate-y-2"
-                            class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl z-50"
+                            class="absolute right-0 mt-2 w-48 lg:w-56 bg-white rounded-xl shadow-xl z-50"
                             style="display: none;">
 
                             <div class="px-4 py-3 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-pink-50">
@@ -407,15 +456,15 @@
                         </div>
                     </div>
                 @else
-                    <a href="{{ route('login') }}" class="hover:text-pink-300 transition-colors">Masuk</a>
-                    <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg btn-glow">
+                    <a href="{{ route('login') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Masuk</a>
+                    <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-4 py-2 lg:px-5 lg:py-2 rounded-full transition-all duration-300 hover:shadow-lg btn-glow text-sm lg:text-base">
                         Daftar
                     </a>
                 @endauth
             </div>
 
             <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-white">
+                <button id="mobile-menu-button" class="text-white p-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
@@ -425,24 +474,24 @@
 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu md:hidden">
-            <a href="{{ route('home') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Beranda</a>
-            <a href="{{ route('permainan.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Permainan</a>
-            <a href="{{ route('tentang.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Tentang</a>
+            <a href="{{ route('home') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Beranda</a>
+            <a href="{{ route('permainan.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Permainan</a>
+            <a href="{{ route('tentang.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Tentang</a>
 
             @auth
-                <a href="{{ route('profile.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Profil Saya</a>
-                <a href="{{ route('leaderboard.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Leaderboard</a>
-                <form method="POST" action="{{ route('logout') }}" class="inline w-full">
+                <a href="{{ route('profile.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Profil Saya</a>
+                <a href="{{ route('leaderboard.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Leaderboard</a>
+                <form method="POST" action="{{ route('logout') }}" class="inline w-full border-b border-white/10">
                     @csrf
                     <a href="{{ route('logout') }}"
                     onclick="event.preventDefault(); this.closest('form').submit();"
-                    class="header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow w-full block">
+                    class="header-btn text-white font-semibold px-5 py-3 rounded-lg transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow w-full block">
                         Logout
                     </a>
                 </form>
             @else
-                <a href="{{ route('login') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Masuk</a>
-                <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow">
+                <a href="{{ route('login') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Masuk</a>
+                <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-5 py-3 rounded-lg transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow">
                     Daftar
                 </a>
             @endauth
@@ -450,54 +499,54 @@
     </nav>
 
     <!-- ===== MAIN CONTENT ===== -->
-    <main class="relative z-20 pt-32 pb-20 flex flex-col items-center justify-center min-h-screen px-4">
+    <main class="relative z-20 pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6">
 
         <!-- Konten Utama -->
         <div class="w-full max-w-4xl text-center relative z-10">
-            <h1 class="literise-title gentle-pulse mb-6" data-aos="fade-down" data-aos-duration="1000">LITERISE</h1>
+            <h1 class="literise-title gentle-pulse mb-4 sm:mb-6" data-aos="fade-down" data-aos-duration="1000">LITERISE</h1>
 
             <div class="result-card max-w-2xl mx-auto" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 <div class="result-card-content">
                     <!-- Icon Hasil -->
-                    <div class="w-24 h-24 mx-auto mb-8 rounded-full flex items-center justify-center shadow-lg icon-float
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 sm:mb-8 rounded-full flex items-center justify-center shadow-lg icon-float
                         @if ($result['is_correct'])
                             bg-gradient-to-br from-green-500 to-green-700
                         @else
                             bg-gradient-to-br from-red-500 to-red-700
                         @endif">
                         @if ($result['is_correct'])
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-12 sm:w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                             </svg>
                         @else
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-12 sm:w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         @endif
                     </div>
 
-                    <h2 class="text-4xl font-bold text-white mb-6">🗞 Hasil: Hoax or Not?</h2>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">🗞 Hasil: Hoax or Not?</h2>
 
                     <!-- Hasil Benar / Salah -->
                     @if ($result['is_correct'])
-                        <div class="correct-result rounded-2xl p-8 mb-8 text-center" data-aos="zoom-in" data-aos-delay="400">
-                            <p class="text-6xl font-bold text-green-400 mb-4">BENAR!</p>
-                            <p class="text-xl text-green-200">Jawaban Anda <span class="font-bold text-white">{{ $user_choice }}</span> tepat sekali.</p>
-                            <div class="mt-4 flex justify-center">
-                                <div class="bg-green-500/20 px-4 py-2 rounded-full text-green-300 text-sm">
+                        <div class="correct-result rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8 text-center" data-aos="zoom-in" data-aos-delay="400">
+                            <p class="text-4xl sm:text-5xl md:text-6xl font-bold text-green-400 mb-3 sm:mb-4">BENAR!</p>
+                            <p class="text-lg sm:text-xl text-green-200">Jawaban Anda <span class="font-bold text-white">{{ $user_choice }}</span> tepat sekali.</p>
+                            <div class="mt-3 sm:mt-4 flex justify-center">
+                                <div class="bg-green-500/20 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-green-300 text-sm">
                                     🎉 Poin +10
                                 </div>
                             </div>
                         </div>
                     @else
-                        <div class="incorrect-result rounded-2xl p-8 mb-8 text-center" data-aos="zoom-in" data-aos-delay="400">
-                            <p class="text-6xl font-bold text-red-400 mb-4">SALAH</p>
-                            <p class="text-xl text-red-200">
+                        <div class="incorrect-result rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8 text-center" data-aos="zoom-in" data-aos-delay="400">
+                            <p class="text-4xl sm:text-5xl md:text-6xl font-bold text-red-400 mb-3 sm:mb-4">SALAH</p>
+                            <p class="text-lg sm:text-xl text-red-200">
                                 Jawaban Anda <span class="font-bold text-white">{{ $user_choice }}</span> kurang tepat.
                                 Jawaban yang benar adalah <span class="font-bold text-white">{{ data_get($result, 'correct_answer', 'Tidak tersedia') }}</span>.
                             </p>
-                            <div class="mt-4 flex justify-center">
-                                <div class="bg-red-500/20 px-4 py-2 rounded-full text-red-300 text-sm">
+                            <div class="mt-3 sm:mt-4 flex justify-center">
+                                <div class="bg-red-500/20 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-red-300 text-sm">
                                     💡 Tetap semangat belajar!
                                 </div>
                             </div>
@@ -505,17 +554,17 @@
                     @endif
 
                     <!-- Penjelasan AI -->
-                    <div class="border-t border-white/20 pt-8" data-aos="fade-up" data-aos-delay="600">
-                        <h2 class="text-2xl font-bold text-white mb-6 text-left">Penjelasan:</h2>
+                    <div class="border-t border-white/20 pt-6 sm:pt-8" data-aos="fade-up" data-aos-delay="600">
+                        <h2 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 text-left">Penjelasan:</h2>
 
                         <div class="explanation-box text-left" data-aos="fade-up" data-aos-delay="800">
                             <p>{{ $result['explanation'] }}</p>
 
                             @if (isset($result['source_url']) && $result['source_url'] != 'N/A')
-                                <div class="mt-6 pt-4 border-t border-white/20">
+                                <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-white/20">
                                     <p class="font-bold text-white mb-2">Sumber Referensi:</p>
                                     <a href="{{ $result['source_url'] }}" target="_blank" rel="noopener noreferrer"
-                                       class="text-blue-300 hover:text-blue-200 underline break-words transition-colors">
+                                       class="text-blue-300 hover:text-blue-200 underline break-words transition-colors text-sm sm:text-base">
                                         {{ $result['source_url'] }}
                                     </a>
                                 </div>
@@ -523,7 +572,7 @@
                         </div>
 
                         <!-- Tombol Aksi -->
-                        <div class="mt-10 pt-6 border-t border-white/20 flex flex-col sm:flex-row gap-4" data-aos="fade-up" data-aos-delay="1000">
+                        <div class="mt-8 sm:mt-10 pt-4 sm:pt-6 border-t border-white/20 flex flex-col sm:flex-row gap-3 sm:gap-4" data-aos="fade-up" data-aos-delay="1000">
                             <a href="{{ route('hoax.index') }}"
                                class="result-button btn-glow flex-1 text-center">
                                 Coba Kuis Lain
@@ -540,34 +589,34 @@
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="w-full bg-[#160b35] text-white pt-16 pb-8 relative z-10 border-t border-purple-500/20">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+    <footer class="w-full bg-[#160b35] text-white pt-12 sm:pt-16 pb-6 sm:pb-8 relative z-10 border-t border-purple-500/20">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12">
                 <!-- Kolom 1: Tentang -->
                 <div class="col-span-1 md:col-span-2">
-                    <h3 class="text-xl font-bold mb-4 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <h3 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-pink-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                         </svg>
                         Tentang Literise
                     </h3>
-                    <p class="text-gray-300 mb-4 leading-relaxed">
+                    <p class="text-gray-300 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base">
                         Literise adalah platform edukasi interaktif yang dirancang untuk meningkatkan literasi digital
                         dan kemampuan berpikir kritis melalui permainan yang menyenangkan dan engaging.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="platform-btn text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <div class="flex space-x-3 sm:space-x-4">
+                        <a href="#" class="platform-btn text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
                             </svg>
                         </a>
-                        <a href="#" class="platform-btn text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <a href="#" class="platform-btn text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 a6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
                             </svg>
                         </a>
-                        <a href="#" class="platform-btn text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <a href="#" class="platform-btn text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
                             </svg>
                         </a>
@@ -576,22 +625,22 @@
 
                 <!-- Kolom 2: Link Cepat -->
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Link Cepat</h3>
-                    <ul class="space-y-3">
-                        <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center">
-                            <span class="w-2 h-2 bg-pink-400 rounded-full mr-3"></span>
+                    <h3 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Link Cepat</h3>
+                    <ul class="space-y-2 sm:space-y-3">
+                        <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center text-sm sm:text-base">
+                            <span class="w-2 h-2 bg-pink-400 rounded-full mr-2 sm:mr-3"></span>
                             Beranda
                         </a></li>
-                        <li><a href="{{ route('permainan.index') }}" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center">
-                            <span class="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
+                        <li><a href="{{ route('permainan.index') }}" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center text-sm sm:text-base">
+                            <span class="w-2 h-2 bg-purple-400 rounded-full mr-2 sm:mr-3"></span>
                             Permainan
                         </a></li>
-                        <li><a href="{{ route('tentang.index') }}" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center">
-                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                        <li><a href="{{ route('tentang.index') }}" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center text-sm sm:text-base">
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-2 sm:mr-3"></span>
                             Tentang Kami
                         </a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center">
-                            <span class="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
+                        <li><a href="#" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center text-sm sm:text-base">
+                            <span class="w-2 h-2 bg-green-400 rounded-full mr-2 sm:mr-3"></span>
                             Kontak
                         </a></li>
                     </ul>
@@ -599,16 +648,16 @@
 
                 <!-- Kolom 3: Kontak -->
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Kontak</h3>
-                    <ul class="space-y-4 text-gray-300">
+                    <h3 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Kontak</h3>
+                    <ul class="space-y-3 sm:space-y-4 text-gray-300 text-sm sm:text-base">
                         <li class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-pink-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-pink-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
                             info@literise.com
                         </li>
                         <li class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-pink-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-pink-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                             </svg>
                             +62 812 3456 7890
@@ -618,9 +667,9 @@
             </div>
 
             <!-- Bagian bawah footer -->
-            <div class="border-t border-gray-600 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-sm opacity-70 mb-4 md:mb-0">© 2025 Literise. Semua hak dilindungi.</p>
-                <div class="flex space-x-6 text-sm">
+            <div class="border-t border-gray-600 pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-xs sm:text-sm opacity-70 mb-3 sm:mb-0 text-center md:text-left">© 2025 Literise. Semua hak dilindungi.</p>
+                <div class="flex space-x-4 sm:space-x-6 text-xs sm:text-sm">
                     <a href="#" class="opacity-70 hover:opacity-100 transition-opacity hover:text-pink-300">Kebijakan Privasi</a>
                     <a href="#" class="opacity-70 hover:opacity-100 transition-opacity hover:text-pink-300">Syarat & Ketentuan</a>
                 </div>
@@ -653,6 +702,16 @@
             button.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0)';
             });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            
+            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+            }
         });
     </script>
 </body>

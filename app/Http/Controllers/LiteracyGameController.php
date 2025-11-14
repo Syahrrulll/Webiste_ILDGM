@@ -11,7 +11,7 @@ use App\Models\Score;               // <-- Diperlukan
 
 class LiteracyGameController extends Controller
 {
-    protected $apiBaseUrl = 'http://127.0.0.1:8001';
+    protected $apiBaseUrl = 'https://fast-api-literise.vercel.app';
     protected $badgeService;
 
     // Inject BadgeService
