@@ -423,7 +423,7 @@
             }
         }
 
-        
+
     </style>
 </head>
 <body class="min-h-screen overflow-x-hidden">
@@ -534,8 +534,8 @@
             </div>
         </nav>
 
-        
-        
+
+
         <main class="relative z-20 hero-section pt-20 pb-64 md:pb-72 flex flex-col items-center justify-center text-center min-h-screen px-4">
 
             <div class="decorative-left absolute top-[-120px] left-[-180px] md:top-[-200px] md:left-[-300px]
@@ -716,28 +716,7 @@
                             </div>
                         </div>
 
-                        <div data-aos="fade-left" data-aos-delay="200">
-                            <div class="relative">
-                                <div class="absolute -top-4 -left-4 w-full h-full bg-gradient-to-r from-[#7443ff] to-[#d3a2ff] rounded-2xl opacity-30"></div>
-                                <div class="relative bg-white p-8 rounded-2xl shadow-xl">
-                                    <h3 class="text-2xl font-bold text-[#4a2e7c] mb-4">Visi Kami</h3>
-                                    <p class="text-gray-700 mb-6">
-                                        Menjadi platform utama dalam meningkatkan literasi digital di Indonesia, dengan menyediakan konten berkualitas dan metode pembelajaran yang efektif serta menyenangkan bagi semua kalangan.
-                                    </p>
-                                    <div class="flex items-center space-x-4">
-                                        <div class="flex-1">
-                                            <div class="flex justify-between mb-1">
-                                                <span class="text-sm font-medium text-[#4a2e7c]">Target Pengguna</span>
-                                                <span class="text-sm font-medium text-[#4a2e7c]">1 Juta+</span>
-                                            </div>
-                                            <div class="progress-bar">
-                                                <div class="progress-fill" style="width: 80%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </section>

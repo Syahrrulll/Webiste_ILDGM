@@ -448,52 +448,7 @@
 
             <!-- SECTION TENTANG (Dipindahkan dari Welcome) -->
             <section id="tentang" class="relative py-20 bg-gradient-to-b from-[#4a2e7c] to-[#5c1d8f]">
-                <div class="container mx-auto px-6">
-                    <div class="text-center mb-16" data-aos="fade-up">
-                        <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#f563fd] to-[#8f9bff] bg-clip-text text-transparent mb-4">
-                            Misi & Visi Kami
-                        </h2>
-                        <p class="text-lg text-white subtitle-shadow mx-auto max-w-3xl">
-                            Literise hadir untuk menjawab tantangan literasi digital di Indonesia dengan pendekatan yang inovatif dan menyenangkan.
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                        <div data-aos="fade-right">
-                            <div class="relative">
-                                <div class="absolute -top-4 -left-4 w-full h-full bg-gradient-to-r from-[#7443ff] to-[#d3a2ff] rounded-2xl opacity-30"></div>
-                                <div class="relative bg-white p-8 rounded-2xl shadow-xl">
-                                    <h3 class="text-2xl font-bold text-[#4a2e7c] mb-4">Misi Kami</h3>
-                                    <p class="text-gray-700 mb-6">
-                                        Meningkatkan literasi digital masyarakat Indonesia melalui pendekatan yang menyenangkan dan interaktif. Kami percaya bahwa kemampuan literasi yang baik adalah kunci untuk menghadapi tantangan di era digital.
-                                    </p>
-                                    <div class="flex items-center space-x-4">
-                                        <div class="flex-1">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div data-aos="fade-left" data-aos-delay="200">
-                            <div class="relative">
-                                <div class="absolute -top-4 -left-4 w-full h-full bg-gradient-to-r from-[#7443ff] to-[#d3a2ff] rounded-2xl opacity-30"></div>
-                                <div class="relative bg-white p-8 rounded-2xl shadow-xl">
-                                    <h3 class="text-2xl font-bold text-[#4a2e7c] mb-4">Visi Kami</h3>
-                                    <p class="text-gray-700 mb-6">
-                                        Menjadi platform utama dalam meningkatkan literasi digital di Indonesia, dengan menyediakan konten berkualitas dan metode pembelajaran yang efektif serta menyenangkan bagi semua kalangan.
-                                    </p>
-                                    <div class="flex items-center space-x-4">
-                                        <div class="flex-1">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </section>
 
             <!-- SECTION NILAI-NILAI KAMI (BARU) -->
@@ -559,7 +514,7 @@
                         <div class="tim-card text-center" data-aos="fade-up" data-aos-delay="100">
                             <img src="https://i.pinimg.com/736x/d2/c0/34/d2c034467cf7acfe97e5b5d31d701442.jpg" alt="Anggota Tim 1" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-[#d3a2ff] shadow-lg">
                             <h3 class="text-2xl font-bold text-white">Muhammad Syahrul Mubarak</h3>
-                     
+
                             <p class="text-gray-300 text-sm">Hidup seperti Jack Kahuna Laguna</p>
                             <br>
                             <div class="flex justify-center mt-4 space-x-3">
@@ -604,9 +559,9 @@
                 </div>
             </section>
 
-           
+
             <section class="relative py-20 bg-gradient-to-b from-[#5c1d8f] to-[#4a2e7c]">
-                
+
             </section>
 
             <!-- SECTION FAQ (BARU) -->
@@ -741,7 +696,7 @@
                 <!-- Bagian bawah footer -->
                 <div class="border-t border-gray-600 pt-6 flex flex-col md:flex-row justify-between items-center">
                     <p class="text-sm opacity-70 mb-4 md:mb-0">© 2025 Literise. Semua hak dilindungi.</p>
-                    <div class="flex space-x-6 text-sm">
+                    <div c  lass="flex space-x-6 text-sm">
                         <a href="#" class="opacity-70 hover:opacity-100 transition-opacity">Kebijakan Privasi</a>
                         <a href="#" class="opacity-70 hover:opacity-100 transition-opacity">Syarat & Ketentuan</a>
                     </div>
