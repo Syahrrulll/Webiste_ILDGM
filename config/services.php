@@ -22,6 +22,11 @@ return [
         'key' => env('RESEND_KEY'),
     ],
 
+    'fastapi' => [
+        'base_url' => env('FASTAPI_BASE_URL', 'http://127.0.0.1:8001')
+    ],
+
+    
     'ses' => [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),

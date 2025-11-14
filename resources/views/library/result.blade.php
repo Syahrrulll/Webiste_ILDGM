@@ -465,5 +465,16 @@
             }
         });
     </script>
+
+    <!-- Notifikasi Error (jika ada) -->
+    @if (session('error'))
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded">
+            <p class="font-bold">⚠️ Terjadi Kesalahan!</p>
+            <p>{{ session('error') }}</p>
+            <p class="text-sm mt-2 text-red-600">
+                💡 Tips: Jika server AI sedang sibuk, coba lagi dalam 1-2 menit.
+            </p>
+        </div>
+    @endif
 </body>
 </html>

@@ -30,22 +30,28 @@ class HoaxController extends Controller
     public function showQuiz()
     {
         try {
-            $response = Http::timeout(60)
+            $response = Http::timeout(120)  // ← TINGKATKAN TIMEOUT
+                ->retry(3, 1000)  // ← RETRY 3x dengan delay 1 detik
                 ->get($this->apiBaseUrl . '/api/hoax-quiz/generate');
 
             if (!$response->successful()) {
                 $errorData = $response->json();
                 $errorMessage = $errorData['detail'] ?? $response->body();
-                Log::error('Gagal generate-hoax dari AI', ['status' => $response->status(), 'body' => $errorMessage]);
-                return view('hoax.index')->with('error', 'Gagal membuat kuis Hoax dari AI. Coba lagi. Detail: ' . $errorMessage);
+
+                if ($response->status() == 503) {
+                    return view('hoax.index')->with('error', 'Server AI sedang sibuk. Silakan coba lagi dalam beberapa saat.');
+                }
+
+                logger()->error('❌ API error', ['error' => $errorMessage]);
+                return view('hoax.index')->with('error', 'Gagal membuat kuis. Coba lagi.');
             }
 
             $data = $response->json();
             return view('hoax.index', ['mission' => $data]);
 
         } catch (\Exception $e) {
-            Log::error('Error showQuiz Hoax', ['error' => $e->getMessage()]);
-            return view('hoax.index')->with('error', 'Terjadi kesalahan sistem: ' . $e->getMessage());
+            logger()->error('❌ Exception', ['error' => $e->getMessage()]);
+            return view('hoax.index')->with('error', 'Terjadi kesalahan. Coba lagi.');
         }
     }
 

@@ -7,20 +7,17 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth; // <-- Diperlukan
 use App\Services\BadgeService;      // <-- Diperlukan
-use App\Services\FastApiService;
 use App\Models\Score;               // <-- Diperlukan
 
 class GrammarZoneController extends Controller
 {
-    protected $apiBaseUrl = "https://python-ai-service-syahrrulll-syahrrullls-projects.vercel.app/";
+    protected $apiBaseUrl = 'http://127.0.0.1:8001';
     protected $badgeService;
 
     // Inject BadgeService
     public function __construct(BadgeService $badgeService)
     {
         $this->badgeService = $badgeService;
-        $this->apiBaseUrl = env('FASTAPI_BASE_URL', 'https://python-ai-service-syahrrulll-syahrrullls-projects.vercel.app');
-
     }
 
     /**
@@ -28,22 +25,7 @@ class GrammarZoneController extends Controller
      */
     public function index()
     {
-        try {
-            $response = Http::timeout(60)
-                ->post($this->apiBaseUrl . '/api/grammar-zone/generate-mission', [  // ← UBAH INI
-                    'difficulty' => 'intermediate'
-                ]);
-
-            if (!$response->successful()) {
-                return view('grammar.index')->with('error', 'Gagal membuat misi grammar');
-            }
-
-            $data = $response->json();
-            return view('grammar.mission', ['mission' => $data]);
-
-        } catch (\Exception $e) {
-            return view('grammar.index')->with('error', 'Error: ' . $e->getMessage());
-        }
+        return view('grammar.index');
     }
 
     /**
@@ -85,7 +67,9 @@ class GrammarZoneController extends Controller
             'sentences.*' => 'nullable|string',
         ]);
 
-        $user_corrections = array_map(fn($sentence) => $sentence ?? '', $request->input('sentences'));
+        $user_corrections = array_map(function ($sentence) {
+            return $sentence ?? '';
+        }, $request->input('sentences'));
 
         try {
             $response = Http::timeout(30)
@@ -97,7 +81,7 @@ class GrammarZoneController extends Controller
                 $errorData = $response->json();
                 $errorMessage = $errorData['detail'] ?? $response->body();
                 Log::error('Gagal submit-game (Grammar) dari AI', ['status' => $response->status(), 'body' => $errorMessage]);
-                return redirect(route('grammar.index'))->with('error', 'Gagal memvalidasi jawaban. Coba lagi. Detail: ' . $errorMessage);
+                return redirect(route('grammar.index'))->with('error', 'Gagal memvalidasi kuis. Sesi mungkin kedaluwarsa. Detail: ' . $errorMessage);
             }
 
             $data = $response->json();
@@ -105,8 +89,14 @@ class GrammarZoneController extends Controller
             $gameType = 'Zona Tata Bahasa';
             $score = (int) $data['total_score'];
 
-            Score::create(['score' => $score]);
+            // --- LOGIKA SKOR & BADGE BARU ---
+            Score::create([
+                'user_id' => $user->id,
+                'game_type' => $gameType,
+                'score' => $score
+            ]);
             $this->badgeService->checkAndAwardBadges($user, $gameType, $score);
+            // --- AKHIR LOGIKA BARU ---
 
             return view('grammar.result', ['result' => $data]);
 

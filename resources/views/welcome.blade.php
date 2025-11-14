@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Literise - Tingkatkan Literasi Digital dengan Cara Menyenangkan</title>
-    <!-- Memuat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js untuk dropdown -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <!-- Memuat Google Fonts (Poppins) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- AOS Library untuk animasi scroll -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
@@ -306,7 +302,7 @@
             margin: 4px 0;
         }
 
-        /* Animasi Hamburger - DITAMBAHKAN */
+        /* Animasi Hamburger - DIPERBAIKI */
         .hamburger-line {
             display: block;
             height: 2px;
@@ -331,7 +327,7 @@
             transform: rotate(-45deg) translate(6px, -6px);
         }
 
-        /* Mobile Menu yang diperbaiki - DIPERBAIKI */
+        /* Mobile Menu yang diperbaiki - DIPERBAIKI DENGAN ANIMASI */
         .mobile-menu {
             display: none;
             flex-direction: column;
@@ -343,10 +339,15 @@
             padding: 1rem;
             z-index: 100;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transform: translateY(-10px);
+            opacity: 0;
+            transition: all 0.3s ease;
         }
 
         .mobile-menu.active {
             display: flex;
+            transform: translateY(0);
+            opacity: 1;
         }
 
         /* Responsive adjustments */
@@ -355,7 +356,7 @@
                 font-size: 5rem;
             }
             .hero-section {
-                padding-top: 120px;
+                /* Padding-top diatur oleh class pt-20, padding-bottom tetap */
                 padding-bottom: 180px;
             }
         }
@@ -365,7 +366,7 @@
                 font-size: 4rem;
             }
             .hero-section {
-                padding-top: 120px;
+                 /* Padding-top diatur oleh class pt-20, padding-bottom tetap */
                 padding-bottom: 180px;
             }
 
@@ -387,9 +388,25 @@
 
         @media (max-width: 640px) {
             .literise-title { font-size: 3rem; }
-            .hero-section { padding-top: 100px; padding-bottom: 160px; }
+            .hero-section { /* Padding-top diatur oleh class pt-20, padding-bottom tetap */ padding-bottom: 160px; }
             .illustration-journal { width: 90% !important; max-width: 350px !important; }
             .feature-card { padding: 1.5rem 1rem; }
+
+            /* PERBAIKAN: Navbar mobile lebih compact */
+            nav .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            /* PERBAIKAN: Logo lebih kecil di mobile */
+            nav .text-2xl {
+                font-size: 1.25rem;
+            }
+
+            /* PERBAIKAN: Hamburger button lebih ke kiri */
+            .md\\:hidden {
+                margin-left: auto;
+            }
         }
 
         @media (max-width: 480px) {
@@ -400,6 +417,25 @@
                 top: 275px !important;
                 opacity: 35% !important;
             }
+
+            /* PERBAIKAN EXTRA: Pastikan hamburger tidak keluar layar */
+            nav .container {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+        }
+
+        /* PERBAIKAN TAMBAHAN: Padding container yang lebih aman untuk mobile */
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
         }
     </style>
 </head>
@@ -407,11 +443,10 @@
 
     <div class="relative min-h-screen w-full">
 
-        <!-- ===== HEADER / NAVIGASI ===== -->
         <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#906AF1] to-[#5438DB] text-white shadow-lg">
-            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-                <a href="{{ route('home') }}" class="flex items-center space-x-2 text-2xl font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <div class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+                <a href="{{ route('home') }}" class="flex items-center space-x-2 text-xl sm:text-2xl font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                     </svg>
                     <span>LITERISE</span>
@@ -422,10 +457,8 @@
                     <a href="{{ route('permainan.index') }}" class="hover:text-pink-300 transition-colors">Permainan</a>
                     <a href="{{ route('tentang.index') }}" class="hover:text-pink-300 transition-colors">Tentang</a>
 
-                    <!-- LOGIKA AUTH BARU DENGAN DROPDOWN PROFIL YANG DIPERBAIKI -->
                     @auth
                         <div x-data="{ open: false }" class="relative">
-                            <!-- Tombol Dropdown yang diperbaiki -->
                             <button @click="open = !open" class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:bg-white/20 border border-white/20 btn-glow">
                                 <span>{{ Str::limit(Auth::user()->name, 10) }}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300" :class="{'rotate-180': open}" viewBox="0 0 20 20" fill="currentColor">
@@ -433,7 +466,6 @@
                                 </svg>
                             </button>
 
-                            <!-- Menu Dropdown yang diperbaiki -->
                             <div x-show="open"
                                 @click.away="open = false"
                                 x-transition:enter="transition ease-out duration-200"
@@ -484,9 +516,8 @@
                     @endauth
                 </div>
 
-                <div class="md:hidden">
-                    <!-- Hamburger Button dengan animasi - DIPERBAIKI -->
-                    <button id="mobile-menu-button" class="hamburger text-white focus:outline-none">
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="hamburger text-white focus:outline-none ml-2">
                         <span class="hamburger-line"></span>
                         <span class="hamburger-line"></span>
                         <span class="hamburger-line"></span>
@@ -494,7 +525,6 @@
                 </div>
             </div>
 
-            <!-- Mobile Menu - DIPERBAIKI -->
             <div id="mobile-menu" class="mobile-menu">
                 <a href="{{ route('home') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Beranda</a>
                 <a href="{{ route('permainan.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Permainan</a>
@@ -517,53 +547,46 @@
             </div>
         </nav>
 
-        <!-- ===== HERO SECTION ===== -->
-        <main class="relative z-20 hero-section pt-32 pb-64 md:pb-72 flex flex-col items-center justify-center text-center min-h-screen px-4">
+        <main class="relative z-20 hero-section pt-20 pb-64 md:pb-72 flex flex-col items-center justify-center text-center min-h-screen px-4">
 
-            <!-- Elemen Kiri Pojok Kanan Atas -->
             <div class="decorative-left absolute top-[-120px] left-[-180px] md:top-[-200px] md:left-[-300px]
-                        w-[580px] h-[580px] md:w-[680px] md:h-[680px]
-                        z-[-2] floating-slow">
+                            w-[580px] h-[580px] md:w-[680px] md:h-[680px]
+                            z-[-2] floating-slow">
                 <img src="{{ asset('images/Elemen_Kiri_Pojok_Kanan_ATas.png') }}"
                     alt="Elemen Dekorasi Atas Kepala"
                     class="relative w-full h-full object-contain opacity-95 drop-shadow-[0_15px_40px_rgba(116,67,255,0.5)]">
             </div>
 
-            <!-- Elemen Kanan Atas -->
             <div class="decorative-right absolute top-[-100px] right-[-140px] md:top-[-145px] md:right-[-180px]
-                        w-[400px] h-[400px] md:w-[500px] md:h-[500px]
-                        z-0 floating">
+                            w-[400px] h-[400px] md:w-[500px] md:h-[500px]
+                            z-0 floating">
                 <img src="{{ asset('images/Elemen_Kanan_Atas.png') }}"
                     alt="Elemen Dekorasi Kanan Atas"
                     class="relative w-full h-full object-contain opacity-95 drop-shadow-[0_15px_40px_rgba(116,67,255,0.4)] z-[-2]">
             </div>
 
-            <!-- Ilustrasi Kiri (Kepala) -->
             <div class="illustration-kepala absolute top-[-px] left-[-100px] md:top-[-50px] md:left-[-120px]
-                        w-[800px] h-[800px] sm:w-[600px] sm:h-[600px] lg:w-[900px] lg:h-[900px]
-                        z-[-1] floating-slow">
+                            w-[800px] h-[800px] sm:w-[600px] sm:h-[600px] lg:w-[900px] lg:h-[900px]
+                            z-[-1] floating-slow">
                 <img src="{{ asset('images/Kepala.png') }}"
                     alt="Kepala"
                     class="w-full h-full object-contain opacity-95 drop-shadow-[0_25px_60px_rgba(116,67,255,0.4)]">
             </div>
 
-            <!-- Ilustrasi Kanan (Jurnal) -->
             <div class="illustration-journal absolute top-[60px] right-[-120px] md:top-[11px] md:right-[-140px]
-                        w-[600px] h-[600px] sm:w-[500px] sm:h-[500px] lg:w-[750px] lg:h-[750px]
-                        z-[-1] floating-fast">
+                            w-[600px] h-[600px] sm:w-[500px] sm:h-[500px] lg:w-[750px] lg:h-[750px]
+                            z-[-1] floating-fast">
                 <img src="{{ asset('images/Journal.png') }}"
                     alt="Jurnal"
                     class="w-full h-full object-contain rotate-[-10deg] opacity-95 drop-shadow-[0_25px_60px_rgba(116,67,255,0.5)]">
             </div>
 
-            <!-- TEKS UTAMA -->
             <div class="relative z-10">
                 <h1 class="literise-title blink" style="font-family: poppins;" data-aos="fade-down" data-aos-duration="1000">LITERISE</h1>
                 <p class="bg-gradient-to-b from-[#7443ff] to-[#d3a2ff] bg-clip-text text-transparent text-lg md:text-xl max-w-lg mx-auto mt-4 subtitle-shadow 0 0 10px font-semibold" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                     Tantang diri di Misi Baca Harian, Asah Kejelian lawan Hoax, dan Kumpulkan Badge keren!
                 </p>
 
-                <!-- Tombol yang sebelumnya di footer -->
                 <div class="flex flex-col sm:flex-row justify-center mt-10 space-y-4 sm:space-y-0 sm:space-x-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
 
                     <a href="{{ route('permainan.index') }}" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block loading-button">
@@ -579,14 +602,12 @@
                 </div>
             </div>
 
-            <!-- Gambar latar bawah -->
             <div class="absolute bottom-[-40px] left-0 w-full h-full z-[-1] drop-shadow-[0_10px_25px_rgba(0,0,0,0.4)]">
                 <img src="{{ asset('images/LiteRise.png') }}" class="w-full h-full object-cover" alt="Gelombang Latar Belakang">
                 <img src="{{ asset('images/LiteRise.png') }}" class="w-full h-full object-cover scale-y-[-1]" alt="Gelombang Latar Belakang">
             </div>
         </main>
 
-        <!-- ===== SECTION FITUR UTAMA ===== -->
         <section id="fitur" class="relative py-20 wave-bg-flipped">
             <div class="container mx-auto px-6 relative z-30">
                 <div class="text-center mb-16" data-aos="fade-up">
@@ -603,10 +624,8 @@
                     </div>
                 </div>
 
-                <!-- Mengganti grid menjadi 4 kolom untuk 4 fitur -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-                    <!-- Fitur 1: Reading Mission -->
                     <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
                         <div class="feature-card-content">
                             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center">
@@ -622,7 +641,6 @@
                         </div>
                     </div>
 
-                    <!-- Fitur 2: Hoax or Not? -->
                     <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
                         <div class="feature-card-content">
                             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center">
@@ -638,7 +656,6 @@
                         </div>
                     </div>
 
-                    <!-- Fitur 3: Library Hub -->
                     <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
                         <div class="feature-card-content">
                             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center">
@@ -654,7 +671,6 @@
                         </div>
                     </div>
 
-                    <!-- Fitur 4: Zona Tata Bahasa (BARU) -->
                     <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
                         <div class="feature-card-content">
                             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center">
@@ -674,8 +690,7 @@
             </div>
         </section>
 
-                    <!-- SECTION TENTANG (Dipindahkan dari Welcome) -->
-            <section id="tentang" class="relative py-20 bg-gradient-to-b from-[#5c1d8f] to-[#4a2e7c]">
+                <section id="tentang" class="relative py-20 bg-gradient-to-b from-[#5c1d8f] to-[#4a2e7c]">
                 <div class="container mx-auto px-6">
                     <div class="text-center mb-16" data-aos="fade-up">
                         <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#f563fd] to-[#8f9bff] bg-clip-text text-transparent mb-4">
@@ -749,7 +764,6 @@
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <!-- Badge 1 -->
                     <div class="text-center" data-aos="zoom-in" data-aos-delay="100">
                         <div class="relative inline-block mb-4">
                             <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center badge-pulse">
@@ -762,7 +776,6 @@
                         <p class="text-gray-300 text-sm">Cek fakta 10 berita di Hoax or Not?</p>
                     </div>
 
-                    <!-- Badge 2 -->
                     <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
                         <div class="relative inline-block mb-4">
                             <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center badge-float" style="animation-delay: 0.3s;">
@@ -775,7 +788,6 @@
                         <p class="text-gray-300 text-sm">Tandai 15 berita sebagai fakta</p>
                     </div>
 
-                    <!-- Badge 3 -->
                     <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
                         <div class="relative inline-block mb-4">
                             <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center badge-pulse">
@@ -787,7 +799,6 @@
                         <h3 class="text-lg font-bold text-white">Library Lover</h3>
                         <p class="text-gray-300 text-sm">Baca 20 artikel di Library Hub</p>
                     </div>
-                    <!-- Badge 4 -->
                     <div class="text-center" data-aos="zoom-in" data-aos-delay="400">
                         <div class="relative inline-block mb-4">
                             <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center badge-float" style="animation-delay: 0.5s;">
@@ -803,12 +814,9 @@
             </div>
         </section>
 
-        <!-- ===== SECTION TESTIMONI ===== -->
         <section class="relative py-20 bg-gradient-to-b from-[#5c1d8f] to-[#4a2e7c]">
-            <!-- Konten Testimoni bisa ditambahkan di sini -->
-        </section>
+            </section>
 
-        <!-- ===== SECTION DAFTAR ===== -->
         <section class="relative py-20 bg-gradient-to-b from-[#4a2e7c] to-[#5c1d8f]">
             <div class="container mx-auto px-6">
                 <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
@@ -819,7 +827,6 @@
                         Mulai perjalanan literasi digital Anda dan dapatkan pengalaman belajar yang menyenangkan dengan fitur-fitur interaktif kami.
                     </p>
 
-                    <!-- Hanya tampilkan tombol jika user BELUM login -->
                     @guest
                     <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                         <a href="{{ route('register') }}" class="relative overflow-hidden font-semibold py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 shadow-[0_6px_20px_rgba(116,67,255,0.5)] hover:shadow-[0_8px_25px_rgba(116,67,255,0.7)] btn-glow block loading-button">
@@ -837,12 +844,9 @@
             </div>
         </section>
 
-        <!-- ===== FOOTER ===== -->
         <footer class="bottom-[-100px] w-full bg-[#4a2e7c] text-white pt-12 pb-6 relative z-[9999]">
             <div class="container mx-auto px-6 z-4">
-                <!-- Bagian atas footer -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-                    <!-- Kolom 1: Tentang -->
                     <div class="col-span-1 md:col-span-2">
                         <h3 class="text-xl font-bold mb-4 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -872,7 +876,6 @@
                         </div>
                     </div>
 
-                    <!-- Kolom 2: Link Cepat -->
                     <div>
                         <h3 class="text-xl font-bold mb-4">Link Cepat</h3>
                         <ul class="space-y-2">
@@ -883,7 +886,6 @@
                         </ul>
                     </div>
 
-                    <!-- Kolom 3: Kontak -->
                     <div>
                         <h3 class="text-xl font-bold mb-4">Kontak</h3>
                         <ul class="space-y-2 text-gray-300">
@@ -903,7 +905,6 @@
                     </div>
                 </div>
 
-                <!-- Bagian bawah footer -->
                 <div class="border-t border-gray-600 pt-6 flex flex-col md:flex-row justify-between items-center">
                     <p class="text-sm opacity-70 mb-4 md:mb-0">© 2025 Literise. Semua hak dilindungi.</p>
                     <div class="flex space-x-6 text-sm">
@@ -915,7 +916,6 @@
         </footer>
     </div>
 
-    <!-- Script untuk AOS (Animate On Scroll) -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Inisialisasi AOS
@@ -956,7 +956,7 @@
                 const targetElement = document.querySelector(targetId);
                 if(targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 80, // Offset 80px untuk fixed navbar
                         behavior: 'smooth'
                     });
 
@@ -978,6 +978,7 @@
                 this.style.pointerEvents = 'none';
 
                 // Reset setelah 2 detik (simulasi)
+                // Dalam aplikasi nyata, navigasi halaman akan mengambil alih
                 setTimeout(() => {
                     this.innerHTML = originalText;
                     this.style.pointerEvents = 'auto';

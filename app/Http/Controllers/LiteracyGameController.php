@@ -7,20 +7,17 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth; // <-- Diperlukan
 use App\Services\BadgeService;      // <-- Diperlukan
-use App\Services\FastApiService;
 use App\Models\Score;               // <-- Diperlukan
 
 class LiteracyGameController extends Controller
 {
-    protected $apiBaseUrl ="https://python-ai-service-syahrrulll-syahrrullls-projects.vercel.app/";
+    protected $apiBaseUrl = 'http://127.0.0.1:8001';
     protected $badgeService;
 
     // Inject BadgeService
     public function __construct(BadgeService $badgeService)
     {
         $this->badgeService = $badgeService;
-        $this->apiBaseUrl = env('FASTAPI_BASE_URL', 'https://python-ai-service-syahrrulll-syahrrullls-projects.vercel.app');
-
         // Pastikan typo '$this.apiBaseUrl' diperbaiki menjadi '$this->apiBaseUrl'
     }
 
@@ -114,4 +111,4 @@ class LiteracyGameController extends Controller
             return redirect(route('game.play'))->with('error', 'Terjadi kesalahan sistem: ' . $e->getMessage());
         }
     }
-}
+}   

@@ -7,19 +7,16 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth; // <-- Diperlukan
 use App\Services\BadgeService;      // <-- Diperlukan
-use App\Services\FastApiService;
 use App\Models\Score;               // <-- Diperlukan
 
 class LibraryController extends Controller
 {
-    protected $apiBaseUrl = "https://python-ai-service-syahrrulll-syahrrullls-projects.vercel.app";
+    protected $apiBaseUrl = 'http://127.0.0.1:8001';
     protected $badgeService;
 
     // Inject BadgeService
     public function __construct(BadgeService $badgeService)
     {
-        $this->apiBaseUrl = env('FASTAPI_BASE_URL', 'https://python-ai-service-syahrrulll-syahrrullls-projects.vercel.app');
-
         $this->badgeService = $badgeService;
     }
 
@@ -44,7 +41,7 @@ class LibraryController extends Controller
         try {
             $response = Http::timeout(60)
                 ->post($this->apiBaseUrl . '/api/library/generate-full-text', [
-                    'format' => $request->input('format'),  // ← TAMBAHKAN INI
+                    'format' => $request->input('format'),
                     'genre' => $request->input('genre'),
                 ]);
 
@@ -99,11 +96,13 @@ class LibraryController extends Controller
             'answers.*' => 'nullable|string',
         ]);
 
-        $user_answers = array_map(fn($answer) => $answer ?? '', $request->input('answers'));
+        $user_answers = array_map(function ($answer) {
+            return $answer ?? '';
+        }, $request->input('answers'));
 
         try {
             $response = Http::timeout(30)
-                ->post($this->apiBaseUrl . "/api/library/validate-blanks/{$game_id}", [  // ← PERHATIKAN PATH
+                ->post($this->apiBaseUrl . "/api/library/validate-blanks/{$game_id}", [
                     'user_answers' => $user_answers,
                 ]);
 
@@ -111,7 +110,7 @@ class LibraryController extends Controller
                 $errorData = $response->json();
                 $errorMessage = $errorData['detail'] ?? $response->body();
                 Log::error('Gagal validate-blanks dari AI', ['status' => $response->status(), 'body' => $errorMessage]);
-                return redirect(route('library.index'))->with('error', 'Gagal memvalidasi jawaban. Coba lagi. Detail: ' . $errorMessage);
+                return redirect(route('library.index'))->with('error', 'Gagal memvalidasi kuis. Sesi mungkin kedaluwarsa. Detail: ' . $errorMessage);
             }
 
             $data = $response->json();
@@ -119,8 +118,14 @@ class LibraryController extends Controller
             $gameType = 'Library Hub';
             $score = (int) $data['total_score'];
 
-            Score::create(['score' => $score]);
+            // --- LOGIKA SKOR & BADGE BARU ---
+            Score::create([
+                'user_id' => $user->id,
+                'game_type' => $gameType,
+                'score' => $score
+            ]);
             $this->badgeService->checkAndAwardBadges($user, $gameType, $score);
+            // --- AKHIR LOGIKA BARU ---
 
             return view('library.result', ['result' => $data]);
 
