@@ -696,23 +696,6 @@
                         <div data-aos="fade-right">
                             <div class="relative">
                                 <div class="absolute -top-4 -left-4 w-full h-full bg-gradient-to-r from-[#7443ff] to-[#d3a2ff] rounded-2xl opacity-30"></div>
-                                <div class="relative bg-white p-8 rounded-2xl shadow-xl">
-                                    <h3 class="text-2xl font-bold text-[#4a2e7c] mb-4">Misi Kami</h3>
-                                    <p class="text-gray-700 mb-6">
-                                        Meningkatkan literasi digital masyarakat Indonesia melalui pendekatan yang menyenangkan dan interaktif. Kami percaya bahwa kemampuan literasi yang baik adalah kunci untuk menghadapi tantangan di era digital.
-                                    </p>
-                                    <div class="flex items-center space-x-4">
-                                        <div class="flex-1">
-                                            <div class="flex justify-between mb-1">
-                                                <span class="text-sm font-medium text-[#4a2e7c]">Tingkat Literasi</span>
-                                                <span class="text-sm font-medium text-[#4a2e7c]">65%</span>
-                                            </div>
-                                            <div class="progress-bar">
-                                                <div class="progress-fill" style="width: 65%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
