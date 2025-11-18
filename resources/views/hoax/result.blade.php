@@ -534,7 +534,7 @@
                             <p class="text-lg sm:text-xl text-green-200">Jawaban Anda <span class="font-bold text-white">{{ $user_choice }}</span> tepat sekali.</p>
                             <div class="mt-3 sm:mt-4 flex justify-center">
                                 <div class="bg-green-500/20 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-green-300 text-sm">
-                                    🎉 Poin +10
+                                    🎉 Poin +20
                                 </div>
                             </div>
                         </div>

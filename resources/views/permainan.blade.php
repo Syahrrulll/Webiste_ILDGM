@@ -771,20 +771,7 @@
                                     <p class="text-gray-300 mb-4 flex-grow">
                                         Cari topik menarik, baca artikel yang dihasilkan AI, dan jawab 3 kuis pemahaman untuk mengumpulkan poin.
                                     </p>
-                                    <div class="game-stats-improved">
-                                        <div class="game-stat-item">
-                                            <span>⏱️</span>
-                                            <span>10-15 menit</span>
-                                        </div>
-                                        <div class="game-stat-item">
-                                            <span>⭐</span>
-                                            <span>4.8/5</span>
-                                        </div>
-                                        <div class="game-stat-item">
-                                            <span>👥</span>
-                                            <span>2.4k</span>
-                                        </div>
-                                    </div>
+                                    
                                     <a href="{{ route('game.play') }}" class="feature-card-button mt-4">Mulai Misi</a>
                                 </div>
                             </div>
@@ -806,20 +793,7 @@
                                     <p class="text-gray-300 mb-4 flex-grow">
                                         Tebak apakah berita viral ini fakta atau hoaks, lalu lihat penjelasan AI dan sumber aslinya untuk memverifikasi.
                                     </p>
-                                    <div class="game-stats-improved">
-                                        <div class="game-stat-item">
-                                            <span>⏱️</span>
-                                            <span>5-10 menit</span>
-                                        </div>
-                                        <div class="game-stat-item">
-                                            <span>⭐</span>
-                                            <span>4.9/5</span>
-                                        </div>
-                                        <div class="game-stat-item">
-                                            <span>👥</span>
-                                            <span>3.1k</span>
-                                        </div>
-                                    </div>
+                                    
                                     <a href="{{ route('hoax.index') }}" class="feature-card-button mt-4">Cek Fakta</a>
                                 </div>
                             </div>
@@ -841,20 +815,7 @@
                                     <p class="text-gray-300 mb-4 flex-grow">
                                         Baca cerpen atau artikel AI berdasarkan genre favorit, lalu uji ingatan dengan game "Melengkapi Kata".
                                     </p>
-                                    <div class="game-stats-improved">
-                                        <div class="game-stat-item">
-                                            <span>⏱️</span>
-                                            <span>15-20 menit</span>
-                                        </div>
-                                        <div class="game-stat-item">
-                                            <span>⭐</span>
-                                            <span>4.7/5</span>
-                                        </div>
-                                        <div class="game-stat-item">
-                                            <span>👥</span>
-                                            <span>1.8k</span>
-                                        </div>
-                                    </div>
+                                    
                                     <a href="{{ route('library.index') }}" class="feature-card-button mt-4">Mulai Membaca</a>
                                 </div>
                             </div>
@@ -876,20 +837,7 @@
                                     <p class="text-gray-300 mb-4 flex-grow">
                                         AI akan memberikan 5 kalimat (benar atau salah) berdasarkan genre. Tugas Anda adalah memperbaiki kesalahan tata bahasa!
                                     </p>
-                                    <div class="game-stats-improved">
-                                        <div class="game-stat-item">
-                                            <span>⏱️</span>
-                                            <span>8-12 menit</span>
-                                        </div>
-                                        <div class="game-stat-item">
-                                            <span>⭐</span>
-                                            <span>4.6/5</span>
-                                        </div>
-                                        <div class="game-stat-item">
-                                            <span>👥</span>
-                                            <span>1.5k</span>
-                                        </div>
-                                    </div>
+                                    
                                     <a href="{{ route('grammar.index') }}" class="feature-card-button mt-4">Asah Ejaan</a>
                                 </div>
                             </div>
@@ -911,20 +859,7 @@
                                     <p class="text-gray-300 mb-4 flex-grow">
                                         Permainan seru sedang dalam pengembangan! Segera hadir untuk melatih kemampuan literasi digital Anda.
                                     </p>
-                                    <div class="game-stats-improved">
-                                        <div class="game-stat-item">
-                                            <span>⏱️</span>
-                                            <span>Coming Soon</span>
-                                        </div>
-                                        <div class="game-stat-item">
-                                            <span>⭐</span>
-                                            <span>-/5</span>
-                                        </div>
-                                        <div class="game-stat-item">
-                                            <span>👥</span>
-                                            <span>0</span>
-                                        </div>
-                                    </div>
+                                    
                                     <button class="feature-card-button mt-4 opacity-50 cursor-not-allowed" disabled>
                                         Segera Hadir
                                     </button>
@@ -948,20 +883,7 @@
                                     <p class="text-gray-300 mb-4 flex-grow">
                                         Permainan tantangan baru sedang dipersiapkan untuk mengasah kemampuan berpikir kritis dan analitis Anda.
                                     </p>
-                                    <div class="game-stats-improved">
-                                        <div class="game-stat-item">
-                                            <span>⏱️</span>
-                                            <span>Coming Soon</span>
-                                        </div>
-                                        <div class="game-stat-item">
-                                            <span>⭐</span>
-                                            <span>-/5</span>
-                                        </div>
-                                        <div class="game-stat-item">
-                                            <span>👥</span>
-                                            <span>0</span>
-                                        </div>
-                                    </div>
+                                    
                                     <button class="feature-card-button mt-4 opacity-50 cursor-not-allowed" disabled>
                                         Segera Hadir
                                     </button>
