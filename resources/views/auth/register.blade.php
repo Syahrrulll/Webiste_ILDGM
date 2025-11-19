@@ -698,10 +698,10 @@
             }
 
             // Validate password
-            if (password.length < 6) {
-                showError('passwordError', 'Password harus minimal 6 karakter');
+            if (password.length < 8) {
+                showError('passwordError', 'Password harus minimal 8 karakter');
                 isValid = false;
-                errors.push('Password harus minimal 6 karakter');
+                errors.push('Password harus minimal 8 karakter');
             }
 
             // Validate password confirmation
