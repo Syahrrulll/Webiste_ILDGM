@@ -13,11 +13,6 @@ use App\Http\Controllers\LeaderboardController;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Di sinilah Anda dapat mendaftarkan rute web untuk aplikasi Anda. Rute-rute
-| ini dimuat oleh RouteServiceProvider dan semuanya akan
-| ditugaskan ke grup middleware "web".
-|
 */
 
 // Rute Landing Page (Publik)
@@ -26,7 +21,6 @@ Route::get('/', function () {
 })->name('home');
 
 // === GRUP AUTENTIKASI MANUAL (GUEST) ===
-// Hanya bisa diakses jika BELUM login
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
@@ -45,7 +39,6 @@ Route::get('/tentang', function () {
     })->name('permainan.index');
 
 // === GRUP PERMAINAN (HARUS LOGIN) ===
-// Hanya bisa diakses jika SUDAH login
 Route::middleware('auth')->group(function () {
 
     // Logout
@@ -58,96 +51,43 @@ Route::middleware('auth')->group(function () {
     // --- FITUR 1: READING MISSION (AI SEARCH + 3 KUIS) ---
     Route::get('/play', [LiteracyGameController::class, 'index'])->name('game.play');
     Route::post('/play/generate', [LiteracyGameController::class, 'generateMission'])->name('game.generate');
-    Route::post('/play/submit-quiz/{mission_id}', [LiteracyGameController::class, 'submitQuiz'])->name('game.submit_quiz');
 
-    // --- FITUR 2: HOAX OR NOT? (AI + GOOGLE SEARCH) ---
-    Route::get('/hoax-or-not', [HoaxController::class, 'showQuiz'])->name('hoax.index');
-    Route::post('/hoax-or-not/check', [HoaxController::class, 'checkAnswer'])->name('hoax.check');
+    // --- TAMBAHKAN ROUTE INI ---
+    Route::get('/play/quiz/{mission_id}', [LiteracyGameController::class, 'showQuiz'])->name('game.show_quiz');
+    // --- AKHIR TAMBAHAN ---
+
+    Route::post('/play/submit-quiz/{mission_id}', [LiteracyGameController::class, 'submitQuiz'])->name('game.submit_quiz');
+    Route::get('/play/result/{mission_id}', [LiteracyGameController::class, 'showResult'])->name('game.result');
+
 
     // --- FITUR 3: LIBRARY HUB (GAME MELENGKAPI KATA) ---
-    Route::get('/library', [LibraryController::class, 'index'])->name('library.index');
-    Route::post('/library/generate-game', [LibraryController::class, 'generateGame'])->name('library.generate_game');
-    Route::get('/library/quiz/{game_id}', [LibraryController::class, 'showQuiz'])->name('library.show_quiz');
-    Route::post('/library/submit-quiz/{game_id}', [LibraryController::class, 'submitQuiz'])->name('library.submit_quiz');
+    Route::prefix('library')->name('library.')->group(function () {
+        Route::get('/', [LibraryController::class, 'index'])->name('index');
+        Route::get('/generate', [LibraryController::class, 'generatePage'])->name('generate_page');
+        Route::post('/generate-game', [LibraryController::class, 'generateGame'])->name('generate_game');
+        Route::get('/quiz/{game_id}', [LibraryController::class, 'showQuiz'])->name('show_quiz');
+        Route::post('/submit/{game_id}', [LibraryController::class, 'submitQuiz'])->name('submit_quiz');
+        Route::get('/result/{game_id}', [LibraryController::class, 'showResult'])->name('result');
+    });
 
-    // --- FITUR 4: ZONA TATA BAHASA (GAME PERBAIKI KALIMAT) ---
-    Route::get('/grammar-zone', [GrammarZoneController::class, 'index'])->name('grammar.index');
-    Route::post('/grammar-zone/generate-game', [GrammarZoneController::class, 'generateGame'])->name('grammar.generate_game');
-    Route::post('/grammar-zone/submit-game/{game_id}', [GrammarZoneController::class, 'submitGame'])->name('grammar.submit_game');
+    // Grammar Zone routes
+    Route::prefix('grammar')->name('grammar.')->group(function () {
+        Route::get('/', [GrammarZoneController::class, 'index'])->name('index');
+        Route::get('/generate', [GrammarZoneController::class, 'generatePage'])->name('generate_page');
+        Route::post('/generate-game', [GrammarZoneController::class, 'generateGame'])->name('generate_game');
+        Route::get('/quiz/{game_id}', [GrammarZoneController::class, 'showQuiz'])->name('show_quiz');
+        Route::post('/submit/{game_id}', [GrammarZoneController::class, 'submitGame'])->name('submit_game');
+        Route::get('/result/{game_id}', [GrammarZoneController::class, 'showResult'])->name('result');
+    });
+
+    // Hoax Hunter routes
+    Route::prefix('hoax')->name('hoax.')->group(function () {
+        Route::get('/', [HoaxController::class, 'showQuiz'])->name('index');
+        Route::post('/check', [HoaxController::class, 'checkAnswer'])->name('check');
+        Route::get('/generate', [HoaxController::class, 'generatePage'])->name('generate_page');
+        Route::post('/generate-game', [HoaxController::class, 'generateGame'])->name('generate_game');
+        Route::get('/quiz/{game_id}', [HoaxController::class, 'showQuiz'])->name('show_quiz');
+        Route::post('/submit/{game_id}', [HoaxController::class, 'submitGame'])->name('submit_game');
+        Route::get('/result/{game_id}', [HoaxController::class, 'showResult'])->name('result');
+    });
 });
-
-
-// use Illuminate\Support\Facades\Artisan;
-
-// Route::get('migrate-fresh-seed', function () {
-//     try {
-//         $exitCode = Artisan::call('migrate:fresh', [
-//             '--seed' => true,
-//              '--force' => true, // ⬅️ Tambahkan ini
-//         ]);
-
-//         $output = Artisan::output();
-
-//         if ($exitCode === 0) {
-//             return "✅ Success:\n\n" . nl2br($output);
-//         } else {
-//             return "❌ Failed:\n\n" . nl2br($output);
-//         }
-//     } catch (Exception $e) {
-//         return "⚠️ Exception Caught:\n\n" . $e->getMessage();
-//     }
-// });
-
-// Route::get('migrate-fresh', function () {
-//     try {
-//         $exitCode = Artisan::call('migrate:fresh', [
-//              '--force' => true, // ⬅️ Tambahkan ini
-//         ]);
-
-//         $output = Artisan::output();
-
-//         if ($exitCode === 0) {
-//             return "✅ Success:\n\n" . nl2br($output);
-//         } else {
-//             return "❌ Failed:\n\n" . nl2br($output);
-//         }
-//     } catch (Exception $e) {
-//         return "⚠️ Exception Caught:\n\n" . $e->getMessage();
-//     }
-// });
-
-// Route::get('migrate', function () {
-//     try {
-//         $exitCode = Artisan::call('migrate', [
-//              '--force' => true, // ⬅️ Tambahkan ini
-//         ]);
-
-//         $output = Artisan::output();
-
-//         if ($exitCode === 0) {
-//             return "✅ Success:\n\n" . nl2br($output);
-//         } else {
-//             return "❌ Failed:\n\n" . nl2br($output);
-//         }
-//     } catch (Exception $e) {
-//         return "⚠️ Exception Caught:\n\n" . $e->getMessage();
-//     }
-// });
-
-// Route::get('rollback', function () {
-//     try {
-//         $exitCode = Artisan::call('migrate:rollback', [
-//              '--force' => true, // ⬅️ Tambahkan ini
-//         ]);
-
-//         $output = Artisan::output();
-
-//         if ($exitCode === 0) {
-//             return "✅ Success:\n\n" . nl2br($output);
-//         } else {
-//             return "❌ Failed:\n\n" . nl2br($output);
-//         }
-//     } catch (Exception $e) {
-//         return "⚠️ Exception Caught:\n\n" . $e->getMessage();
-//     }
-// });

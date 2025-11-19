@@ -400,114 +400,26 @@
     <div class="floating-element floating-slow w-40 h-40 bottom-1/4 left-1/3 opacity-35"></div>
 
     <!-- ===== HEADER / NAVIGASI ===== -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#2d1b69] to-[#1f1047] text-white shadow-lg border-b border-purple-500/20">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="{{ route('home') }}" class="flex items-center space-x-2 text-2xl font-bold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#2d1b69] to-[#1f1047] text-white shadow-lg border-b border-purple-500/20">
+        <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
+
+            <a href="{{ route('home') }}" class="flex items-center space-x-2 text-lg sm:text-2xl font-bold transition-transform hover:scale-105">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                 </svg>
                 <span>LITERISE</span>
             </a>
 
-            <div class="hidden md:flex items-center space-x-6">
-                <a href="{{ route('home') }}" class="hover:text-pink-300 transition-colors">Beranda</a>
-                <a href="{{ route('permainan.index') }}" class="hover:text-pink-300 transition-colors">Permainan</a>
-                <a href="{{ route('tentang.index') }}" class="hover:text-pink-300 transition-colors">Tentang</a>
+            <a href="{{ route('permainan.index') }}" class="flex items-center space-x-1 sm:space-x-2 bg-white/10 backdrop-blur-sm text-white font-semibold px-3 py-2 sm:px-5 sm:py-2 rounded-full transition-all duration-300 hover:bg-white/20 border border-white/20 btn-glow text-xs sm:text-base group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
 
-                @auth
-                    <div x-data="{ open: false }" class="relative">
-                        <button @click="open = !open" class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:bg-white/20 border border-white/20 btn-glow">
-                            <span>{{ Str::limit(Auth::user()->name, 10) }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300" :class="{'rotate-180': open}" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-
-                        <div x-show="open"
-                            @click.away="open = false"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 transform -translate-y-2"
-                            x-transition:enter-end="opacity-100 transform translate-y-0"
-                            x-transition:leave="transition ease-in duration-150"
-                            x-transition:leave-start="opacity-100 transform translate-y-0"
-                            x-transition:leave-end="opacity-0 transform -translate-y-2"
-                            class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl z-50"
-                            style="display: none;">
-
-                            <div class="px-4 py-3 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-pink-50">
-                                <p class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->name }}</p>
-                                <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email }}</p>
-                            </div>
-
-                            <a href="{{ route('profile.index') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                                Profil & Badge Saya
-                            </a>
-                            <a href="{{ route('leaderboard.index') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                </svg>
-                                Leaderboard
-                            </a>
-
-                            <div class="border-t border-gray-200"></div>
-
-                            <form method="POST" action="{{ route('logout') }}" class="w-full">
-                                @csrf
-                                <button type="submit" class="block w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                    </svg>
-                                    Logout
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                @else
-                    <a href="{{ route('login') }}" class="hover:text-pink-300 transition-colors">Masuk</a>
-                    <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg btn-glow">
-                        Daftar
-                    </a>
-                @endauth
-            </div>
-
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu md:hidden">
-            <a href="{{ route('home') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Beranda</a>
-            <a href="{{ route('permainan.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Permainan</a>
-            <a href="{{ route('tentang.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Tentang</a>
-
-            @auth
-                <a href="{{ route('profile.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Profil Saya</a>
-                <a href="{{ route('leaderboard.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Leaderboard</a>
-                <form method="POST" action="{{ route('logout') }}" class="inline w-full">
-                    @csrf
-                    <a href="{{ route('logout') }}"
-                    onclick="event.preventDefault(); this.closest('form').submit();"
-                    class="header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow w-full block">
-                        Logout
-                    </a>
-                </form>
-            @else
-                <a href="{{ route('login') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Masuk</a>
-                <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow">
-                    Daftar
-                </a>
-            @endauth
+                <span class="block sm:hidden">Kembali Ke Permainan</span>
+                <span class="hidden sm:block">Kembali Ke Permainan</span>
+            </a>
         </div>
     </nav>
-
     <!-- ===== MAIN CONTENT ===== -->
     <main class="relative z-20 pt-32 pb-20 flex flex-col items-center justify-center min-h-screen px-4">
 
@@ -697,6 +609,61 @@
                 }, 3000);
             });
         });
+        // 1. Setup Audio Context (Hanya dibuat sekali)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // 2. Fungsi Membuat Suara "Click" Digital (Nol Delay)
+    function playClickSound() {
+        // Bangunkan Audio Context jika tertidur (kebijakan browser)
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        // Setting Nada: Mulai tinggi (800Hz) turun cepat ke (100Hz) -> Efek "Pluk"
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+
+        // Setting Volume: Cepat hilang (Short decay)
+        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime); // Volume 30%
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.1);
+    }
+
+    // 3. Event Listener Spesifik Tombol
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Gunakan 'pointerdown' agar suara muncul SAAT JARI MENEMPEL (bukan saat dilepas)
+        document.addEventListener('pointerdown', function(e) {
+
+            // DAFTAR SELECTOR YANG DIANGGAP TOMBOL
+            // Hanya elemen di dalam list ini yang akan bunyi
+            const isButton = e.target.closest(`
+                button,                 /* Semua tag <button> */
+                .btn-game-3d,           /* Class tombol game Anda */
+                .btn-game-secondary,    /* Class tombol secondary */
+                .result-button,         /* Tombol di halaman hasil */
+                .header-btn,            /* Tombol login/register di header */
+                .feature-card-button,   /* Tombol di kartu fitur */
+                .platform-btn,          /* Tombol sosmed di footer */
+                .back-button,           /* Tombol kembali */
+                .submit-button          /* Tombol kirim kuis */
+            `);
+
+            // Jika yang ditekan adalah salah satu dari daftar di atas -> BUNYI
+            if (isButton) {
+                playClickSound();
+            }
+        });
+    });
     </script>
 </body>
 </html>

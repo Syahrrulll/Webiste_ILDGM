@@ -312,6 +312,122 @@
             display: flex;
         }
 
+        /* NEW: Animasi Loading - SAMA SEPERTI DI READING MISSION */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        .loading-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-button.loading {
+            pointer-events: none;
+        }
+
+        .loading-button.loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* NEW: LOADING OVERLAY - SAMA SEPERTI DI READING MISSION */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(45, 27, 105, 0.95) 0%, rgba(31, 16, 71, 0.95) 100%);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .spinner {
+            border: 8px solid rgba(255, 255, 255, 0.2);
+            border-left-color: #FFF;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        /* NEW: Mobile-specific improvements */
+        .mobile-floating-badge {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b, #ffa500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            animation: float 4s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        .mobile-floating-badge:nth-child(2) {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            animation-delay: 1s;
+        }
+
+        .mobile-floating-badge:nth-child(3) {
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+            animation-delay: 2s;
+        }
+
+        .mobile-floating-badge i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .mobile-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(116, 67, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(116, 67, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(116, 67, 255, 0);
+            }
+        }
+
         /* Responsive adjustments */
         @media (max-width: 1024px) {
             .literise-title {
@@ -336,11 +452,11 @@
         }
 
         @media (max-width: 640px) {
-            .literise-title { 
-                font-size: 3rem; 
+            .literise-title {
+                font-size: 3rem;
             }
-            .result-card { 
-                padding: 1.5rem 1rem; 
+            .result-card {
+                padding: 1.5rem 1rem;
                 border-radius: 20px;
             }
             .explanation-box {
@@ -358,12 +474,12 @@
         }
 
         @media (max-width: 480px) {
-            .literise-title { 
-                font-size: 2.5rem; 
+            .literise-title {
+                font-size: 2.5rem;
                 margin-bottom: 1rem !important;
             }
-            .result-card { 
-                padding: 1.25rem 0.75rem; 
+            .result-card {
+                padding: 1.25rem 0.75rem;
             }
             .explanation-box {
                 padding: 1.25rem;
@@ -375,6 +491,13 @@
         }
     </style>
 </head>
+<audio id="winSound" preload="auto">
+        <source src="{{ asset('audio/win.mp3') }}" type="audio/mpeg">
+    </audio>
+
+    <audio id="loseSound" preload="auto">
+        <source src="{{ asset('audio/kalah.mp3') }}" type="audio/mpeg">
+        </audio>
 <body class="min-h-screen overflow-x-hidden">
 
     <!-- Background Pattern -->
@@ -386,118 +509,29 @@
     <div class="floating-element floating w-56 h-56 top-1/3 right-1/4 opacity-25"></div>
     <div class="floating-element floating-slow w-40 h-40 bottom-1/4 left-1/3 opacity-35"></div>
 
+
+
     <!-- ===== HEADER / NAVIGASI ===== -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#2d1b69] to-[#1f1047] text-white shadow-lg border-b border-purple-500/20">
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#2d1b69] to-[#1f1047] text-white shadow-lg border-b border-purple-500/20">
         <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
-            <a href="{{ route('home') }}" class="flex items-center space-x-2 text-xl sm:text-2xl font-bold">
+
+            <a href="{{ route('home') }}" class="flex items-center space-x-2 text-lg sm:text-2xl font-bold transition-transform hover:scale-105">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                 </svg>
                 <span>LITERISE</span>
             </a>
 
-            <div class="hidden md:flex items-center space-x-4 lg:space-x-6">
-                <a href="{{ route('home') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Beranda</a>
-                <a href="{{ route('permainan.index') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Permainan</a>
-                <a href="{{ route('tentang.index') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Tentang</a>
+            <a href="{{ route('permainan.index') }}" class="flex items-center space-x-1 sm:space-x-2 bg-white/10 backdrop-blur-sm text-white font-semibold px-3 py-2 sm:px-5 sm:py-2 rounded-full transition-all duration-300 hover:bg-white/20 border border-white/20 btn-glow text-xs sm:text-base group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
 
-                <!-- LOGIKA AUTH DENGAN DROPDOWN PROFIL YANG DIPERBAIKI -->
-                @auth
-                    <div x-data="{ open: false }" class="relative">
-                        <!-- Tombol Dropdown yang diperbaiki -->
-                        <button @click="open = !open" class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm text-white font-semibold px-4 py-2 lg:px-5 lg:py-2 rounded-full transition-all duration-300 hover:bg-white/20 border border-white/20 btn-glow">
-                            <span class="text-sm lg:text-base">{{ Str::limit(Auth::user()->name, 10) }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 lg:h-5 lg:w-5 transition-transform duration-300" :class="{'rotate-180': open}" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-
-                        <!-- Menu Dropdown yang diperbaiki -->
-                        <div x-show="open"
-                            @click.away="open = false"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 transform -translate-y-2"
-                            x-transition:enter-end="opacity-100 transform translate-y-0"
-                            x-transition:leave="transition ease-in duration-150"
-                            x-transition:leave-start="opacity-100 transform translate-y-0"
-                            x-transition:leave-end="opacity-0 transform -translate-y-2"
-                            class="absolute right-0 mt-2 w-48 lg:w-56 bg-white rounded-xl shadow-xl z-50"
-                            style="display: none;">
-
-                            <div class="px-4 py-3 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-pink-50">
-                                <p class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->name }}</p>
-                                <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email }}</p>
-                            </div>
-
-                            <a href="{{ route('profile.index') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                                Profil & Badge Saya
-                            </a>
-                            <a href="{{ route('leaderboard.index') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                </svg>
-                                Leaderboard
-                            </a>
-
-                            <div class="border-t border-gray-200"></div>
-
-                            <form method="POST" action="{{ route('logout') }}" class="w-full">
-                                @csrf
-                                <button type="submit" class="block w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                    </svg>
-                                    Logout
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                @else
-                    <a href="{{ route('login') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Masuk</a>
-                    <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-4 py-2 lg:px-5 lg:py-2 rounded-full transition-all duration-300 hover:shadow-lg btn-glow text-sm lg:text-base">
-                        Daftar
-                    </a>
-                @endauth
-            </div>
-
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-white p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu md:hidden">
-            <a href="{{ route('home') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Beranda</a>
-            <a href="{{ route('permainan.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Permainan</a>
-            <a href="{{ route('tentang.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Tentang</a>
-
-            @auth
-                <a href="{{ route('profile.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Profil Saya</a>
-                <a href="{{ route('leaderboard.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Leaderboard</a>
-                <form method="POST" action="{{ route('logout') }}" class="inline w-full border-b border-white/10">
-                    @csrf
-                    <a href="{{ route('logout') }}"
-                    onclick="event.preventDefault(); this.closest('form').submit();"
-                    class="header-btn text-white font-semibold px-5 py-3 rounded-lg transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow w-full block">
-                        Logout
-                    </a>
-                </form>
-            @else
-                <a href="{{ route('login') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Masuk</a>
-                <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-5 py-3 rounded-lg transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow">
-                    Daftar
-                </a>
-            @endauth
+                <span class="block sm:hidden">Kembali Ke Permainan</span>
+                <span class="hidden sm:block">Kembali Ke Permainan</span>
+            </a>
         </div>
     </nav>
-
     <!-- ===== MAIN CONTENT ===== -->
     <main class="relative z-20 pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6">
 
@@ -574,11 +608,13 @@
                         <!-- Tombol Aksi -->
                         <div class="mt-8 sm:mt-10 pt-4 sm:pt-6 border-t border-white/20 flex flex-col sm:flex-row gap-3 sm:gap-4" data-aos="fade-up" data-aos-delay="1000">
                             <a href="{{ route('hoax.index') }}"
-                               class="result-button btn-glow flex-1 text-center">
+                               class="result-button btn-glow flex-1 text-center loading-button mobile-pulse"
+                               id="try-another-quiz">
                                 Coba Kuis Lain
                             </a>
                             <a href="{{ route('home') }}"
-                               class="result-button bg-transparent border-2 border-white/30 text-white hover:bg-white/10 flex-1 text-center">
+                               class="result-button bg-transparent border-2 border-white/30 text-white hover:bg-white/10 flex-1 text-center loading-button"
+                               id="back-to-home">
                                 Kembali ke Beranda
                             </a>
                         </div>
@@ -677,6 +713,13 @@
         </div>
     </footer>
 
+    <!-- NEW: LOADING OVERLAY - SAMA SEPERTI DI READING MISSION -->
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p class="text-xl font-semibold mt-4">Memuat...</p>
+        <p class="text-gray-300 mt-2">Tunggu sebentar ya!</p>
+    </div>
+
     <!-- Script untuk AOS (Animate On Scroll) -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -708,11 +751,221 @@
         document.addEventListener('click', function(event) {
             const mobileMenu = document.getElementById('mobile-menu');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
-            
+
             if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.classList.contains('active')) {
                 mobileMenu.classList.remove('active');
             }
         });
+
+        // NEW: Loading animation untuk tombol "Coba Kuis Lain" - SAMA SEPERTI DI READING MISSION
+        document.getElementById('try-another-quiz').addEventListener('click', function(e) {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            loadingOverlay.style.display = 'flex';
+
+            const button = this;
+            const originalText = button.innerHTML;
+
+            // Tampilkan loading spinner di tombol
+            button.innerHTML = '<span class="loading-spinner"></span>Memuat Kuis...';
+            button.classList.add('loading');
+
+            // Simulasi loading selama 2 detik
+            setTimeout(() => {
+                // Kembalikan teks asli dan hapus kelas loading
+                button.innerHTML = originalText;
+                button.classList.remove('loading');
+
+                // Lanjutkan ke halaman kuis
+                window.location.href = button.getAttribute('href');
+            }, 2000);
+
+            // Mencegah navigasi langsung
+            e.preventDefault();
+        });
+
+        // NEW: Loading animation untuk tombol "Kembali ke Beranda"
+        document.getElementById('back-to-home').addEventListener('click', function(e) {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            loadingOverlay.style.display = 'flex';
+
+            const button = this;
+            const originalText = button.innerHTML;
+
+            // Tampilkan loading spinner di tombol
+            button.innerHTML = '<span class="loading-spinner"></span>Menuju Beranda...';
+            button.classList.add('loading');
+
+            // Simulasi loading selama 2 detik
+            setTimeout(() => {
+                // Kembalikan teks asli dan hapus kelas loading
+                button.innerHTML = originalText;
+                button.classList.remove('loading');
+
+                // Lanjutkan ke halaman beranda
+                window.location.href = button.getAttribute('href');
+            }, 2000);
+
+            // Mencegah navigasi langsung
+            e.preventDefault();
+        });
+
+        // NEW: Animasi Loading untuk tombol - SAMA SEPERTI DI READING MISSION
+        document.querySelectorAll('.loading-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const originalText = this.innerHTML;
+                this.innerHTML = '<span class="loading-spinner"></span>Memuat...';
+                this.style.pointerEvents = 'none';
+
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.pointerEvents = 'auto';
+                }, 3000);
+            });
+        });
+
+        // NEW: Add floating particles for mobile
+        function createMobileParticles() {
+            if (window.innerWidth > 768) return;
+
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'particles-container';
+            particlesContainer.style.position = 'fixed';
+            particlesContainer.style.top = '0';
+            particlesContainer.style.left = '0';
+            particlesContainer.style.width = '100%';
+            particlesContainer.style.height = '100%';
+            particlesContainer.style.pointerEvents = 'none';
+            particlesContainer.style.zIndex = '1';
+            document.body.appendChild(particlesContainer);
+
+            const colors = ['#ff6b6b', '#4ecdc4', '#8e2de2', '#f9c74f'];
+
+            for (let i = 0; i < 10; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 8 + 4 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                particle.style.position = 'absolute';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.opacity = Math.random() * 0.4 + 0.1;
+
+                particlesContainer.appendChild(particle);
+
+                // Animasi partikel
+                animateParticle(particle);
+            }
+        }
+
+        function animateParticle(particle) {
+            const duration = Math.random() * 8 + 6;
+            const xMovement = Math.random() * 60 - 30;
+            const yMovement = Math.random() * 60 - 30;
+
+            particle.animate([
+                { transform: 'translate(0, 0)' },
+                { transform: `translate(${xMovement}vw, ${yMovement}vh)` }
+            ], {
+                duration: duration * 1000,
+                iterations: Infinity,
+                direction: 'alternate',
+                easing: 'ease-in-out'
+            });
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ambil elemen audio
+            const winAudio = document.getElementById('winSound');
+            const loseAudio = document.getElementById('loseSound');
+
+            // Atur volume agar tidak terlalu kaget (0.0 - 1.0)
+            winAudio.volume = 0.5;
+            loseAudio.volume = 0.5;
+
+            // LOGIKA PEMILIHAN SUARA BERDASARKAN HASIL BLADE
+            // Kita menggunakan syntax Blade di dalam Javascript
+            @if ($result['is_correct'])
+                // Jika Jawaban BENAR
+                console.log("Jawaban Benar: Memainkan Win Sound");
+                winAudio.play().catch(error => {
+                    console.log("Autoplay dicegah browser:", error);
+                    // Opsional: Buat event listener sekali klik pada body untuk memutar suara jika autoplay gagal
+                    document.body.addEventListener('click', () => {
+                        winAudio.play();
+                    }, { once: true });
+                });
+            @else
+                // Jika Jawaban SALAH
+                console.log("Jawaban Salah: Memainkan Lose Sound");
+                loseAudio.play().catch(error => {
+                    console.log("Autoplay dicegah browser:", error);
+                    document.body.addEventListener('click', () => {
+                        loseAudio.play();
+                    }, { once: true });
+                });
+            @endif
+        });
+
+        // Jalankan saat halaman dimuat
+        window.addEventListener('load', createMobileParticles);
+        // 1. Setup Audio Context (Hanya dibuat sekali)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // 2. Fungsi Membuat Suara "Click" Digital (Nol Delay)
+    function playClickSound() {
+        // Bangunkan Audio Context jika tertidur (kebijakan browser)
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        // Setting Nada: Mulai tinggi (800Hz) turun cepat ke (100Hz) -> Efek "Pluk"
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+
+        // Setting Volume: Cepat hilang (Short decay)
+        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime); // Volume 30%
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.1);
+    }
+
+    // 3. Event Listener Spesifik Tombol
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Gunakan 'pointerdown' agar suara muncul SAAT JARI MENEMPEL (bukan saat dilepas)
+        document.addEventListener('pointerdown', function(e) {
+
+            // DAFTAR SELECTOR YANG DIANGGAP TOMBOL
+            // Hanya elemen di dalam list ini yang akan bunyi
+            const isButton = e.target.closest(`
+                button,                 /* Semua tag <button> */
+                .btn-game-3d,           /* Class tombol game Anda */
+                .btn-game-secondary,    /* Class tombol secondary */
+                .result-button,         /* Tombol di halaman hasil */
+                .header-btn,            /* Tombol login/register di header */
+                .feature-card-button,   /* Tombol di kartu fitur */
+                .platform-btn,          /* Tombol sosmed di footer */
+                .back-button,           /* Tombol kembali */
+                .submit-button          /* Tombol kirim kuis */
+            `);
+
+            // Jika yang ditekan adalah salah satu dari daftar di atas -> BUNYI
+            if (isButton) {
+                playClickSound();
+            }
+        });
+    });
     </script>
 </body>
 </html>

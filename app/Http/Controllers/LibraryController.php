@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Services\BadgeService;
-use App\Models\Score;               
+use App\Models\Score;
 
 class LibraryController extends Controller
 {

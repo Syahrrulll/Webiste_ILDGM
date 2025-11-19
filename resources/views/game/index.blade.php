@@ -4,35 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading Mission - Literise</title>
-    
+
     <!-- Memuat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Alpine.js untuk dropdown -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+
     <!-- Memuat Google Fonts (Poppins) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- AOS Library untuk animasi scroll -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+
     <style>
         :root {
             --p: #7443ff;
             --pp: #d3a2ff;
             --w: #ffffff;
         }
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #2d1b69 0%, #1f1047 50%, #160b35 100%);
             overflow-x: hidden;
             min-height: 100vh;
         }
-        
+
         .literise-title {
             font-size: 6rem;
             font-weight: 800;
@@ -45,28 +45,28 @@
                 0 0 50px #ffffff;
             line-height: 1;
         }
-        
+
         .subtitle-shadow {
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
         }
-        
+
         .header-btn {
             background: linear-gradient(90deg, #F472B6 0%, #EC4899 100%);
             box-shadow: 0 4px 15px -3px rgba(236, 72, 153, 0.5);
         }
-        
+
         .platform-btn {
             background-color: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(5px);
             transition: all 0.3s ease;
         }
-        
+
         .platform-btn:hover {
             background-color: rgba(255, 255, 255, 0.2);
             border-color: rgba(255, 255, 255, 0.5);
         }
-        
+
         .mission-card {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
@@ -83,7 +83,7 @@
             flex-direction: column;
             z-index: 1;
         }
-        
+
         .mission-card::before {
             content: '';
             position: absolute;
@@ -98,7 +98,7 @@
             z-index: -1;
             border-radius: 24px;
         }
-        
+
         .mission-card::after {
             content: '';
             position: absolute;
@@ -116,18 +116,18 @@
             opacity: 0.3;
             transition: opacity 0.4s ease;
         }
-        
+
         .mission-card:hover::after {
             opacity: 0.6;
         }
-        
+
         .mission-card:hover {
             transform: translateY(-8px);
             box-shadow:
                 0 30px 60px rgba(124, 58, 234, 0.25),
                 inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
-        
+
         .mission-card-content {
             position: relative;
             z-index: 2;
@@ -135,12 +135,12 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         .mission-card p {
             flex-grow: 1;
             margin-bottom: 2rem;
         }
-        
+
         .mission-button {
             margin-top: auto;
             display: inline-block;
@@ -155,19 +155,19 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 1.1rem;
         }
-        
+
         .mission-button:hover {
             transform: scale(1.05);
             box-shadow: 0 12px 35px -3px rgba(116, 67, 255, 0.7);
             background: linear-gradient(135deg, #8c52ff 0%, #7443ff 100%);
         }
-        
+
         /* Animasi untuk tombol */
         .btn-glow {
             position: relative;
             overflow: hidden;
         }
-        
+
         .btn-glow::before {
             content: '';
             position: absolute;
@@ -178,11 +178,11 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             transition: left 0.7s;
         }
-        
+
         .btn-glow:hover::before {
             left: 100%;
         }
-        
+
         /* Form styling */
         .form-input {
             background: rgba(255, 255, 255, 0.1);
@@ -195,18 +195,18 @@
             transition: all 0.3s ease;
             font-size: 1rem;
         }
-        
+
         .form-input:focus {
             outline: none;
             border-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 0 3px rgba(116, 67, 255, 0.3);
             background: rgba(255, 255, 255, 0.15);
         }
-        
+
         .form-input::placeholder {
             color: rgba(255, 255, 255, 0.6);
         }
-        
+
         /* Dropdown yang diperbaiki */
         .dropdown-menu {
             background: white;
@@ -215,7 +215,7 @@
             min-width: 200px;
             overflow: hidden;
         }
-        
+
         .dropdown-item {
             display: block;
             width: 100%;
@@ -227,18 +227,18 @@
             transition: all 0.2s ease;
             cursor: pointer;
         }
-        
+
         .dropdown-item:hover {
             background-color: #f7fafc;
             color: #7443ff;
         }
-        
+
         .dropdown-divider {
             height: 1px;
             background-color: #e2e8f0;
             margin: 4px 0;
         }
-        
+
         /* Background pattern yang lebih subtle */
         .bg-pattern {
             position: absolute;
@@ -252,7 +252,7 @@
                 radial-gradient(circle at 50% 50%, rgba(120, 219, 255, 0.06) 0%, transparent 50%);
             z-index: -1;
         }
-        
+
         /* Floating elements yang lebih natural */
         .floating-element {
             position: absolute;
@@ -261,7 +261,7 @@
             filter: blur(20px);
             z-index: -1;
         }
-        
+
         /* Animasi floating yang lebih smooth */
         @keyframes float {
             0%, 100% {
@@ -271,7 +271,7 @@
                 transform: translateY(-20px);
             }
         }
-        
+
         @keyframes float-slow {
             0%, 100% {
                 transform: translateY(0px) rotate(0deg);
@@ -283,15 +283,15 @@
                 transform: translateY(5px) rotate(-1deg);
             }
         }
-        
+
         .floating {
             animation: float 6s ease-in-out infinite;
         }
-        
+
         .floating-slow {
             animation: float-slow 8s ease-in-out infinite;
         }
-        
+
         /* Animasi teks berkedip */
         @keyframes gentle-pulse {
             0%, 100% {
@@ -303,11 +303,11 @@
                 text-shadow: 0 0 5px #8c52ff, 0 0 15px #8c52ff;
             }
         }
-        
+
         .gentle-pulse {
             animation: gentle-pulse 4s ease-in-out infinite;
         }
-        
+
         /* Icon animation */
         @keyframes icon-float {
             0%, 100% {
@@ -320,11 +320,11 @@
                 transform: translateY(3px) rotate(-1deg);
             }
         }
-        
+
         .icon-float {
             animation: icon-float 6s ease-in-out infinite;
         }
-        
+
         /* Custom style untuk loading overlay */
         #loading-overlay {
             position: fixed;
@@ -342,7 +342,7 @@
             font-size: 1.2rem;
             backdrop-filter: blur(10px);
         }
-        
+
         .spinner {
             border: 8px solid rgba(255, 255, 255, 0.2);
             border-left-color: #FFF;
@@ -352,18 +352,18 @@
             animation: spin 1s linear infinite;
             margin-bottom: 20px;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
+
         /* Animasi Loading */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
+
         .loading-spinner {
             display: inline-block;
             width: 20px;
@@ -374,14 +374,14 @@
             animation: spin 1s ease-in-out infinite;
             margin-right: 8px;
         }
-        
+
         /* Responsive adjustments */
         @media (max-width: 1024px) {
             .literise-title {
                 font-size: 5rem;
             }
         }
-        
+
         @media (max-width: 768px) {
             .literise-title {
                 font-size: 4rem;
@@ -407,12 +407,12 @@
                 display: none;
             }
         }
-        
+
         @media (max-width: 640px) {
             .literise-title { font-size: 3rem; }
             .mission-card { padding: 1.5rem 1rem; }
         }
-        
+
         @media (max-width: 480px) {
             .literise-title { font-size: 2.5rem; }
         }
@@ -430,116 +430,24 @@
     <div class="floating-element floating w-40 h-40 bottom-1/4 left-1/3 opacity-35"></div>
 
     <!-- ===== HEADER / NAVIGASI ===== -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#2d1b69] to-[#1f1047] text-white shadow-lg border-b border-purple-500/20">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="{{ route('home') }}" class="flex items-center space-x-2 text-2xl font-bold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#2d1b69] to-[#1f1047] text-white shadow-lg border-b border-purple-500/20">
+        <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
+
+            <a href="{{ route('home') }}" class="flex items-center space-x-2 text-lg sm:text-2xl font-bold transition-transform hover:scale-105">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                 </svg>
                 <span>LITERISE</span>
             </a>
 
-            <div class="hidden md:flex items-center space-x-6">
-                <a href="{{ route('home') }}" class="hover:text-pink-300 transition-colors">Beranda</a>
-                <a href="{{ route('permainan.index') }}" class="hover:text-pink-300 transition-colors">Permainan</a>
-                <a href="{{ route('library.index') }}" class="hover:text-pink-300 transition-colors">Library</a>
-                <a href="{{ route('tentang.index') }}" class="hover:text-pink-300 transition-colors">Tentang</a>
+            <a href="{{ route('permainan.index') }}" class="flex items-center space-x-1 sm:space-x-2 bg-white/10 backdrop-blur-sm text-white font-semibold px-3 py-2 sm:px-5 sm:py-2 rounded-full transition-all duration-300 hover:bg-white/20 border border-white/20 btn-glow text-xs sm:text-base group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
 
-                <!-- LOGIKA AUTH DENGAN DROPDOWN PROFIL YANG DIPERBAIKI -->
-                @auth
-                    <div x-data="{ open: false }" class="relative">
-                        <!-- Tombol Dropdown yang diperbaiki -->
-                        <button @click="open = !open" class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:bg-white/20 border border-white/20 btn-glow">
-                            <span>{{ Str::limit(Auth::user()->name, 10) }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300" :class="{'rotate-180': open}" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-
-                        <!-- Menu Dropdown yang diperbaiki -->
-                        <div x-show="open"
-                            @click.away="open = false"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 transform -translate-y-2"
-                            x-transition:enter-end="opacity-100 transform translate-y-0"
-                            x-transition:leave="transition ease-in duration-150"
-                            x-transition:leave-start="opacity-100 transform translate-y-0"
-                            x-transition:leave-end="opacity-0 transform -translate-y-2"
-                            class="absolute right-0 mt-2 w-56 dropdown-menu z-50"
-                            style="display: none;">
-
-                            <div class="px-4 py-3 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-pink-50">
-                                <p class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->name }}</p>
-                                <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email }}</p>
-                            </div>
-
-                            <a href="{{ route('profile.index') }}" class="dropdown-item flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                                Profil & Badge Saya
-                            </a>
-                            <a href="{{ route('leaderboard.index') }}" class="dropdown-item flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                </svg>
-                                Leaderboard
-                            </a>
-
-                            <div class="dropdown-divider"></div>
-
-                            <form method="POST" action="{{ route('logout') }}" class="w-full">
-                                @csrf
-                                <button type="submit" class="dropdown-item flex items-center text-red-600 w-full text-left">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                    </svg>
-                                    Logout
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                @else
-                    <a href="{{ route('login') }}" class="hover:text-pink-300 transition-colors">Masuk</a>
-                    <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg btn-glow">
-                        Daftar
-                    </a>
-                @endauth
-            </div>
-
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu md:hidden">
-            <a href="{{ route('home') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Beranda</a>
-            <a href="{{ route('permainan.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Permainan</a>
-            <a href="{{ route('library.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Library</a>
-            <a href="{{ route('tentang.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Tentang</a>
-
-            @auth
-                <a href="{{ route('profile.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Profil Saya</a>
-                <a href="{{ route('leaderboard.index') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Leaderboard</a>
-                <form method="POST" action="{{ route('logout') }}" class="inline w-full">
-                    @csrf
-                    <a href="{{ route('logout') }}"
-                    onclick="event.preventDefault(); this.closest('form').submit();"
-                    class="header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow w-full block">
-                        Logout
-                    </a>
-                </form>
-            @else
-                <a href="{{ route('login') }}" class="py-2 px-4 hover:text-pink-300 transition-colors">Masuk</a>
-                <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-5 py-2 rounded-full transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow">
-                    Daftar
-                </a>
-            @endauth
+                <span class="block sm:hidden">Kembali Ke Permainan</span>
+                <span class="hidden sm:block">Kembali Ke Permainan</span>
+            </a>
         </div>
     </nav>
 
@@ -729,6 +637,61 @@
                 }, 3000);
             });
         });
+        // 1. Setup Audio Context (Hanya dibuat sekali)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // 2. Fungsi Membuat Suara "Click" Digital (Nol Delay)
+    function playClickSound() {
+        // Bangunkan Audio Context jika tertidur (kebijakan browser)
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        // Setting Nada: Mulai tinggi (800Hz) turun cepat ke (100Hz) -> Efek "Pluk"
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+
+        // Setting Volume: Cepat hilang (Short decay)
+        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime); // Volume 30%
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.1);
+    }
+
+    // 3. Event Listener Spesifik Tombol
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Gunakan 'pointerdown' agar suara muncul SAAT JARI MENEMPEL (bukan saat dilepas)
+        document.addEventListener('pointerdown', function(e) {
+
+            // DAFTAR SELECTOR YANG DIANGGAP TOMBOL
+            // Hanya elemen di dalam list ini yang akan bunyi
+            const isButton = e.target.closest(`
+                button,                 /* Semua tag <button> */
+                .btn-game-3d,           /* Class tombol game Anda */
+                .btn-game-secondary,    /* Class tombol secondary */
+                .result-button,         /* Tombol di halaman hasil */
+                .header-btn,            /* Tombol login/register di header */
+                .feature-card-button,   /* Tombol di kartu fitur */
+                .platform-btn,          /* Tombol sosmed di footer */
+                .back-button,           /* Tombol kembali */
+                .submit-button          /* Tombol kirim kuis */
+            `);
+
+            // Jika yang ditekan adalah salah satu dari daftar di atas -> BUNYI
+            if (isButton) {
+                playClickSound();
+            }
+        });
+    });
     </script>
 </body>
 </html>

@@ -784,6 +784,61 @@
                 }, 5000);
             }
         });
+        // 1. Setup Audio Context (Hanya dibuat sekali)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // 2. Fungsi Membuat Suara "Click" Digital (Nol Delay)
+    function playClickSound() {
+        // Bangunkan Audio Context jika tertidur (kebijakan browser)
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        // Setting Nada: Mulai tinggi (800Hz) turun cepat ke (100Hz) -> Efek "Pluk"
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+
+        // Setting Volume: Cepat hilang (Short decay)
+        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime); // Volume 30%
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.1);
+    }
+
+    // 3. Event Listener Spesifik Tombol
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Gunakan 'pointerdown' agar suara muncul SAAT JARI MENEMPEL (bukan saat dilepas)
+        document.addEventListener('pointerdown', function(e) {
+
+            // DAFTAR SELECTOR YANG DIANGGAP TOMBOL
+            // Hanya elemen di dalam list ini yang akan bunyi
+            const isButton = e.target.closest(`
+                button,                 /* Semua tag <button> */
+                .btn-game-3d,           /* Class tombol game Anda */
+                .btn-game-secondary,    /* Class tombol secondary */
+                .result-button,         /* Tombol di halaman hasil */
+                .header-btn,            /* Tombol login/register di header */
+                .feature-card-button,   /* Tombol di kartu fitur */
+                .platform-btn,          /* Tombol sosmed di footer */
+                .back-button,           /* Tombol kembali */
+                .submit-button          /* Tombol kirim kuis */
+            `);
+
+            // Jika yang ditekan adalah salah satu dari daftar di atas -> BUNYI
+            if (isButton) {
+                playClickSound();
+            }
+        });
+    });
     </script>
 </body>
 </html>

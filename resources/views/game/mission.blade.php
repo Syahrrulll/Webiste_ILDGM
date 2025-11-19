@@ -4,38 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misi: {{ $mission['title'] }} - Literise</title>
-    
+
     <!-- Memuat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Alpine.js untuk dropdown -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+
     <!-- Memuat Google Fonts (Poppins) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- AOS Library untuk animasi scroll -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+
     <!-- Typography untuk styling teks bacaan -->
     <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.x/dist/typography.min.css" rel="stylesheet">
-    
+
     <style>
         :root {
             --p: #7443ff;
             --pp: #d3a2ff;
             --w: #ffffff;
         }
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #2d1b69 0%, #1f1047 50%, #160b35 100%);
             overflow-x: hidden;
             min-height: 100vh;
         }
-        
+
         .literise-title {
             font-size: 2.5rem;
             font-weight: 800;
@@ -46,7 +46,7 @@
                 0 0 30px #8c52ff;
             line-height: 1;
         }
-        
+
         .mission-card {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
@@ -61,7 +61,7 @@
             overflow: hidden;
             z-index: 1;
         }
-        
+
         .mission-card::before {
             content: '';
             position: absolute;
@@ -76,7 +76,7 @@
             z-index: -1;
             border-radius: 24px;
         }
-        
+
         .reading-section {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -84,7 +84,7 @@
             border-radius: 16px;
             padding: 2rem;
         }
-        
+
         .quiz-section {
             background: rgba(116, 67, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -92,7 +92,7 @@
             border-radius: 16px;
             padding: 1.5rem;
         }
-        
+
         .form-textarea {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -106,18 +106,18 @@
             resize: vertical;
             min-height: 120px;
         }
-        
+
         .form-textarea:focus {
             outline: none;
             border-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 0 3px rgba(116, 67, 255, 0.3);
             background: rgba(255, 255, 255, 0.15);
         }
-        
+
         .form-textarea::placeholder {
             color: rgba(255, 255, 255, 0.6);
         }
-        
+
         .submit-button {
             display: inline-block;
             text-align: center;
@@ -131,13 +131,13 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 1.1rem;
         }
-        
+
         .submit-button:hover {
             transform: scale(1.05);
             box-shadow: 0 12px 35px -3px rgba(116, 67, 255, 0.7);
             background: linear-gradient(135deg, #8c52ff 0%, #7443ff 100%);
         }
-        
+
         .back-button {
             display: inline-flex;
             align-items: center;
@@ -150,17 +150,17 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
         }
-        
+
         .back-button:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateX(-5px);
         }
-        
+
         .header-btn {
             background: linear-gradient(90deg, #F472B6 0%, #EC4899 100%);
             box-shadow: 0 4px 15px -3px rgba(236, 72, 153, 0.5);
         }
-        
+
         /* Background pattern */
         .bg-pattern {
             position: absolute;
@@ -174,7 +174,7 @@
                 radial-gradient(circle at 50% 50%, rgba(120, 219, 255, 0.06) 0%, transparent 50%);
             z-index: -1;
         }
-        
+
         /* Floating elements */
         .floating-element {
             position: absolute;
@@ -183,7 +183,7 @@
             filter: blur(20px);
             z-index: -1;
         }
-        
+
         /* Animasi floating */
         @keyframes float {
             0%, 100% {
@@ -193,7 +193,7 @@
                 transform: translateY(-20px);
             }
         }
-        
+
         @keyframes float-slow {
             0%, 100% {
                 transform: translateY(0px) rotate(0deg);
@@ -205,36 +205,36 @@
                 transform: translateY(5px) rotate(-1deg);
             }
         }
-        
+
         .floating {
             animation: float 6s ease-in-out infinite;
         }
-        
+
         .floating-slow {
             animation: float-slow 8s ease-in-out infinite;
         }
-        
+
         /* Styling untuk teks bacaan */
         .reading-text {
             color: rgba(255, 255, 255, 0.9);
             line-height: 1.8;
             font-size: 1.1rem;
         }
-        
+
         .reading-text p {
             margin-bottom: 1.5rem;
         }
-        
+
         .reading-text h1, .reading-text h2, .reading-text h3 {
             color: #d8c4ff;
             margin-top: 2rem;
             margin-bottom: 1rem;
         }
-        
+
         .reading-text strong {
             color: #ffd700;
         }
-        
+
         /* Mobile Menu Styling */
         .mobile-menu {
             display: none;
@@ -245,17 +245,17 @@
             flex-direction: column;
             gap: 0.5rem;
         }
-        
+
         .mobile-menu.active {
             display: flex;
         }
-        
+
         /* Animasi untuk tombol */
         .btn-glow {
             position: relative;
             overflow: hidden;
         }
-        
+
         .btn-glow::before {
             content: '';
             position: absolute;
@@ -266,18 +266,18 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             transition: left 0.7s;
         }
-        
+
         .btn-glow:hover::before {
             left: 100%;
         }
-        
+
         /* Responsive adjustments */
         @media (max-width: 1024px) {
             .literise-title {
                 font-size: 2.25rem;
             }
         }
-        
+
         @media (max-width: 768px) {
             .mission-card {
                 padding: 2rem 1.5rem;
@@ -297,7 +297,7 @@
                 width: 100%;
             }
         }
-        
+
         @media (max-width: 640px) {
             .mission-card {
                 padding: 1.5rem 1rem;
@@ -321,7 +321,7 @@
                 font-size: 0.9rem;
             }
         }
-        
+
         @media (max-width: 480px) {
             .literise-title {
                 font-size: 1.75rem;
@@ -338,6 +338,10 @@
         }
     </style>
 </head>
+<audio id="missionAudio" autoplay>
+        <source src="{{ asset('audio/mulai.mp3') }}" type="audio/mpeg">
+
+</audio>
 <body class="min-h-screen overflow-x-hidden">
 
     <!-- Background Pattern -->
@@ -349,121 +353,31 @@
     <div class="floating-element floating-slow w-56 h-56 top-1/3 right-1/4 opacity-25"></div>
 
     <!-- ===== HEADER / NAVIGASI ===== -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#2d1b69] to-[#1f1047] text-white shadow-lg border-b border-purple-500/20">
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#2d1b69] to-[#1f1047] text-white shadow-lg border-b border-purple-500/20">
         <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
-            <a href="{{ route('home') }}" class="flex items-center space-x-2 text-xl sm:text-2xl font-bold">
+
+            <a href="{{ route('home') }}" class="flex items-center space-x-2 text-lg sm:text-2xl font-bold transition-transform hover:scale-105">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                 </svg>
                 <span>LITERISE</span>
             </a>
 
-            <div class="hidden md:flex items-center space-x-4 lg:space-x-6">
-                <a href="{{ route('home') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Beranda</a>
-                <a href="{{ route('permainan.index') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Permainan</a>
-                <a href="{{ route('library.index') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Library</a>
-                <a href="{{ route('tentang.index') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Tentang</a>
+            <a href="{{ route('permainan.index') }}" class="flex items-center space-x-1 sm:space-x-2 bg-white/10 backdrop-blur-sm text-white font-semibold px-3 py-2 sm:px-5 sm:py-2 rounded-full transition-all duration-300 hover:bg-white/20 border border-white/20 btn-glow text-xs sm:text-base group">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
 
-                <!-- LOGIKA AUTH DENGAN DROPDOWN PROFIL -->
-                @auth
-                    <div x-data="{ open: false }" class="relative">
-                        <button @click="open = !open" class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm text-white font-semibold px-4 py-2 lg:px-5 lg:py-2 rounded-full transition-all duration-300 hover:bg-white/20 border border-white/20 btn-glow">
-                            <span class="text-sm lg:text-base">{{ Str::limit(Auth::user()->name, 10) }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 lg:h-5 lg:w-5 transition-transform duration-300" :class="{'rotate-180': open}" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-
-                        <div x-show="open"
-                            @click.away="open = false"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 transform -translate-y-2"
-                            x-transition:enter-end="opacity-100 transform translate-y-0"
-                            x-transition:leave="transition ease-in duration-150"
-                            x-transition:leave-start="opacity-100 transform translate-y-0"
-                            x-transition:leave-end="opacity-0 transform -translate-y-2"
-                            class="absolute right-0 mt-2 w-48 lg:w-56 bg-white rounded-xl shadow-xl z-50"
-                            style="display: none;">
-
-                            <div class="px-4 py-3 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-pink-50">
-                                <p class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->name }}</p>
-                                <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email }}</p>
-                            </div>
-
-                            <a href="{{ route('profile.index') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                                Profil & Badge Saya
-                            </a>
-                            <a href="{{ route('leaderboard.index') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                </svg>
-                                Leaderboard
-                            </a>
-
-                            <div class="border-t border-gray-200"></div>
-
-                            <form method="POST" action="{{ route('logout') }}" class="w-full">
-                                @csrf
-                                <button type="submit" class="block w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                    </svg>
-                                    Logout
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                @else
-                    <a href="{{ route('login') }}" class="hover:text-pink-300 transition-colors text-sm lg:text-base">Masuk</a>
-                    <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-4 py-2 lg:px-5 lg:py-2 rounded-full transition-all duration-300 hover:shadow-lg btn-glow text-sm lg:text-base">
-                        Daftar
-                    </a>
-                @endauth
-            </div>
-
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-white p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu md:hidden">
-            <a href="{{ route('home') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Beranda</a>
-            <a href="{{ route('permainan.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Permainan</a>
-            <a href="{{ route('library.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Library</a>
-            <a href="{{ route('tentang.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Tentang</a>
-
-            @auth
-                <a href="{{ route('profile.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Profil Saya</a>
-                <a href="{{ route('leaderboard.index') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Leaderboard</a>
-                <form method="POST" action="{{ route('logout') }}" class="inline w-full border-b border-white/10">
-                    @csrf
-                    <a href="{{ route('logout') }}"
-                    onclick="event.preventDefault(); this.closest('form').submit();"
-                    class="header-btn text-white font-semibold px-5 py-3 rounded-lg transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow w-full block">
-                        Logout
-                    </a>
-                </form>
-            @else
-                <a href="{{ route('login') }}" class="py-3 px-4 hover:text-pink-300 transition-colors border-b border-white/10">Masuk</a>
-                <a href="{{ route('register') }}" class="header-btn text-white font-semibold px-5 py-3 rounded-lg transition-all duration-300 hover:shadow-lg my-2 text-center btn-glow">
-                    Daftar
-                </a>
-            @endauth
+                <span class="block sm:hidden">Kembali Ke Permainan</span>
+                <span class="hidden sm:block">Kembali Ke Permainan</span>
+            </a>
         </div>
     </nav>
 
     <!-- ===== MAIN CONTENT ===== -->
     <main class="relative z-20 pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 min-h-screen px-4 sm:px-6">
         <div class="container mx-auto max-w-4xl">
-            
+
             <!-- Header Mission -->
             <div class="text-center mb-6 sm:mb-8" data-aos="fade-down">
                 <a href="{{ route('game.play') }}" class="back-button inline-flex items-center mb-4 sm:mb-6">
@@ -472,14 +386,14 @@
                     </svg>
                     Kembali ke Pilihan Misi
                 </a>
-                
+
                 <h1 class="literise-title mb-3 sm:mb-4">Misi Membaca</h1>
                 <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2">{{ $mission['title'] }}</h2>
                 <p class="text-gray-300 text-base sm:text-lg">Baca teks dengan seksama dan jawab pertanyaan kuis</p>
             </div>
 
             <div class="mission-card" data-aos="fade-up" data-aos-duration="1000">
-                
+
                 <!-- 1. Teks Bacaan -->
                 <div class="mb-8 sm:mb-10">
                     <div class="flex items-center mb-4 sm:mb-6">
@@ -490,7 +404,7 @@
                         </div>
                         <h2 class="text-xl sm:text-2xl font-bold text-white">Silakan Baca Teks Berikut</h2>
                     </div>
-                    
+
                     <div class="reading-section">
                         <div class="reading-text prose prose-invert max-w-none">
                             {!! $mission['reading_text'] ?? '<p class="text-red-300">Teks bacaan tidak tersedia.</p>' !!}
@@ -632,7 +546,7 @@
         document.addEventListener('click', function(event) {
             const mobileMenu = document.getElementById('mobile-menu');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
-            
+
             if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && mobileMenu.classList.contains('active')) {
                 mobileMenu.classList.remove('active');
             }
@@ -648,6 +562,61 @@
                 this.style.transform = 'translateY(0)';
             });
         });
+        // 1. Setup Audio Context (Hanya dibuat sekali)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // 2. Fungsi Membuat Suara "Click" Digital (Nol Delay)
+    function playClickSound() {
+        // Bangunkan Audio Context jika tertidur (kebijakan browser)
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        // Setting Nada: Mulai tinggi (800Hz) turun cepat ke (100Hz) -> Efek "Pluk"
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+
+        // Setting Volume: Cepat hilang (Short decay)
+        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime); // Volume 30%
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.1);
+    }
+
+    // 3. Event Listener Spesifik Tombol
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Gunakan 'pointerdown' agar suara muncul SAAT JARI MENEMPEL (bukan saat dilepas)
+        document.addEventListener('pointerdown', function(e) {
+
+            // DAFTAR SELECTOR YANG DIANGGAP TOMBOL
+            // Hanya elemen di dalam list ini yang akan bunyi
+            const isButton = e.target.closest(`
+                button,                 /* Semua tag <button> */
+                .btn-game-3d,           /* Class tombol game Anda */
+                .btn-game-secondary,    /* Class tombol secondary */
+                .result-button,         /* Tombol di halaman hasil */
+                .header-btn,            /* Tombol login/register di header */
+                .feature-card-button,   /* Tombol di kartu fitur */
+                .platform-btn,          /* Tombol sosmed di footer */
+                .back-button,           /* Tombol kembali */
+                .submit-button          /* Tombol kirim kuis */
+            `);
+
+            // Jika yang ditekan adalah salah satu dari daftar di atas -> BUNYI
+            if (isButton) {
+                playClickSound();
+            }
+        });
+    });
     </script>
 </body>
 </html>

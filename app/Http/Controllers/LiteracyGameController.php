@@ -111,4 +111,4 @@ class LiteracyGameController extends Controller
             return redirect(route('game.play'))->with('error', 'Terjadi kesalahan sistem: ' . $e->getMessage());
         }
     }
-}   
+}
