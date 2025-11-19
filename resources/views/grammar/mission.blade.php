@@ -363,6 +363,9 @@
         }
     </style>
 </head>
+<audio id="missionAudio" autoplay>
+    <source src="{{ asset('audio/mulai.mp3') }}" type="audio/mpeg">
+</audio>
 <body class="min-h-screen overflow-x-hidden">
 
     <!-- Background Pattern -->

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading Mission - Literise</title>
+    <title>Zona Tata Bahasa - Literise</title>
 
     <!-- Memuat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -46,10 +46,6 @@
             line-height: 1;
         }
 
-        .subtitle-shadow {
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
         .header-btn {
             background: linear-gradient(90deg, #F472B6 0%, #EC4899 100%);
             box-shadow: 0 4px 15px -3px rgba(236, 72, 153, 0.5);
@@ -67,7 +63,8 @@
             border-color: rgba(255, 255, 255, 0.5);
         }
 
-        .mission-card {
+        /* Animasi untuk grammar-card */
+        .grammar-card {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -84,7 +81,7 @@
             z-index: 1;
         }
 
-        .mission-card::before {
+        .grammar-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -99,7 +96,7 @@
             border-radius: 24px;
         }
 
-        .mission-card::after {
+        .grammar-card::after {
             content: '';
             position: absolute;
             top: -2px;
@@ -117,18 +114,18 @@
             transition: opacity 0.4s ease;
         }
 
-        .mission-card:hover::after {
+        .grammar-card:hover::after {
             opacity: 0.6;
         }
 
-        .mission-card:hover {
+        .grammar-card:hover {
             transform: translateY(-8px);
             box-shadow:
                 0 30px 60px rgba(124, 58, 234, 0.25),
                 inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
-        .mission-card-content {
+        .grammar-card-content {
             position: relative;
             z-index: 2;
             flex-grow: 1;
@@ -136,13 +133,7 @@
             flex-direction: column;
         }
 
-        .mission-card p {
-            flex-grow: 1;
-            margin-bottom: 2rem;
-        }
-
-        .mission-button {
-            margin-top: auto;
+        .grammar-button {
             display: inline-block;
             text-align: center;
             padding: 1rem 2rem;
@@ -156,110 +147,36 @@
             font-size: 1.1rem;
         }
 
-        .mission-button:hover {
+        .grammar-button:hover {
             transform: scale(1.05);
             box-shadow: 0 12px 35px -3px rgba(116, 67, 255, 0.7);
             background: linear-gradient(135deg, #8c52ff 0%, #7443ff 100%);
         }
 
-        /* Animasi untuk tombol */
-        .btn-glow {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-glow::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: left 0.7s;
-        }
-
-        .btn-glow:hover::before {
-            left: 100%;
-        }
-
         /* Form styling */
-        .form-input {
+        .form-select {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
+            border-radius: 16px;
             color: white;
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             width: 100%;
             transition: all 0.3s ease;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
-        .form-input:focus {
+        .form-select:focus {
             outline: none;
             border-color: rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 0 3px rgba(116, 67, 255, 0.3);
             background: rgba(255, 255, 255, 0.15);
         }
 
-        .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* Dropdown yang diperbaiki */
-        .dropdown-menu {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            min-width: 200px;
-            overflow: hidden;
-        }
-
-        .dropdown-item {
-            display: block;
-            width: 100%;
-            padding: 12px 16px;
-            text-align: left;
-            border: none;
-            background: none;
-            color: #4a5568;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .dropdown-item:hover {
-            background-color: #f7fafc;
-            color: #7443ff;
-        }
-
-        .dropdown-divider {
-            height: 1px;
-            background-color: #e2e8f0;
-            margin: 4px 0;
-        }
-
-        /* Background pattern yang lebih subtle */
-        .bg-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                radial-gradient(circle at 10% 20%, rgba(120, 119, 198, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 119, 198, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(120, 219, 255, 0.06) 0%, transparent 50%);
-            z-index: -1;
-        }
-
-        /* Floating elements yang lebih natural */
-        .floating-element {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(116, 67, 255, 0.15), transparent 70%);
-            filter: blur(20px);
-            z-index: -1;
+        .form-select option {
+            background: #2d1b69;
+            color: white;
+            padding: 12px;
         }
 
         /* Animasi floating yang lebih smooth */
@@ -284,12 +201,25 @@
             }
         }
 
+        @keyframes float-fast {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+            }
+            50% {
+                transform: translateY(-15px) scale(1.05);
+            }
+        }
+
         .floating {
             animation: float 6s ease-in-out infinite;
         }
 
         .floating-slow {
             animation: float-slow 8s ease-in-out infinite;
+        }
+
+        .floating-fast {
+            animation: float-fast 4s ease-in-out infinite;
         }
 
         /* Animasi teks berkedip */
@@ -308,24 +238,70 @@
             animation: gentle-pulse 4s ease-in-out infinite;
         }
 
-        /* Icon animation */
-        @keyframes icon-float {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            33% {
-                transform: translateY(-5px) rotate(2deg);
-            }
-            66% {
-                transform: translateY(3px) rotate(-1deg);
-            }
+        /* Animasi untuk tombol */
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
         }
 
-        .icon-float {
-            animation: icon-float 6s ease-in-out infinite;
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.7s;
         }
 
-        /* Custom style untuk loading overlay */
+        .btn-glow:hover::before {
+            left: 100%;
+        }
+
+        /* NEW: Animasi Loading - SAMA SEPERTI DI HALAMAN KEDUA */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        .loading-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-button.loading {
+            pointer-events: none;
+        }
+
+        .loading-button.loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* NEW: LOADING OVERLAY - SAMA SEPERTI DI HALAMAN KEDUA */
         #loading-overlay {
             position: fixed;
             top: 0;
@@ -353,26 +329,45 @@
             margin-bottom: 20px;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* Background pattern yang lebih subtle */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(120, 119, 198, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 119, 198, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(120, 219, 255, 0.06) 0%, transparent 50%);
+            z-index: -1;
         }
 
-        /* Animasi Loading */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+        /* Floating elements yang lebih natural - INI YANG DIPERBAIKI */
+        .floating-element {
+            position: absolute;
             border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 8px;
+            background: radial-gradient(circle, rgba(116, 67, 255, 0.15), transparent 70%);
+            filter: blur(20px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Icon animation */
+        @keyframes icon-float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-5px) rotate(2deg);
+            }
+            66% {
+                transform: translateY(3px) rotate(-1deg);
+            }
+        }
+
+        .icon-float {
+            animation: icon-float 6s ease-in-out infinite;
         }
 
         /* Responsive adjustments */
@@ -400,17 +395,17 @@
                 padding: 1rem;
                 z-index: 100;
             }
-            .mission-card {
+            .grammar-card {
                 padding: 2rem 1.5rem;
-            }
-            .floating-element {
-                display: none;
             }
         }
 
         @media (max-width: 640px) {
             .literise-title { font-size: 3rem; }
-            .mission-card { padding: 1.5rem 1rem; }
+            .grammar-card { padding: 1.5rem 1rem; }
+            .floating-element {
+                display: none;
+            }
         }
 
         @media (max-width: 480px) {
@@ -423,11 +418,11 @@
     <!-- Background Pattern -->
     <div class="bg-pattern"></div>
 
-    <!-- Floating Elements yang lebih natural -->
+    <!-- Floating Elements yang lebih natural - INI YANG DIPERBAIKI -->
     <div class="floating-element floating-slow w-64 h-64 top-10 left-10 opacity-40"></div>
-    <div class="floating-element floating w-48 h-48 bottom-20 right-20 opacity-30"></div>
-    <div class="floating-element floating-slow w-56 h-56 top-1/3 right-1/4 opacity-25"></div>
-    <div class="floating-element floating w-40 h-40 bottom-1/4 left-1/3 opacity-35"></div>
+    <div class="floating-element floating-fast w-48 h-48 bottom-20 right-20 opacity-30"></div>
+    <div class="floating-element floating w-56 h-56 top-1/3 right-1/4 opacity-25"></div>
+    <div class="floating-element floating-slow w-40 h-40 bottom-1/4 left-1/3 opacity-35"></div>
 
     <!-- ===== HEADER / NAVIGASI ===== -->
         <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#2d1b69] to-[#1f1047] text-white shadow-lg border-b border-purple-500/20">
@@ -450,26 +445,25 @@
             </a>
         </div>
     </nav>
-
     <!-- ===== MAIN CONTENT ===== -->
     <main class="relative z-20 pt-32 pb-20 flex flex-col items-center justify-center min-h-screen px-4">
 
         <!-- Konten Utama -->
-        <div class="w-full max-w-2xl text-center relative z-10">
+        <div class="w-full max-w-4xl text-center relative z-10">
             <h1 class="literise-title gentle-pulse mb-6" data-aos="fade-down" data-aos-duration="1000">LITERISE</h1>
 
-            <div class="mission-card" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                <div class="mission-card-content">
+            <div class="grammar-card max-w-2xl mx-auto" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                <div class="grammar-card-content">
                     <div class="w-24 h-24 mx-auto mb-8 rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center shadow-lg icon-float">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </svg>
                     </div>
 
-                    <h2 class="text-4xl font-bold text-white mb-6">🧠 Reading Mission</h2>
+                    <h2 class="text-4xl font-bold text-white mb-6">📝 Zona Tata Bahasa</h2>
                     <p class="text-gray-200 mb-10 text-xl leading-relaxed">
-                        Masukkan topik apapun yang Anda ingin pelajari. AI akan membuatkan artikel pendek
-                        dan 3 pertanyaan kuis pemahaman untuk Anda.
+                        Pilih genre favorit Anda. AI akan membuatkan 5 kalimat (beberapa benar, beberapa salah).
+                        Tugas Anda adalah memperbaikinya!
                     </p>
 
                     <!-- Menampilkan Error dari Controller -->
@@ -480,25 +474,28 @@
                         </div>
                     @endif
 
-                    <!-- Form Search Bar -->
-                    <form action="{{ route('game.generate') }}" method="POST" id="game-form">
+                    <!-- Form Pilihan -->
+                    <form action="{{ route('grammar.generate_game') }}" method="POST" id="game-form">
                         @csrf
-                        <div class="space-y-6 mb-10">
+                        <div class="space-y-8">
                             <div>
-                                <label for="topic" class="block text-left text-lg font-medium text-white mb-4">Topik Bacaan</label>
-                                <input type="text" id="topic" name="topic" required value="{{ old('topic') }}"
-                                       class="form-input text-lg"
-                                       placeholder="Contoh: Sejarah Kerajaan Majapahit">
-                                @error('topic')
-                                    <p class="text-red-300 text-sm mt-2">{{ $message }}</p>
-                                @enderror
+                                <label for="genre" class="block text-left text-xl font-medium text-white mb-4">🎨 Pilih Genre</label>
+                                <select id="genre" name="genre" required class="form-select">
+                                    <option value="Slice of Life" selected>🌅 Slice of Life</option>
+                                    <option value="Romance">💖 Romance</option>
+                                    <option value="Fantasy">🧙 Fantasy</option>
+                                    <option value="Shounen">⚡ Shounen / Aksi</option>
+                                    <option value="Sains Fiksi">🚀 Sains Fiksi</option>
+                                    <option value="Horor">👻 Horor</option>
+                                    <option value="Formal">🎓 Formal / Akademik</option>
+                                </select>
                             </div>
-                        </div>
 
-                        <div>
-                            <button type="submit" class="mission-button loading-button w-full py-4 text-xl btn-glow">
-                                🚀 Buat Misi Bacaan
-                            </button>
+                            <div>
+                                <button type="submit" class="grammar-button loading-button w-full py-4 text-xl btn-glow mobile-pulse" id="start-grammar-game">
+                                    🚀 Mulai Latihan Tata Bahasa
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -530,7 +527,7 @@
                         </a>
                         <a href="#" class="platform-btn text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 a6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 3.323 3.323 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
                             </svg>
                         </a>
                         <a href="#" class="platform-btn text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
@@ -553,13 +550,13 @@
                             <span class="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
                             Permainan
                         </a></li>
-                        <li><a href="{{ route('library.index') }}" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center">
-                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-                            Library
-                        </a></li>
                         <li><a href="{{ route('tentang.index') }}" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center">
-                            <span class="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
+                            <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
                             Tentang Kami
+                        </a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center">
+                            <span class="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
+                            Kontak
                         </a></li>
                     </ul>
                 </div>
@@ -595,10 +592,10 @@
         </div>
     </footer>
 
-    <!-- Loading Overlay -->
+    <!-- NEW: LOADING OVERLAY - SAMA SEPERTI DI HALAMAN KEDUA -->
     <div id="loading-overlay">
         <div class="spinner"></div>
-        <p class="text-xl font-semibold mt-4">Mempersiapkan misi bacaan untuk Anda...</p>
+        <p class="text-xl font-semibold mt-4">Mempersiapkan latihan tata bahasa...</p>
         <p class="text-gray-300 mt-2">Tunggu sebentar ya!</p>
     </div>
 
@@ -618,17 +615,27 @@
             mobileMenu.classList.toggle('active');
         });
 
-        // Animasi Loading untuk tombol dan form
-        document.getElementById('game-form').addEventListener('submit', function(e) {
+        // NEW: Loading animation untuk tombol "Mulai Latihan Tata Bahasa" - SAMA SEPERTI DI HALAMAN KEDUA
+        document.getElementById('start-grammar-game').addEventListener('click', function(e) {
             const loadingOverlay = document.getElementById('loading-overlay');
             loadingOverlay.style.display = 'flex';
+
+            const button = this;
+            const originalText = button.innerHTML;
+
+            // Tampilkan loading spinner di tombol
+            button.innerHTML = '<span class="loading-spinner"></span>Mempersiapkan...';
+            button.classList.add('loading');
+
+            // Biarkan form submit tetap berjalan, overlay akan tetap tampil
+            // selama proses loading di server
         });
 
-        // Animasi untuk tombol loading
+        // NEW: Animasi Loading untuk tombol - SAMA SEPERTI DI HALAMAN KEDUA
         document.querySelectorAll('.loading-button').forEach(button => {
             button.addEventListener('click', function(e) {
                 const originalText = this.innerHTML;
-                this.innerHTML = '<span class="loading-spinner"></span>Mempersiapkan...';
+                this.innerHTML = '<span class="loading-spinner"></span>Memuat...';
                 this.style.pointerEvents = 'none';
 
                 setTimeout(() => {
@@ -637,61 +644,63 @@
                 }, 3000);
             });
         });
-        // 1. Setup Audio Context (Hanya dibuat sekali)
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    // 2. Fungsi Membuat Suara "Click" Digital (Nol Delay)
-    function playClickSound() {
-        // Bangunkan Audio Context jika tertidur (kebijakan browser)
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
+        // 1. Setup Audio Context (Hanya dibuat sekali)
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // 2. Fungsi Membuat Suara "Click" Digital (Nol Delay)
+        function playClickSound() {
+            // Bangunkan Audio Context jika tertidur (kebijakan browser)
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            // Setting Nada: Mulai tinggi (800Hz) turun cepat ke (100Hz) -> Efek "Pluk"
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+
+            // Setting Volume: Cepat hilang (Short decay)
+            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime); // Volume 30%
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.1);
         }
 
-        const oscillator = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
+        // 3. Event Listener Spesifik Tombol
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // Setting Nada: Mulai tinggi (800Hz) turun cepat ke (100Hz) -> Efek "Pluk"
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+            // Gunakan 'pointerdown' agar suara muncul SAAT JARI MENEMPEL (bukan saat dilepas)
+            document.addEventListener('pointerdown', function(e) {
 
-        // Setting Volume: Cepat hilang (Short decay)
-        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime); // Volume 30%
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                // DAFTAR SELECTOR YANG DIANGGAP TOMBOL
+                // Hanya elemen di dalam list ini yang akan bunyi
+                const isButton = e.target.closest(`
+                    button,                 /* Semua tag <button> */
+                    .btn-game-3d,           /* Class tombol game Anda */
+                    .btn-game-secondary,    /* Class tombol secondary */
+                    .result-button,         /* Tombol di halaman hasil */
+                    .header-btn,            /* Tombol login/register di header */
+                    .feature-card-button,   /* Tombol di kartu fitur */
+                    .platform-btn,          /* Tombol sosmed di footer */
+                    .back-button,           /* Tombol kembali */
+                    .submit-button          /* Tombol kirim kuis */
+                    submit-button           /* Tombol kirim kuis */
+                `);
 
-        oscillator.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-
-        oscillator.start();
-        oscillator.stop(audioCtx.currentTime + 0.1);
-    }
-
-    // 3. Event Listener Spesifik Tombol
-    document.addEventListener('DOMContentLoaded', function() {
-
-        // Gunakan 'pointerdown' agar suara muncul SAAT JARI MENEMPEL (bukan saat dilepas)
-        document.addEventListener('pointerdown', function(e) {
-
-            // DAFTAR SELECTOR YANG DIANGGAP TOMBOL
-            // Hanya elemen di dalam list ini yang akan bunyi
-            const isButton = e.target.closest(`
-                button,                 /* Semua tag <button> */
-                .btn-game-3d,           /* Class tombol game Anda */
-                .btn-game-secondary,    /* Class tombol secondary */
-                .result-button,         /* Tombol di halaman hasil */
-                .header-btn,            /* Tombol login/register di header */
-                .feature-card-button,   /* Tombol di kartu fitur */
-                .platform-btn,          /* Tombol sosmed di footer */
-                .back-button,           /* Tombol kembali */
-                .submit-button          /* Tombol kirim kuis */
-            `);
-
-            // Jika yang ditekan adalah salah satu dari daftar di atas -> BUNYI
-            if (isButton) {
-                playClickSound();
-            }
+                // Jika yang ditekan adalah salah satu dari daftar di atas -> BUNYI
+                if (isButton) {
+                    playClickSound();
+                }
+            });
         });
-    });
     </script>
 </body>
 </html>

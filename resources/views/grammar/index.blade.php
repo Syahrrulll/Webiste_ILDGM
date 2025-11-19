@@ -259,7 +259,7 @@
             left: 100%;
         }
 
-        /* Animasi Loading */
+        /* NEW: Animasi Loading - SAMA SEPERTI DI HALAMAN KEDUA */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -276,7 +276,32 @@
             margin-right: 8px;
         }
 
-        /* Custom style untuk loading overlay */
+        .loading-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-button.loading {
+            pointer-events: none;
+        }
+
+        .loading-button.loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* NEW: LOADING OVERLAY - SAMA SEPERTI DI HALAMAN KEDUA */
         #loading-overlay {
             position: fixed;
             top: 0;
@@ -467,7 +492,7 @@
                             </div>
 
                             <div>
-                                <button type="submit" class="grammar-button loading-button w-full py-4 text-xl btn-glow">
+                                <button type="submit" class="grammar-button loading-button w-full py-4 text-xl btn-glow mobile-pulse" id="start-grammar-game">
                                     🚀 Mulai Latihan Tata Bahasa
                                 </button>
                             </div>
@@ -567,7 +592,7 @@
         </div>
     </footer>
 
-    <!-- Loading Overlay -->
+    <!-- NEW: LOADING OVERLAY - SAMA SEPERTI DI HALAMAN KEDUA -->
     <div id="loading-overlay">
         <div class="spinner"></div>
         <p class="text-xl font-semibold mt-4">Mempersiapkan latihan tata bahasa...</p>
@@ -590,17 +615,27 @@
             mobileMenu.classList.toggle('active');
         });
 
-        // Animasi Loading untuk tombol dan form
-        document.getElementById('game-form').addEventListener('submit', function(e) {
+        // NEW: Loading animation untuk tombol "Mulai Latihan Tata Bahasa" - SAMA SEPERTI DI HALAMAN KEDUA
+        document.getElementById('start-grammar-game').addEventListener('click', function(e) {
             const loadingOverlay = document.getElementById('loading-overlay');
             loadingOverlay.style.display = 'flex';
+
+            const button = this;
+            const originalText = button.innerHTML;
+
+            // Tampilkan loading spinner di tombol
+            button.innerHTML = '<span class="loading-spinner"></span>Mempersiapkan...';
+            button.classList.add('loading');
+
+            // Biarkan form submit tetap berjalan, overlay akan tetap tampil
+            // selama proses loading di server
         });
 
-        // Animasi untuk tombol loading
+        // NEW: Animasi Loading untuk tombol - SAMA SEPERTI DI HALAMAN KEDUA
         document.querySelectorAll('.loading-button').forEach(button => {
             button.addEventListener('click', function(e) {
                 const originalText = this.innerHTML;
-                this.innerHTML = '<span class="loading-spinner"></span>Mempersiapkan...';
+                this.innerHTML = '<span class="loading-spinner"></span>Memuat...';
                 this.style.pointerEvents = 'none';
 
                 setTimeout(() => {
@@ -609,61 +644,63 @@
                 }, 3000);
             });
         });
-        // 1. Setup Audio Context (Hanya dibuat sekali)
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    // 2. Fungsi Membuat Suara "Click" Digital (Nol Delay)
-    function playClickSound() {
-        // Bangunkan Audio Context jika tertidur (kebijakan browser)
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
+        // 1. Setup Audio Context (Hanya dibuat sekali)
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // 2. Fungsi Membuat Suara "Click" Digital (Nol Delay)
+        function playClickSound() {
+            // Bangunkan Audio Context jika tertidur (kebijakan browser)
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            // Setting Nada: Mulai tinggi (800Hz) turun cepat ke (100Hz) -> Efek "Pluk"
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+
+            // Setting Volume: Cepat hilang (Short decay)
+            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime); // Volume 30%
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.1);
         }
 
-        const oscillator = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
+        // 3. Event Listener Spesifik Tombol
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // Setting Nada: Mulai tinggi (800Hz) turun cepat ke (100Hz) -> Efek "Pluk"
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+            // Gunakan 'pointerdown' agar suara muncul SAAT JARI MENEMPEL (bukan saat dilepas)
+            document.addEventListener('pointerdown', function(e) {
 
-        // Setting Volume: Cepat hilang (Short decay)
-        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime); // Volume 30%
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                // DAFTAR SELECTOR YANG DIANGGAP TOMBOL
+                // Hanya elemen di dalam list ini yang akan bunyi
+                const isButton = e.target.closest(`
+                    button,                 /* Semua tag <button> */
+                    .btn-game-3d,           /* Class tombol game Anda */
+                    .btn-game-secondary,    /* Class tombol secondary */
+                    .result-button,         /* Tombol di halaman hasil */
+                    .header-btn,            /* Tombol login/register di header */
+                    .feature-card-button,   /* Tombol di kartu fitur */
+                    .platform-btn,          /* Tombol sosmed di footer */
+                    .back-button,           /* Tombol kembali */
+                    .submit-button          /* Tombol kirim kuis */
+                    submit-button           /* Tombol kirim kuis */
+                `);
 
-        oscillator.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-
-        oscillator.start();
-        oscillator.stop(audioCtx.currentTime + 0.1);
-    }
-
-    // 3. Event Listener Spesifik Tombol
-    document.addEventListener('DOMContentLoaded', function() {
-
-        // Gunakan 'pointerdown' agar suara muncul SAAT JARI MENEMPEL (bukan saat dilepas)
-        document.addEventListener('pointerdown', function(e) {
-
-            // DAFTAR SELECTOR YANG DIANGGAP TOMBOL
-            // Hanya elemen di dalam list ini yang akan bunyi
-            const isButton = e.target.closest(`
-                button,                 /* Semua tag <button> */
-                .btn-game-3d,           /* Class tombol game Anda */
-                .btn-game-secondary,    /* Class tombol secondary */
-                .result-button,         /* Tombol di halaman hasil */
-                .header-btn,            /* Tombol login/register di header */
-                .feature-card-button,   /* Tombol di kartu fitur */
-                .platform-btn,          /* Tombol sosmed di footer */
-                .back-button,           /* Tombol kembali */
-                .submit-button          /* Tombol kirim kuis */
-            `);
-
-            // Jika yang ditekan adalah salah satu dari daftar di atas -> BUNYI
-            if (isButton) {
-                playClickSound();
-            }
+                // Jika yang ditekan adalah salah satu dari daftar di atas -> BUNYI
+                if (isButton) {
+                    playClickSound();
+                }
+            });
         });
-    });
     </script>
 </body>
 </html>
