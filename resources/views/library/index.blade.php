@@ -243,7 +243,7 @@
             left: 100%;
         }
 
-        /* Animasi Loading */
+        /* NEW: Animasi Loading - SAMA SEPERTI DI HALAMAN SEBELUMNYA */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -260,7 +260,33 @@
             margin-right: 8px;
         }
 
-        /* Custom style untuk loading overlay */
+        .loading-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-button.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .loading-button.loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* NEW: LOADING OVERLAY - SAMA SEPERTI DI HALAMAN SEBELUMNYA */
         #loading-overlay {
             position: fixed;
             top: 0;
@@ -288,6 +314,23 @@
             margin-bottom: 20px;
         }
 
+        /* NEW: Mobile-specific improvements */
+        .mobile-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(116, 67, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(116, 67, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(116, 67, 255, 0);
+            }
+        }
+
         /* Form styling */
         .form-select {
             background: rgba(255, 255, 255, 0.1);
@@ -312,38 +355,6 @@
             background: #2d1b69;
             color: white;
             padding: 10px;
-        }
-
-        /* Dropdown yang diperbaiki */
-        .dropdown-menu {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            min-width: 200px;
-            overflow: hidden;
-        }
-
-        .dropdown-item {
-            display: block;
-            width: 100%;
-            padding: 12px 16px;
-            text-align: left;
-            border: none;
-            background: none;
-            color: #4a5568;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .dropdown-item:hover {
-            background-color: #f7fafc;
-            color: #7443ff;
-        }
-
-        .dropdown-divider {
-            height: 1px;
-            background-color: #e2e8f0;
-            margin: 4px 0;
         }
 
         /* Background pattern yang lebih subtle */
@@ -523,7 +534,7 @@
                         </div>
 
                         <div>
-                            <button type="submit" class="library-card-button loading-button w-full py-4 text-xl btn-glow">
+                            <button type="submit" class="library-card-button loading-button w-full py-4 text-xl btn-glow mobile-pulse" id="start-library-game">
                                 🚀 Mulai Petualangan Membaca
                             </button>
                         </div>
@@ -622,7 +633,7 @@
         </div>
     </footer>
 
-    <!-- Loading Overlay -->
+    <!-- NEW: LOADING OVERLAY - SAMA SEPERTI DI HALAMAN SEBELUMNYA -->
     <div id="loading-overlay">
         <div class="spinner"></div>
         <p class="text-xl font-semibold mt-4">Mempersiapkan bacaan spesial untuk Anda...</p>
@@ -639,29 +650,104 @@
             offset: 100
         });
 
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('active');
-        });
-
-        // Animasi Loading untuk tombol dan form
+        // NEW: Loading animation untuk form library - DIPERBAIKI
         document.getElementById('game-form').addEventListener('submit', function(e) {
+            // Validasi form terlebih dahulu
+            const formatSelect = document.getElementById('format');
+            const genreSelect = document.getElementById('genre');
+
+            if (!formatSelect.value || !genreSelect.value) {
+                e.preventDefault();
+                if (!formatSelect.value) formatSelect.focus();
+                else genreSelect.focus();
+                return;
+            }
+
             const loadingOverlay = document.getElementById('loading-overlay');
+            const button = document.getElementById('start-library-game');
+            const originalText = button.innerHTML;
+
+            // Tampilkan loading overlay
             loadingOverlay.style.display = 'flex';
+
+            // Tampilkan loading spinner di tombol
+            button.innerHTML = '<span class="loading-spinner"></span>Mempersiapkan...';
+            button.classList.add('loading');
+            button.disabled = true;
+
+            // Biarkan form submit berjalan normal
+            // Loading akan tetap tampil selama proses di server
         });
 
-        // Animasi untuk tombol loading
+        // NEW: Animasi Loading untuk tombol - DIPERBAIKI
         document.querySelectorAll('.loading-button').forEach(button => {
             button.addEventListener('click', function(e) {
+                // Hanya tampilkan animasi loading di tombol, tidak mencegah form submission
                 const originalText = this.innerHTML;
-                this.innerHTML = '<span class="loading-spinner"></span>Mempersiapkan...';
+                this.innerHTML = '<span class="loading-spinner"></span>Memuat...';
                 this.style.pointerEvents = 'none';
 
+                // Reset setelah 5 detik (fallback jika ada masalah)
                 setTimeout(() => {
                     this.innerHTML = originalText;
                     this.style.pointerEvents = 'auto';
-                }, 3000);
+                }, 5000);
+            });
+        });
+
+        // 1. Setup Audio Context (Hanya dibuat sekali)
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // 2. Fungsi Membuat Suara "Click" Digital (Nol Delay)
+        function playClickSound() {
+            // Bangunkan Audio Context jika tertidur (kebijakan browser)
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            // Setting Nada: Mulai tinggi (800Hz) turun cepat ke (100Hz) -> Efek "Pluk"
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+
+            // Setting Volume: Cepat hilang (Short decay)
+            gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime); // Volume 30%
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.1);
+        }
+
+        // 3. Event Listener Spesifik Tombol
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Gunakan 'pointerdown' agar suara muncul SAAT JARI MENEMPEL (bukan saat dilepas)
+            document.addEventListener('pointerdown', function(e) {
+
+                // DAFTAR SELECTOR YANG DIANGGAP TOMBOL
+                // Hanya elemen di dalam list ini yang akan bunyi
+                const isButton = e.target.closest(`
+                    button,                 /* Semua tag <button> */
+                    .btn-game-3d,           /* Class tombol game Anda */
+                    .btn-game-secondary,    /* Class tombol secondary */
+                    .result-button,         /* Tombol di halaman hasil */
+                    .header-btn,            /* Tombol login/register di header */
+                    .feature-card-button,   /* Tombol di kartu fitur */
+                    .platform-btn,          /* Tombol sosmed di footer */
+                    .back-button,           /* Tombol kembali */
+                    .submit-button          /* Tombol kirim kuis */
+                `);
+
+                // Jika yang ditekan adalah salah satu dari daftar di atas -> BUNYI
+                if (isButton) {
+                    playClickSound();
+                }
             });
         });
     </script>

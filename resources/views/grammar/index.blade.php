@@ -283,6 +283,7 @@
 
         .loading-button.loading {
             pointer-events: none;
+            opacity: 0.8;
         }
 
         .loading-button.loading::after {
@@ -327,6 +328,23 @@
             height: 60px;
             animation: spin 1s linear infinite;
             margin-bottom: 20px;
+        }
+
+        /* NEW: Mobile-specific improvements */
+        .mobile-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(116, 67, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(116, 67, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(116, 67, 255, 0);
+            }
         }
 
         /* Background pattern yang lebih subtle */
@@ -527,7 +545,7 @@
                         </a>
                         <a href="#" class="platform-btn text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 3.323 3.323 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 a3.301 3.301 0 0 0 1.447-1.817 3.323 3.323 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
                             </svg>
                         </a>
                         <a href="#" class="platform-btn text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
@@ -609,39 +627,45 @@
             offset: 100
         });
 
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('active');
-        });
+        // NEW: Loading animation untuk form grammar - DIPERBAIKI
+        document.getElementById('game-form').addEventListener('submit', function(e) {
+            // Validasi form terlebih dahulu
+            const genreSelect = document.getElementById('genre');
+            if (!genreSelect.value) {
+                e.preventDefault();
+                genreSelect.focus();
+                return;
+            }
 
-        // NEW: Loading animation untuk tombol "Mulai Latihan Tata Bahasa" - SAMA SEPERTI DI HALAMAN KEDUA
-        document.getElementById('start-grammar-game').addEventListener('click', function(e) {
             const loadingOverlay = document.getElementById('loading-overlay');
-            loadingOverlay.style.display = 'flex';
-
-            const button = this;
+            const button = document.getElementById('start-grammar-game');
             const originalText = button.innerHTML;
+
+            // Tampilkan loading overlay
+            loadingOverlay.style.display = 'flex';
 
             // Tampilkan loading spinner di tombol
             button.innerHTML = '<span class="loading-spinner"></span>Mempersiapkan...';
             button.classList.add('loading');
+            button.disabled = true;
 
-            // Biarkan form submit tetap berjalan, overlay akan tetap tampil
-            // selama proses loading di server
+            // Biarkan form submit berjalan normal
+            // Loading akan tetap tampil selama proses di server
         });
 
-        // NEW: Animasi Loading untuk tombol - SAMA SEPERTI DI HALAMAN KEDUA
+        // NEW: Animasi Loading untuk tombol - DIPERBAIKI
         document.querySelectorAll('.loading-button').forEach(button => {
             button.addEventListener('click', function(e) {
+                // Hanya tampilkan animasi loading di tombol, tidak mencegah form submission
                 const originalText = this.innerHTML;
                 this.innerHTML = '<span class="loading-spinner"></span>Memuat...';
                 this.style.pointerEvents = 'none';
 
+                // Reset setelah 5 detik (fallback jika ada masalah)
                 setTimeout(() => {
                     this.innerHTML = originalText;
                     this.style.pointerEvents = 'auto';
-                }, 3000);
+                }, 5000);
             });
         });
 
@@ -692,7 +716,6 @@
                     .platform-btn,          /* Tombol sosmed di footer */
                     .back-button,           /* Tombol kembali */
                     .submit-button          /* Tombol kirim kuis */
-                    submit-button           /* Tombol kirim kuis */
                 `);
 
                 // Jika yang ditekan adalah salah satu dari daftar di atas -> BUNYI

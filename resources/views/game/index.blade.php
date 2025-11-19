@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zona Tata Bahasa - Literise</title>
+    <title>Reading Mission - Literise</title>
 
     <!-- Memuat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -46,6 +46,10 @@
             line-height: 1;
         }
 
+        .subtitle-shadow {
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
         .header-btn {
             background: linear-gradient(90deg, #F472B6 0%, #EC4899 100%);
             box-shadow: 0 4px 15px -3px rgba(236, 72, 153, 0.5);
@@ -63,8 +67,7 @@
             border-color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Animasi untuk grammar-card */
-        .grammar-card {
+        .mission-card {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -81,7 +84,7 @@
             z-index: 1;
         }
 
-        .grammar-card::before {
+        .mission-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -96,7 +99,7 @@
             border-radius: 24px;
         }
 
-        .grammar-card::after {
+        .mission-card::after {
             content: '';
             position: absolute;
             top: -2px;
@@ -114,18 +117,18 @@
             transition: opacity 0.4s ease;
         }
 
-        .grammar-card:hover::after {
+        .mission-card:hover::after {
             opacity: 0.6;
         }
 
-        .grammar-card:hover {
+        .mission-card:hover {
             transform: translateY(-8px);
             box-shadow:
                 0 30px 60px rgba(124, 58, 234, 0.25),
                 inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
-        .grammar-card-content {
+        .mission-card-content {
             position: relative;
             z-index: 2;
             flex-grow: 1;
@@ -133,7 +136,13 @@
             flex-direction: column;
         }
 
-        .grammar-button {
+        .mission-card p {
+            flex-grow: 1;
+            margin-bottom: 2rem;
+        }
+
+        .mission-button {
+            margin-top: auto;
             display: inline-block;
             text-align: center;
             padding: 1rem 2rem;
@@ -147,95 +156,10 @@
             font-size: 1.1rem;
         }
 
-        .grammar-button:hover {
+        .mission-button:hover {
             transform: scale(1.05);
             box-shadow: 0 12px 35px -3px rgba(116, 67, 255, 0.7);
             background: linear-gradient(135deg, #8c52ff 0%, #7443ff 100%);
-        }
-
-        /* Form styling */
-        .form-select {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            color: white;
-            padding: 1rem 1.5rem;
-            width: 100%;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-        }
-
-        .form-select:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 0 3px rgba(116, 67, 255, 0.3);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .form-select option {
-            background: #2d1b69;
-            color: white;
-            padding: 12px;
-        }
-
-        /* Animasi floating yang lebih smooth */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        @keyframes float-slow {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            33% {
-                transform: translateY(-10px) rotate(1deg);
-            }
-            66% {
-                transform: translateY(5px) rotate(-1deg);
-            }
-        }
-
-        @keyframes float-fast {
-            0%, 100% {
-                transform: translateY(0px) scale(1);
-            }
-            50% {
-                transform: translateY(-15px) scale(1.05);
-            }
-        }
-
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-slow {
-            animation: float-slow 8s ease-in-out infinite;
-        }
-
-        .floating-fast {
-            animation: float-fast 4s ease-in-out infinite;
-        }
-
-        /* Animasi teks berkedip */
-        @keyframes gentle-pulse {
-            0%, 100% {
-                opacity: 1;
-                text-shadow: 0 0 10px #8c52ff, 0 0 20px #8c52ff;
-            }
-            50% {
-                opacity: 0.9;
-                text-shadow: 0 0 5px #8c52ff, 0 0 15px #8c52ff;
-            }
-        }
-
-        .gentle-pulse {
-            animation: gentle-pulse 4s ease-in-out infinite;
         }
 
         /* Animasi untuk tombol */
@@ -259,7 +183,31 @@
             left: 100%;
         }
 
-        /* NEW: Animasi Loading - SAMA SEPERTI DI HALAMAN KEDUA */
+        /* Form styling */
+        .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            padding: 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 0 3px rgba(116, 67, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* NEW: Animasi Loading - SAMA SEPERTI DI HALAMAN SEBELUMNYA */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -283,6 +231,7 @@
 
         .loading-button.loading {
             pointer-events: none;
+            opacity: 0.8;
         }
 
         .loading-button.loading::after {
@@ -301,7 +250,7 @@
             100% { left: 100%; }
         }
 
-        /* NEW: LOADING OVERLAY - SAMA SEPERTI DI HALAMAN KEDUA */
+        /* NEW: LOADING OVERLAY - SAMA SEPERTI DI HALAMAN SEBELUMNYA */
         #loading-overlay {
             position: fixed;
             top: 0;
@@ -329,6 +278,23 @@
             margin-bottom: 20px;
         }
 
+        /* NEW: Mobile-specific improvements */
+        .mobile-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(116, 67, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(116, 67, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(116, 67, 255, 0);
+            }
+        }
+
         /* Background pattern yang lebih subtle */
         .bg-pattern {
             position: absolute;
@@ -343,14 +309,59 @@
             z-index: -1;
         }
 
-        /* Floating elements yang lebih natural - INI YANG DIPERBAIKI */
+        /* Floating elements yang lebih natural */
         .floating-element {
             position: absolute;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(116, 67, 255, 0.15), transparent 70%);
             filter: blur(20px);
             z-index: -1;
-            pointer-events: none;
+        }
+
+        /* Animasi floating yang lebih smooth */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes float-slow {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-10px) rotate(1deg);
+            }
+            66% {
+                transform: translateY(5px) rotate(-1deg);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-slow {
+            animation: float-slow 8s ease-in-out infinite;
+        }
+
+        /* Animasi teks berkedip */
+        @keyframes gentle-pulse {
+            0%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 10px #8c52ff, 0 0 20px #8c52ff;
+            }
+            50% {
+                opacity: 0.9;
+                text-shadow: 0 0 5px #8c52ff, 0 0 15px #8c52ff;
+            }
+        }
+
+        .gentle-pulse {
+            animation: gentle-pulse 4s ease-in-out infinite;
         }
 
         /* Icon animation */
@@ -395,17 +406,17 @@
                 padding: 1rem;
                 z-index: 100;
             }
-            .grammar-card {
+            .mission-card {
                 padding: 2rem 1.5rem;
+            }
+            .floating-element {
+                display: none;
             }
         }
 
         @media (max-width: 640px) {
             .literise-title { font-size: 3rem; }
-            .grammar-card { padding: 1.5rem 1rem; }
-            .floating-element {
-                display: none;
-            }
+            .mission-card { padding: 1.5rem 1rem; }
         }
 
         @media (max-width: 480px) {
@@ -418,11 +429,11 @@
     <!-- Background Pattern -->
     <div class="bg-pattern"></div>
 
-    <!-- Floating Elements yang lebih natural - INI YANG DIPERBAIKI -->
+    <!-- Floating Elements yang lebih natural -->
     <div class="floating-element floating-slow w-64 h-64 top-10 left-10 opacity-40"></div>
-    <div class="floating-element floating-fast w-48 h-48 bottom-20 right-20 opacity-30"></div>
-    <div class="floating-element floating w-56 h-56 top-1/3 right-1/4 opacity-25"></div>
-    <div class="floating-element floating-slow w-40 h-40 bottom-1/4 left-1/3 opacity-35"></div>
+    <div class="floating-element floating w-48 h-48 bottom-20 right-20 opacity-30"></div>
+    <div class="floating-element floating-slow w-56 h-56 top-1/3 right-1/4 opacity-25"></div>
+    <div class="floating-element floating w-40 h-40 bottom-1/4 left-1/3 opacity-35"></div>
 
     <!-- ===== HEADER / NAVIGASI ===== -->
         <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#2d1b69] to-[#1f1047] text-white shadow-lg border-b border-purple-500/20">
@@ -445,25 +456,26 @@
             </a>
         </div>
     </nav>
+
     <!-- ===== MAIN CONTENT ===== -->
     <main class="relative z-20 pt-32 pb-20 flex flex-col items-center justify-center min-h-screen px-4">
 
         <!-- Konten Utama -->
-        <div class="w-full max-w-4xl text-center relative z-10">
+        <div class="w-full max-w-2xl text-center relative z-10">
             <h1 class="literise-title gentle-pulse mb-6" data-aos="fade-down" data-aos-duration="1000">LITERISE</h1>
 
-            <div class="grammar-card max-w-2xl mx-auto" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                <div class="grammar-card-content">
+            <div class="mission-card" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                <div class="mission-card-content">
                     <div class="w-24 h-24 mx-auto mb-8 rounded-full bg-gradient-to-br from-[#7443ff] to-[#d3a2ff] flex items-center justify-center shadow-lg icon-float">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                     </div>
 
-                    <h2 class="text-4xl font-bold text-white mb-6">📝 Zona Tata Bahasa</h2>
+                    <h2 class="text-4xl font-bold text-white mb-6">🧠 Reading Mission</h2>
                     <p class="text-gray-200 mb-10 text-xl leading-relaxed">
-                        Pilih genre favorit Anda. AI akan membuatkan 5 kalimat (beberapa benar, beberapa salah).
-                        Tugas Anda adalah memperbaikinya!
+                        Masukkan topik apapun yang Anda ingin pelajari. AI akan membuatkan artikel pendek
+                        dan 3 pertanyaan kuis pemahaman untuk Anda.
                     </p>
 
                     <!-- Menampilkan Error dari Controller -->
@@ -474,28 +486,25 @@
                         </div>
                     @endif
 
-                    <!-- Form Pilihan -->
-                    <form action="{{ route('grammar.generate_game') }}" method="POST" id="game-form">
+                    <!-- Form Search Bar -->
+                    <form action="{{ route('game.generate') }}" method="POST" id="game-form">
                         @csrf
-                        <div class="space-y-8">
+                        <div class="space-y-6 mb-10">
                             <div>
-                                <label for="genre" class="block text-left text-xl font-medium text-white mb-4">🎨 Pilih Genre</label>
-                                <select id="genre" name="genre" required class="form-select">
-                                    <option value="Slice of Life" selected>🌅 Slice of Life</option>
-                                    <option value="Romance">💖 Romance</option>
-                                    <option value="Fantasy">🧙 Fantasy</option>
-                                    <option value="Shounen">⚡ Shounen / Aksi</option>
-                                    <option value="Sains Fiksi">🚀 Sains Fiksi</option>
-                                    <option value="Horor">👻 Horor</option>
-                                    <option value="Formal">🎓 Formal / Akademik</option>
-                                </select>
+                                <label for="topic" class="block text-left text-lg font-medium text-white mb-4">Topik Bacaan</label>
+                                <input type="text" id="topic" name="topic" required value="{{ old('topic') }}"
+                                       class="form-input text-lg"
+                                       placeholder="Contoh: Sejarah Kerajaan Majapahit">
+                                @error('topic')
+                                    <p class="text-red-300 text-sm mt-2">{{ $message }}</p>
+                                @enderror
                             </div>
+                        </div>
 
-                            <div>
-                                <button type="submit" class="grammar-button loading-button w-full py-4 text-xl btn-glow mobile-pulse" id="start-grammar-game">
-                                    🚀 Mulai Latihan Tata Bahasa
-                                </button>
-                            </div>
+                        <div>
+                            <button type="submit" class="mission-button loading-button w-full py-4 text-xl btn-glow mobile-pulse" id="start-reading-mission">
+                                🚀 Buat Misi Bacaan
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -527,7 +536,7 @@
                         </a>
                         <a href="#" class="platform-btn text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 3.323 3.323 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 a6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
                             </svg>
                         </a>
                         <a href="#" class="platform-btn text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
@@ -550,13 +559,13 @@
                             <span class="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
                             Permainan
                         </a></li>
-                        <li><a href="{{ route('tentang.index') }}" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center">
+                        <li><a href="{{ route('library.index') }}" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center">
                             <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-                            Tentang Kami
+                            Library
                         </a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center">
+                        <li><a href="{{ route('tentang.index') }}" class="text-gray-300 hover:text-pink-300 transition-colors flex items-center">
                             <span class="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
-                            Kontak
+                            Tentang Kami
                         </a></li>
                     </ul>
                 </div>
@@ -592,10 +601,10 @@
         </div>
     </footer>
 
-    <!-- NEW: LOADING OVERLAY - SAMA SEPERTI DI HALAMAN KEDUA -->
+    <!-- NEW: LOADING OVERLAY - SAMA SEPERTI DI HALAMAN SEBELUMNYA -->
     <div id="loading-overlay">
         <div class="spinner"></div>
-        <p class="text-xl font-semibold mt-4">Mempersiapkan latihan tata bahasa...</p>
+        <p class="text-xl font-semibold mt-4">Mempersiapkan misi Bacaan</p>
         <p class="text-gray-300 mt-2">Tunggu sebentar ya!</p>
     </div>
 
@@ -609,39 +618,45 @@
             offset: 100
         });
 
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('active');
-        });
+        // NEW: Loading animation untuk tombol "Buat Misi Bacaan" - DIPERBAIKI
+        document.getElementById('game-form').addEventListener('submit', function(e) {
+            // Validasi form terlebih dahulu
+            const topicInput = document.getElementById('topic');
+            if (!topicInput.value.trim()) {
+                e.preventDefault();
+                topicInput.focus();
+                return;
+            }
 
-        // NEW: Loading animation untuk tombol "Mulai Latihan Tata Bahasa" - SAMA SEPERTI DI HALAMAN KEDUA
-        document.getElementById('start-grammar-game').addEventListener('click', function(e) {
             const loadingOverlay = document.getElementById('loading-overlay');
-            loadingOverlay.style.display = 'flex';
-
-            const button = this;
+            const button = document.getElementById('start-reading-mission');
             const originalText = button.innerHTML;
+
+            // Tampilkan loading overlay
+            loadingOverlay.style.display = 'flex';
 
             // Tampilkan loading spinner di tombol
             button.innerHTML = '<span class="loading-spinner"></span>Mempersiapkan...';
             button.classList.add('loading');
+            button.disabled = true;
 
-            // Biarkan form submit tetap berjalan, overlay akan tetap tampil
-            // selama proses loading di server
+            // Biarkan form submit berjalan normal
+            // Loading akan tetap tampil selama proses di server
         });
 
-        // NEW: Animasi Loading untuk tombol - SAMA SEPERTI DI HALAMAN KEDUA
+        // NEW: Animasi Loading untuk tombol - DIPERBAIKI
         document.querySelectorAll('.loading-button').forEach(button => {
             button.addEventListener('click', function(e) {
+                // Hanya tampilkan animasi loading di tombol, tidak mencegah form submission
                 const originalText = this.innerHTML;
                 this.innerHTML = '<span class="loading-spinner"></span>Memuat...';
                 this.style.pointerEvents = 'none';
 
+                // Reset setelah 5 detik (fallback jika ada masalah)
                 setTimeout(() => {
                     this.innerHTML = originalText;
                     this.style.pointerEvents = 'auto';
-                }, 3000);
+                }, 5000);
             });
         });
 
@@ -692,7 +707,6 @@
                     .platform-btn,          /* Tombol sosmed di footer */
                     .back-button,           /* Tombol kembali */
                     .submit-button          /* Tombol kirim kuis */
-                    submit-button           /* Tombol kirim kuis */
                 `);
 
                 // Jika yang ditekan adalah salah satu dari daftar di atas -> BUNYI
